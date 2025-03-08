@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "632756796635",
+    "project_id": "feastly-a5138",
+    "storage_bucket": "feastly-a5138.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632756796635:android:ddf9b2a72ed739b36160fe",
+        "android_client_info": {
+          "package_name": "com.example.feastly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp7-fKzAkRLsxP-D7_nE6ryyDPhmx0TAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
