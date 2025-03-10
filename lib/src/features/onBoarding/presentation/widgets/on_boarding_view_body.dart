@@ -1,3 +1,6 @@
+import 'package:feastly/assets.dart';
+import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_on_boarding_container.dart';
+import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_on_boarding_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingViewBody extends StatelessWidget {
@@ -5,6 +8,19 @@ class OnBoardingViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        Stack(
+          alignment: Alignment.bottomCenter,
+          clipBehavior: Clip.none,
+          children: [
+            CustomOnBoardingContainer(),
+            CustomOnBoardingImageWidget(
+              imageLocation: Assets.onBoarding1,
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

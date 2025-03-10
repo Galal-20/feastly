@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const splashColor = Color(0xFF00193F);
+  static const kWhite = Colors.white;
 }
 
 const tPrimaryColor = Color(0xFFFFE400);
