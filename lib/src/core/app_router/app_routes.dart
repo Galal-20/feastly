@@ -1,9 +1,11 @@
+import 'package:feastly/src/core/utils/app_animations.dart';
+import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRoutes {
   static const kSplashScreen = '/';
-  static const kAuthHomeView = '/AuthHomeView';
+  static const kOnBoardingView = '/OnBoardingView';
   static const kLoginView = '/LoginView';
   static const kRegisterView = '/RegisterView';
   static const kHomeView = '/HomeView';
@@ -17,11 +19,11 @@ abstract class AppRoutes {
         path: kSplashScreen,
         builder: (context, state) => const SplashScreenView(),
       ),
-      // GoRoute(
-      //   path: kAuthHomeView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customGrowTransition(state, const AuthHomeView()),
-      // ),
+      GoRoute(
+        path: kOnBoardingView,
+        pageBuilder: (context, state) =>
+            AppAnimations.customGrowTransition(state, const OnBoardingView()),
+      ),
       // GoRoute(
       //   path: kLoginView,
       //   pageBuilder: (context, state) =>

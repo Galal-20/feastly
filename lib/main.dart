@@ -1,4 +1,6 @@
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:feastly/src/localization/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return MaterialApp.router(
       // supportedLocales: const [Locale('en', ''), Locale('ar', '')],
       // localizationsDelegates: const [
@@ -35,6 +38,7 @@ class MyApp extends StatelessWidget {
       // },
       routerConfig: AppRoutes.router,
       debugShowCheckedModeBanner: false,
+      title: AppStrings.appName,
     );
   }
 }
