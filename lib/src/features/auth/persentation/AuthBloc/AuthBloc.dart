@@ -1,3 +1,5 @@
+
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,10 +30,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
 
-      emit(Authenticated(
+      /*emit(Authenticated(
         displayName: user?.displayName ?? event.fullName,
         email: event.email,
-      ));
+      ));*/
+
+      if (user != null) {
+        await _authRepository.sendEmailVerification(); // Send verification email
+        emit(AuthError(
+            message:
+            "A verification email has been sent. Please verify before logging in."));
+      } else {
+        emit(AuthError(message: "Sign-up failed. Please try again."));
+      }
+
     } catch (e) {
       emit(AuthError(message: e.toString()));
     }
@@ -46,7 +58,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      if (user != null && user.emailVerified) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool("isLoggedIn", true);
+        await prefs.setString("email", event.email);
+        await prefs.setString("displayName", user.displayName ?? "User");
+
+        emit(Authenticated(
+          displayName: user.displayName ?? "User",
+          email: event.email,
+        ));
+      } else {
+        emit(AuthError(
+            message:
+            "Your email is not verified. Please verify it before logging in."));
+      }
+      /*SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool("isLoggedIn", true);
       await prefs.setString("email", event.email);
       await prefs.setString("displayName", user?.displayName ?? "User");
@@ -54,7 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(Authenticated(
         displayName: user?.displayName ?? "User",
         email: event.email,
-      ));
+      ));*/
     } catch (e) {
       emit(AuthError(message: e.toString()));
     }

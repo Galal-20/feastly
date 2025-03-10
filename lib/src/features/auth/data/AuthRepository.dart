@@ -26,6 +26,13 @@ class AuthRepository{
     }
   }
 
+  Future<void> sendEmailVerification() async {
+    User? user = _firebaseAuth.currentUser;
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+    }
+  }
+
   Future<User?> logIn({
     required String email,
     required String password,
