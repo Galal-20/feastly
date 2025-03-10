@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           }
           return supportedLocales.first;
         },
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        home: const MyHomePage(title: ''),
       );
   }
 }
