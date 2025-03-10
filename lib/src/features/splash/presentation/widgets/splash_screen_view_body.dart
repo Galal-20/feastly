@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:feastly/assets.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -70,7 +71,7 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
             angle: _rotationAnimation.value,
             child: Center(
               child: Hero(
-                tag: 'logo',
+                tag: AppStrings.onBoardingHeroLogoWidgetTag,
                 child: Image.asset(
                   Assets.app_logo,
                   height: SizeConfig.height * 0.2,

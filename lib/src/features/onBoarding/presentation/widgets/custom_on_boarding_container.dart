@@ -1,5 +1,6 @@
 import 'package:feastly/assets.dart';
 import 'package:feastly/src/core/constants/colors.dart';
+import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_container_clipper.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class CustomOnBoardingContainer extends StatelessWidget {
           children: [
             SizedBox(height: SizeConfig.height * 0.15),
             Hero(
-              tag: 'logo',
+              tag: AppStrings.onBoardingHeroLogoWidgetTag,
               child: Image.asset(
                 Assets.app_logo,
                 height: SizeConfig.height * 0.15,

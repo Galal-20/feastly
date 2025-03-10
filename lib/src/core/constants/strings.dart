@@ -2,6 +2,7 @@ class AppStrings {
   static const String appName = "Feastly";
 
   // onBoarding screen Strings
+  static const String onBoardingHeroLogoWidgetTag = "logo";
   static const String onBoardingTitle1 = "Discover AI-Powered Recipes!";
   static const String onBoardingTitle2 = "Explore Trending Meals & Categories!";
   static const String onBoardingTitle3 = "Cook Smarter with AI!";
