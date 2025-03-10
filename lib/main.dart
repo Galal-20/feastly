@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           }
           return supportedLocales.first;
         },
-        home: const MyHomePage(title: ''),
+        home: const MyHomePage(title: "feastly"),
       );
   }
 }
