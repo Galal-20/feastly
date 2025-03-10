@@ -21,10 +21,13 @@ class CustomOnBoardingContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(height: SizeConfig.height * 0.15),
-            Image.asset(
-              Assets.app_logo,
-              height: SizeConfig.height * 0.15,
-              fit: BoxFit.cover,
+            Hero(
+              tag: 'logo',
+              child: Image.asset(
+                Assets.app_logo,
+                height: SizeConfig.height * 0.15,
+                fit: BoxFit.cover,
+              ),
             ),
           ],
         ),

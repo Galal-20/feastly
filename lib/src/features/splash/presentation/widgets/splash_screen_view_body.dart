@@ -69,10 +69,13 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
           child: Transform.rotate(
             angle: _rotationAnimation.value,
             child: Center(
-              child: Image.asset(
-                Assets.app_logo,
-                height: SizeConfig.height * 0.2,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: 'logo',
+                child: Image.asset(
+                  Assets.app_logo,
+                  height: SizeConfig.height * 0.2,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

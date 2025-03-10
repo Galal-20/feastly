@@ -1,4 +1,3 @@
-import 'package:feastly/src/core/utils/app_animations.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
@@ -21,8 +20,7 @@ abstract class AppRoutes {
       ),
       GoRoute(
         path: kOnBoardingView,
-        pageBuilder: (context, state) =>
-            AppAnimations.customGrowTransition(state, const OnBoardingView()),
+        builder: (context, state) => const OnBoardingView(),
       ),
       // GoRoute(
       //   path: kLoginView,
