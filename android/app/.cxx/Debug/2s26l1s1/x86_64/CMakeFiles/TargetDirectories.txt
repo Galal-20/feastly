@@ -1,0 +1,2 @@
+G:/Flutter Internship 2025 Celluea/Apps/Meal Recommendation App/feastly/android/app/.cxx/Debug/2s26l1s1/x86_64/CMakeFiles/edit_cache.dir
+G:/Flutter Internship 2025 Celluea/Apps/Meal Recommendation App/feastly/android/app/.cxx/Debug/2s26l1s1/x86_64/CMakeFiles/rebuild_cache.dir
