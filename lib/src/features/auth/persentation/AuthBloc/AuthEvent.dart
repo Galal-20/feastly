@@ -1,7 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-abstract  class AuthEvent{}
+import '../../data/AuthRepository.dart';
+import 'AuthState.dart';
 
-class SignUpRequest extends AuthEvent{
+abstract class AuthEvent {}
+
+class SignUpRequest extends AuthEvent {
   final String fullName;
   final String email;
   final String phone;
@@ -11,20 +16,24 @@ class SignUpRequest extends AuthEvent{
     required this.fullName,
     required this.email,
     required this.phone,
-    required this.password
-});
+    required this.password,
+  });
 }
 
-class LoginRequest extends AuthEvent{
+class LoginRequest extends AuthEvent {
   final String email;
   final String password;
 
   LoginRequest({
     required this.email,
-    required this.password
-});
+    required this.password,
+  });
 }
 
 class LogoutRequested extends AuthEvent {}
 
 class AutoLoginRequested extends AuthEvent {}
+
+class GoogleSignInRequested extends AuthEvent {}
+
+class SignOutRequested extends AuthEvent {}
