@@ -17,7 +17,6 @@ class AuthRepository{
     try{
       UserCredential  userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-
       await userCredential.user?.updateDisplayName(fullName);
       await userCredential.user?.reload();
       return userCredential.user;
@@ -42,5 +41,4 @@ class AuthRepository{
   Future<void> logOut() async{
     _firebaseAuth.signOut();
   }
-
 }
