@@ -15,12 +15,13 @@ class PickImage extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: SizeConfig.width * 0.2,
+          backgroundColor: tgrey,
         ),
         Positioned(
-          bottom: -5,
-          right: -5,
+          bottom: 0,
+          right: -2,
           child: CircleAvatar(
-            backgroundColor: tSecondaryColor,
+            backgroundColor: splashColor,
             radius: SizeConfig.width * 0.065,
             child: FittedBox(
               child: CustomIconButton(
