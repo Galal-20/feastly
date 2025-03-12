@@ -3,6 +3,7 @@ const String titleOnboarding = "like in a Restaurant but at home";
 const String bodyOnBoarding = ", consectetur adipiscing elit, sed do eiusmod "
     "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea qui officia deserunt mollit anim id est laborum.";
+const String feastly = "Feastly";
 
 const String hintUserName = "user name";
 const String hintPassword = "password";

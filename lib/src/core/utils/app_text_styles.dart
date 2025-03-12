@@ -1,3 +1,4 @@
+import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ abstract class AppTextStyles {
         fontSize: getResponsiveFontSize(context, 25),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w700,
-        color: Colors.white,
+        color: splashColor,
       );
   static TextStyle styleBold40(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 40),
