@@ -1,6 +1,6 @@
 # feastly
 
-A new Flutter project.
+A Meal Flutter project.
 
 ## Auth repo
 
