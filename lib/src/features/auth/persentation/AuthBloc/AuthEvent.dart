@@ -37,3 +37,5 @@ class AutoLoginRequested extends AuthEvent {}
 class GoogleSignInRequested extends AuthEvent {}
 
 class SignOutRequested extends AuthEvent {}
+
+class ResendEmailVerification extends AuthEvent {}

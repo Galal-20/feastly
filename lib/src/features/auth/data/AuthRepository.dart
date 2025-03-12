@@ -27,10 +27,21 @@ class AuthRepository {
     }
   }
 
-  Future<void> sendEmailVerification() async {
+  /*Future<void> sendEmailVerification() async {
     User? user = _firebaseAuth.currentUser;
     if (user != null && !user.emailVerified) {
       await user.sendEmailVerification();
+    }
+  }*/
+  Future<void> sendEmailVerification() async {
+    final user = _firebaseAuth.currentUser;
+    if (user != null && !user.emailVerified) {
+      print("Sending verification email to ${user.email}...");
+      await user.sendEmailVerification();
+      print("Email verification sent!");
+    } else {
+      print("User is null or already verified.");
+      throw Exception("User is null or email is already verified.");
     }
   }
 
@@ -80,6 +91,3 @@ class AuthRepository {
   }
 }
 
-Future<void> signOut() async {
-  await FirebaseAuth.instance.signOut();
-}

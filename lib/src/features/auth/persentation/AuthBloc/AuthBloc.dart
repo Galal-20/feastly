@@ -13,15 +13,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         super(AuthInitial()) {
     on<SignUpRequest>(_onSignUpRequested);
     on<LoginRequest>(_onLoginRequested);
-    on<LogoutRequested>(_onLogoutRequested);
+    on<LogoutRequested>(_onSignOutRequested);
     on<AutoLoginRequested>(_onAutoLoginRequested);
     on<GoogleSignInRequested>(_onGoogleSignInRequested);
-    on<SignOutRequested>(
-          (SignOutRequested event, Emitter<AuthState> emit) async {
-        await _onSignOutRequested(event, emit);
-      },
-    );
+    on<ResendEmailVerification>(_onResendEmailVerification);
+
   }
+
   Future<void> _onSignUpRequested(
       SignUpRequest event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -34,10 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
 
       if (user != null) {
-        await _authRepository.sendEmailVerification();
-        emit(AuthError(
-            message:
-            "A verification email has been sent. Please verify before logging in."));
+        await _sendEmailVerification(emit);
       } else {
         emit(AuthError(message: "Sign-up failed. Please try again."));
       }
@@ -45,14 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthError(message: e.toString()));
     }
   }
-  Future<void> _onLogoutRequested(
-      LogoutRequested event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
-    await _authRepository.logOut();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-    emit(Unauthenticated());
-  }
+
   Future<void> _onLoginRequested(
       LoginRequest event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -64,14 +52,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       if (user != null) {
         if (!user.emailVerified) {
-          await _authRepository.sendEmailVerification();
-          emit(NeedsEmailVerification());
+          await _sendEmailVerification(emit);
         } else {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setBool("isLoggedIn", true);
-          await prefs.setString("email", event.email);
-          await prefs.setString("displayName", user.displayName ?? "User");
-
+          await _saveUserSession(event.email, user.displayName);
           emit(Authenticated(
             displayName: user.displayName ?? "User",
             email: event.email,
@@ -84,14 +67,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthError(message: e.toString()));
     }
   }
+
   Future<void> _onSignOutRequested(
-      SignOutRequested event, Emitter<AuthState> emit) async {
+      AuthEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     await _authRepository.logOut();
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    await _clearPreferences();
     emit(Unauthenticated());
   }
+
   Future<void> _onAutoLoginRequested(
       AutoLoginRequested event, Emitter<AuthState> emit) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -104,6 +88,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(Unauthenticated());
     }
   }
+
   Future<void> _onGoogleSignInRequested(
       GoogleSignInRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -111,11 +96,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final user = await _authRepository.signInWithGoogle();
 
       if (user != null) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setBool("isLoggedIn", true);
-        await prefs.setString("email", user.email ?? "");
-        await prefs.setString("displayName", user.displayName ?? "User");
-
+        await _saveUserSession(user.email, user.displayName);
         emit(Authenticated(
           displayName: user.displayName ?? "User",
           email: user.email ?? "",
@@ -126,5 +107,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(AuthError(message: e.toString()));
     }
+  }
+
+  /*Future<void> _sendEmailVerification(Emitter<AuthState> emit) async {
+    await _authRepository.sendEmailVerification();
+    emit(VerificationEmailSent(
+        message: "A verification email has been sent. Please verify before logging in."));
+  }*/
+  Future<void> _sendEmailVerification(Emitter<AuthState> emit) async {
+    try {
+      print("Attempting to send verification email...");
+      await _authRepository.sendEmailVerification();
+      print("Verification email sent successfully!");
+
+      emit(VerificationEmailSent(
+          message: "A verification email has been sent. Please check your inbox."));
+    } catch (e) {
+      print("Error sending email verification: $e");
+      emit(AuthError(message: "Failed to resend verification email. Please try again."));
+    }
+  }
+
+  Future<void> _onResendEmailVerification(
+      ResendEmailVerification event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    try {
+      await _sendEmailVerification(emit);
+    } catch (e) {
+      emit(AuthError(message: "Failed to resend verification email. Please try again."));
+    }
+  }
+
+  Future<void> _saveUserSession(String? email, String? displayName) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("isLoggedIn", true);
+    await prefs.setString("email", email ?? "");
+    await prefs.setString("displayName", displayName ?? "User");
+  }
+
+  Future<void> _clearPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
   }
 }
