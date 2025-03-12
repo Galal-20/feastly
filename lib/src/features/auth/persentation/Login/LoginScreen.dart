@@ -259,8 +259,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  String emailController = "", passwordController = "";
   bool rememberMe = false;
   bool passwordVisible = false;
 
@@ -323,6 +322,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           labelText: 'User Name',
                           hintText: 'Enter your username',
                           radius: 20,
+                          onChanged: (value) => emailController = value,
                           textStyle: const TextStyle(color: Colors.white),
                           hintStyle: const TextStyle(color: Colors.grey),
                           prefixIcon: const Icon(Icons.person_outline, color: Colors.white),
@@ -339,6 +339,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           labelText: 'Password',
                           hintText: 'Enter your password',
                           radius: 20,
+                          onChanged: (value) => passwordController = value,
                           textStyle: const TextStyle(color: Colors.white),
                           hintStyle: const TextStyle(color: Colors.grey),
                           prefixIcon: const Icon(Icons.lock_outline, color: Colors.white),
@@ -394,8 +395,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : () {
                               BlocProvider.of<AuthBloc>(context).add(
                                 LoginRequest(
-                                  email: emailController.text.trim(),
-                                  password: passwordController.text.trim(),
+                                  email: emailController,
+                                  password: passwordController,
                                 ),
                               );
                             },

@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () {
-              BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
+              BlocProvider.of<AuthBloc>(context).add(LogoutRequested());
               Navigator.pushReplacementNamed(context, '/login');
             },
           ),

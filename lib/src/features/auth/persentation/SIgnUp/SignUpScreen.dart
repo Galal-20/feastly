@@ -253,11 +253,9 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  String fullNameController =" ", emailController =" ", phoneController =" ", passwordController =" " ;
+
 
   bool agreeToTerms = false;
   bool _isPasswordHidden = true;
@@ -318,6 +316,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             textStyle: TextStyle(color: Colors.white),
                             hintStyle: TextStyle(color: Colors.grey),
                             prefixIcon: Icon(Icons.person, color: Colors.white),
+                            onChanged: (value) => fullNameController = value,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Full name is required';
@@ -333,6 +332,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             textStyle: TextStyle(color: Colors.white),
                             hintStyle: TextStyle(color: Colors.grey),
                             prefixIcon: Icon(Icons.email, color: Colors.white),
+                            onChanged: (value) => emailController = value ,
                             validator: (value) {
                               if (value == null || value.isEmpty || !Validation.isValidateEmail(value)) {
                                 return 'Enter a valid email';
@@ -348,6 +348,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             textStyle: TextStyle(color: Colors.white),
                             hintStyle: TextStyle(color: Colors.grey),
                             prefixIcon: Icon(Icons.phone, color: Colors.white),
+                            onChanged: (value) => phoneController = value,
                             validator: (value) {
                               if (value == null || value.isEmpty || !Validation.isValidPhone(value)) {
                                 return 'Enter a valid phone number';
@@ -362,6 +363,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             radius: 20,
                             textStyle: TextStyle(color: Colors.white),
                             hintStyle: TextStyle(color: Colors.grey),
+                            onChanged: (value) => passwordController = value,
                             prefixIcon: Icon(Icons.lock, color: Colors.white),
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -408,10 +410,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               if (_formKey.currentState!.validate()) {
                                 BlocProvider.of<AuthBloc>(context).add(
                                   SignUpRequest(
-                                    fullName: fullNameController.text.trim(),
-                                    email: emailController.text.trim(),
-                                    phone: phoneController.text.trim(),
-                                    password: passwordController.text.trim(),
+                                    fullName: fullNameController,
+                                    email: emailController,
+                                    phone: phoneController,
+                                    password: passwordController,
                                   ),
                                 );
                               }
