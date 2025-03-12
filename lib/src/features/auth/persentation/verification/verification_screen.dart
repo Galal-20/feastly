@@ -1,11 +1,12 @@
-import 'package:feastly/src/core/constants/strings.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthEvent.dart';
 import '../AuthBloc/AuthState.dart';
-
+import 'package:feastly/src/core/constants/strings.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
@@ -16,15 +17,32 @@ class VerificationScreen extends StatefulWidget {
 
 class _VerificationScreenState extends State<VerificationScreen> {
   bool isCooldown = false;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startVerificationCheckTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startVerificationCheckTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      context.read<AuthBloc>().add(CheckEmailVerification());
+    });
+  }
 
   void _resendEmail() {
     if (!isCooldown) {
       context.read<AuthBloc>().add(ResendEmailVerification());
-
       setState(() {
         isCooldown = true;
       });
-
       Future.delayed(const Duration(seconds: 60), () {
         setState(() {
           isCooldown = false;
@@ -33,10 +51,29 @@ class _VerificationScreenState extends State<VerificationScreen> {
     }
   }
 
+  Future<void> _handleVerificationSuccess() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isVerified', true);
+    _timer?.cancel();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Verification successful! Redirecting..."),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 3),
+      ),
+    );
+    await Future.delayed(const Duration(seconds: 3));
+    _navigateToHome();
+  }
+
+  void _navigateToHome() {
+    Navigator.pushReplacementNamed(context, '/home');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Color(0xff001A3F),
+      backgroundColor: const Color(0xff001A3F),
       body: Stack(
         children: [
           Positioned.fill(
@@ -57,7 +94,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     SnackBar(
                       content: Text(state.message),
                       backgroundColor: Colors.green,
-                      duration: Duration(seconds: 3),
+                      duration: const Duration(seconds: 3),
                     ),
                   );
                 } else if (state is AuthError) {
@@ -65,28 +102,34 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     SnackBar(
                       content: Text(state.message),
                       backgroundColor: Colors.red,
-                      duration: Duration(seconds: 3),
+                      duration: const Duration(seconds: 3),
                     ),
                   );
+                } else if (state is EmailVerified) {
+                  _handleVerificationSuccess();
                 }
               },
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.email_rounded, size: 150, color: Colors.white),
+                    const Icon(Icons.email_rounded,
+                        size: 150, color: Colors.white),
                     const SizedBox(height: 20),
-                    const Text(textMessageResend,
+                    const Text(
+                      textMessageResend,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: isCooldown ? null : _resendEmail,
-                      child: isCooldown ? const Text("Wait 60s...") : Text
-                        ("Resend Email again",
-                        style: TextStyle(color: Colors
-                          .black),),
+                      child: isCooldown
+                          ? const Text("Wait 60s...")
+                          : const Text(
+                              "Resend Email again",
+                              style: TextStyle(color: Colors.black),
+                            ),
                     ),
                   ],
                 ),
@@ -94,7 +137,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
             ),
           ),
         ],
-
       ),
     );
   }

@@ -68,7 +68,7 @@ class AuthRepository {
       }
 
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -76,7 +76,7 @@ class AuthRepository {
       );
 
       final userCredential =
-      await _firebaseAuth.signInWithCredential(credential);
+          await _firebaseAuth.signInWithCredential(credential);
 
       return userCredential.user;
     } catch (e) {
@@ -89,5 +89,8 @@ class AuthRepository {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
   }
-}
 
+  User? getCurrentUser() {
+    return _firebaseAuth.currentUser;
+  }
+}

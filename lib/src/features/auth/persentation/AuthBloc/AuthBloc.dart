@@ -17,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AutoLoginRequested>(_onAutoLoginRequested);
     on<GoogleSignInRequested>(_onGoogleSignInRequested);
     on<ResendEmailVerification>(_onResendEmailVerification);
-
+    on<CheckEmailVerification>(_onCheckEmailVerification);
   }
 
   Future<void> _onSignUpRequested(
@@ -121,10 +121,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print("Verification email sent successfully!");
 
       emit(VerificationEmailSent(
-          message: "A verification email has been sent. Please check your inbox."));
+          message:
+              "A verification email has been sent. Please check your inbox."));
     } catch (e) {
       print("Error sending email verification: $e");
-      emit(AuthError(message: "Failed to resend verification email. Please try again."));
+      emit(AuthError(
+          message: "Failed to resend verification email. Please try again."));
     }
   }
 
@@ -134,7 +136,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await _sendEmailVerification(emit);
     } catch (e) {
-      emit(AuthError(message: "Failed to resend verification email. Please try again."));
+      emit(AuthError(
+          message: "Failed to resend verification email. Please try again."));
     }
   }
 
@@ -148,5 +151,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _clearPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+  Future<void> _onCheckEmailVerification(
+      CheckEmailVerification event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+
+    try {
+      final user = _authRepository.getCurrentUser();
+      await user?.reload();
+      if (user != null && user.emailVerified) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool("isVerified", true);
+
+        emit(EmailVerified());
+      }
+    } catch (e) {
+      emit(AuthError(message: "Failed to check verification status."));
+    }
   }
 }

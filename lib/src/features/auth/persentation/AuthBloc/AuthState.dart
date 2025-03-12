@@ -1,4 +1,3 @@
-
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
@@ -27,3 +26,5 @@ class VerificationEmailSent extends AuthState {
 
   VerificationEmailSent({required this.message});
 }
+
+class EmailVerified extends AuthState {}
