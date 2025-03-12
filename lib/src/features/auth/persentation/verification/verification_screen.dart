@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'package:feastly/src/core/constants/colors.dart';
+import 'package:feastly/src/core/constants/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthEvent.dart';
 import '../AuthBloc/AuthState.dart';
@@ -52,35 +53,33 @@ class _VerificationScreenState extends State<VerificationScreen> {
   }
 
   Future<void> _handleVerificationSuccess() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isVerified', true);
     _timer?.cancel();
+    // Save login state
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("isLoggedIn", true);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text("Verification successful! Redirecting..."),
+        content: Text(verificationSuc),
         backgroundColor: Colors.green,
         duration: Duration(seconds: 3),
       ),
     );
     await Future.delayed(const Duration(seconds: 3));
-    _navigateToHome();
-  }
-
-  void _navigateToHome() {
-    Navigator.pushReplacementNamed(context, '/home');
+    // After make Home Screen make this line.
+    //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff001A3F),
+      backgroundColor: splashColor,
       body: Stack(
         children: [
           Positioned.fill(
             child: Opacity(
               opacity: 1,
               child: Image.asset(
-                'assets/images/bg.png',
+                backGround,
                 fit: BoxFit.cover,
               ),
             ),
@@ -125,9 +124,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ElevatedButton(
                       onPressed: isCooldown ? null : _resendEmail,
                       child: isCooldown
-                          ? const Text("Wait 60s...")
+                          ? const Text(waitFor)
                           : const Text(
-                              "Resend Email again",
+                              resendEmail,
                               style: TextStyle(color: Colors.black),
                             ),
                     ),

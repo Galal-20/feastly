@@ -1,11 +1,15 @@
+import 'package:feastly/src/core/functions/functions.dart';
+import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/components/button.dart';
 import '../../../../core/components/text_form_field.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/images.dart';
+import '../../../../core/constants/strings.dart';
 import '../../../../core/utils/validations.dart';
-import '../../../home/presentation/screens/HomeScreen.dart';
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthEvent.dart';
 import '../AuthBloc/AuthState.dart';
@@ -23,37 +27,42 @@ class _LoginScreenState extends State<LoginScreen> {
   String _email = '';
   String _password = '';
   bool _rememberMe = false;
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _isPasswordHidden = true;
 
+  @override
+  void initState() {
+    super.initState();
+    _loadRememberMeState();
+  }
+
+  // Load saved 'Remember Me' state from SharedPreferences
+  Future<void> _loadRememberMeState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _rememberMe = prefs.getBool('rememberMe') ?? false;
+    });
+    if (!_rememberMe) {
+      await prefs.remove('email');
+    }
+  }
+
+  // Save login state if 'Remember Me' is checked
+  Future<void> _saveLoginState() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('rememberMe', _rememberMe);
+    if (_rememberMe) {
+      await prefs.setString('email', _email);
+    }else{
+      await prefs.remove('email');
+    }
+  }
+
+  // Handle login button press
   void _onLoginPressed() {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
         LoginRequest(email: _email, password: _password),
-      );
-      _saveLoginState();
-    }
-  }
-
-  void _saveLoginState() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    if (_rememberMe) {
-      await prefs.setBool('isLoggedIn', true);
-    } else {
-      await prefs.setBool('isLoggedIn', false);
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Reminder'),
-          content: const Text('You will need to log in again next time.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
       );
     }
   }
@@ -61,32 +70,33 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthLoading) {
-          setState(() => _isLoading = true);
-        } else {
-          setState(() => _isLoading = false);
-        }
+          CircularProgressIndicator();
+        }else if (state is Authenticated) {
+          if (_rememberMe) {
+            // After make Home Screen make this line.
+            //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
+          }else{
+            // After make Home Screen make this line.
+            // SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
+          }
 
-        if (state is Authenticated) {
-          Navigator.pushReplacementNamed(context, '/home');
-        }
-
-        if (state is AuthError) {
+        }else  if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xff001A3F),
+        backgroundColor: splashColor,
         body: Stack(
           children: [
             Positioned.fill(
               child: Opacity(
                 opacity: 0.9,
                 child: Image.asset(
-                  'assets/images/bg.png',
+                  backGround,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -94,8 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           border: Border.all(color: Colors.white, width: 2),
                         ),
                         child: Image.asset(
-                          'assets/images/chef_hat.png',
+                          chefHat,
                           width: 80,
                           height: 80,
                           fit: BoxFit.cover,
@@ -120,80 +129,63 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           children: [
                             TextFieldClass.buildTextFormField(
-                              labelText: 'Email',
-                              hintText: 'Enter your email',
+                              labelText: labelTextEmail,
+                              hintText: hintEmailText,
                               radius: 20,
                               textStyle: const TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white70),
-                              prefixIcon:
-                                  const Icon(Icons.email, color: Colors.white),
+                              prefixIcon: const Icon(Icons.email, color: Colors.white),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter your email';
+                                  return errorEmailText;
                                 } else if (!Validation.isValidateEmail(value)) {
-                                  return 'Enter a valid email';
+                                  return errorEmailValid;
                                 }
                                 return null;
                               },
-                              onChanged: (value) =>
-                                  setState(() => _email = value),
+                              onChanged: (value) => setState(() => _email = value),
                             ),
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
-                              labelText: 'Password',
-                              hintText: 'Enter your password',
+                              labelText: labelTextPass,
+                              hintText: hintPassText,
                               radius: 20,
                               textStyle: const TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white70),
-                              prefixIcon:
-                                  const Icon(Icons.lock, color: Colors.white),
+                              prefixIcon: const Icon(Icons.lock, color: Colors.white),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
                                     _isPasswordHidden = !_isPasswordHidden;
                                   });
                                 },
-                                icon: Icon(_isPasswordHidden
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
+                                icon: Icon(_isPasswordHidden ? Icons.visibility_off : Icons.visibility),
                               ),
                               obscureText: _isPasswordHidden,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter your password';
-                                } else if (!Validation.isValidatePassword(
-                                    value)) {
-                                  return 'Password is too weak';
+                                  return errorPassText;
+                                } else if (!Validation.isValidatePassword(value)) {
+                                  return errorPassValid;
                                 }
                                 return null;
                               },
-                              onChanged: (value) =>
-                                  setState(() => _password = value),
+                              onChanged: (value) =>  _password = value,
                             ),
                             const SizedBox(height: 10),
                             Row(
                               children: [
                                 Checkbox(
                                   value: _rememberMe,
-                                  onChanged: (value) {
+                                  onChanged: (value) async {
                                     setState(() => _rememberMe = value!);
-                                    if (_rememberMe) {
-                                      context
-                                          .read<AuthBloc>()
-                                          .add(AutoLoginRequested());
-                                    } else {
-                                      _saveLoginState();
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) => HomeScreen()),
-                                      );
-                                    }
+                                    await _saveLoginState();
                                   },
                                   activeColor: Colors.white,
                                   checkColor: Colors.black,
                                 ),
                                 const Text(
-                                  'Remember Me',
+                                  loginCheckBoxText,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ],
@@ -204,14 +196,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               formKey: _formKey,
                               email: _email,
                               password: _password,
-                              text: 'Login',
+                              text: login,
                               onPressed: _onLoginPressed,
                             ),
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                BlocProvider.of<AuthBloc>(context)
-                                    .add(GoogleSignInRequested());
+                                BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(12),
@@ -227,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ],
                                 ),
                                 child: Image.asset(
-                                  'assets/images/googleLogo.png',
+                                  googleLogo,
                                   width: 30,
                                   height: 30,
                                 ),
@@ -238,15 +229,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Text(
-                                  "Don't have an account?",
+                                  dontHaveMessage,
                                   style: TextStyle(color: Colors.white70),
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.pushNamed(context, '/register');
+                                    SharedFunctions.pushAndRemoveUntil(context, RegisterScreen());
                                   },
                                   child: const Text(
-                                    'Sign Up',
+                                    signUp,
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),

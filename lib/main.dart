@@ -49,13 +49,14 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      home: const AuthWrapper(),
+      // Use go_rout.
+      /*home: const AuthWrapper(),
       routes: {
-        '/login': (context) => const LoginScreen(),
+        *//*'/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/verification': (context) => const VerificationScreen(),
-        '/home': (context) => const HomeScreen(),
-      },
+        '/home': (context) => const HomeScreen(),*//*
+      },*/
     );
   }
 }

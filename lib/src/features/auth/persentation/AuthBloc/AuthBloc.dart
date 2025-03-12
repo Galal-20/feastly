@@ -51,10 +51,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
 
       if (user != null) {
+        await user.reload(); // Reload the user to get the latest status
+
         if (!user.emailVerified) {
           await _sendEmailVerification(emit);
         } else {
-          await _saveUserSession(event.email, user.displayName);
+          //await _saveUserSession(event.email, user.displayName);
           emit(Authenticated(
             displayName: user.displayName ?? "User",
             email: event.email,
@@ -68,6 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  // make sure use this method in profile ya Hossam
   Future<void> _onSignOutRequested(
       AuthEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -96,7 +99,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final user = await _authRepository.signInWithGoogle();
 
       if (user != null) {
-        await _saveUserSession(user.email, user.displayName);
+        //await _saveUserSession(user.email, user.displayName);
         emit(Authenticated(
           displayName: user.displayName ?? "User",
           email: user.email ?? "",
@@ -141,6 +144,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  /*Future<void> _saveUserSession(String? email, String? displayName) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("isLoggedIn", true);
+    await prefs.setString("email", email ?? "");
+    await prefs.setString("displayName", displayName ?? "User");
+  }*/
+
   Future<void> _saveUserSession(String? email, String? displayName) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool("isLoggedIn", true);
@@ -150,6 +160,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _clearPreferences() async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("rememberMe", false);
     await prefs.clear();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/functions/functions.dart';
 import '../../../home/presentation/screens/HomeScreen.dart';
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthState.dart';
@@ -20,7 +21,8 @@ class AuthWrapper extends StatelessWidget {
           );
         }
         if (state is EmailVerified) {
-          Navigator.of(context).pushReplacementNamed('/home');
+          // Navigate to home
+          //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
         }
       },
       child: BlocBuilder<AuthBloc, AuthState>(
@@ -30,7 +32,8 @@ class AuthWrapper extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (state is Authenticated) {
-            return const HomeScreen();
+            // Navigate to Home
+            return VerificationScreen();
           } else if (state is NeedsEmailVerification) {
             return const VerificationScreen();
           } else {
