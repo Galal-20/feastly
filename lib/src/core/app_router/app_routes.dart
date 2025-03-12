@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import '../../features/home/presentation/screens/HomeScreen.dart';
+import '../../features/home/presentation/screens/HomePage.dart';
 
 
 abstract class AppRoutes {
@@ -54,7 +54,7 @@ abstract class AppRoutes {
       GoRoute(
         path: kHomeScreen,
         builder: (context, state) =>
-        const HomeScreen(),
+        const HomePage(),
       ),
 
 
