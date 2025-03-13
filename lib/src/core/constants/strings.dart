@@ -4,6 +4,8 @@ const String bodyOnBoarding = ", consectetur adipiscing elit, sed do eiusmod "
     "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
     "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea qui officia deserunt mollit anim id est laborum.";
 const String feastly = "Feastly";
+const String ingredients = "ingredients";
+const String addYourIngredients = "add your ingredients";
 
 const String hintUserName = "user name";
 const String hintPassword = "password";
@@ -30,7 +32,6 @@ const String recommendedMeal = "Recommended for you";
 const String userMeal = "Your own meals";
 const String categories = "Categories";
 const String summary = "Summary";
-const String ingredients  = "Ingredients";
 const String direction = "Direction";
 const String searchRecipes = "Search Recipes";
 const String save = "Save";

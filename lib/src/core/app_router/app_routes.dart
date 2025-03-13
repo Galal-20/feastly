@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
-
-import '../../features/home/presentation/screens/HomePage.dart';
+import '../../features/homePage/presentation/screens/HomePage.dart';
 
 
 abstract class AppRoutes {
@@ -9,11 +8,12 @@ abstract class AppRoutes {
   static const kLoginView = '/LoginView';
   static const kRegisterView = '/RegisterView';
   static const kHomeScreen = '/HomeScreen';
+  static const kHomePage = '/HomePage';
   static const kAiResultView = '/AiResultView';
   static const kErrorView = '/ErrorView';
 
   static final router = GoRouter(
-    initialLocation: AppRoutes.kHomeScreen,
+    initialLocation: AppRoutes.kHomePage,
     routes: [
       // GoRoute(
       //   path: kSplashScreen,
@@ -52,9 +52,8 @@ abstract class AppRoutes {
       //       )),
       // ),
       GoRoute(
-        path: kHomeScreen,
-        builder: (context, state) =>
-        const HomePage(),
+        path: kHomePage,
+        builder: (context, state) => const HomePage()
       ),
 
 

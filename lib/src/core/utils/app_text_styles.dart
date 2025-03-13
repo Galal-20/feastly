@@ -7,7 +7,7 @@ abstract class AppTextStyles {
         fontSize: getResponsiveFontSize(context, 20),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w400,
-        color: Colors.white,
+        color: splashColor,
       );
   static TextStyle styleMedium16(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 16),
@@ -26,16 +26,24 @@ abstract class AppTextStyles {
   static TextStyle styleRegular14(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 14),
         fontFamily: 'Ubuntu',
-        fontWeight: FontWeight.w400,
-        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        color: splashColor,
       );
 
   static TextStyle styleBold16(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 16),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w700,
-        color: Colors.white,
+        color: Colors.black,
       );
+
+  static TextStyle styleBold23(context) => TextStyle(
+    fontSize: getResponsiveFontSize(context, 20),
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+
   static TextStyle styleBold25(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 25),
         fontFamily: 'Ubuntu',
@@ -74,7 +82,7 @@ abstract class AppTextStyles {
         color: Colors.white,
       );
   static TextStyle buttonTextStyle(context) => TextStyle(
-        fontSize: getResponsiveFontSize(context, 30),
+        fontSize: getResponsiveFontSize(context, 12),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w500,
         color: Colors.white,
@@ -82,7 +90,7 @@ abstract class AppTextStyles {
   static TextStyle textButtonTextStyle(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 16),
         fontFamily: 'Ubuntu',
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
         color: Colors.white,
       );
 
