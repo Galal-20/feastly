@@ -3,24 +3,6 @@ import 'package:flutter/material.dart';
 
 class TextFieldClass {
   static TextFormField buildTextFormField({
-    double? radius,
-
-    String? labelText,
-    String? hintText,
-    String? Function(String?)? validator,
-    void Function(String)? onChanged,
-    Widget? prefixIcon,
-    Widget? suffixIcon,
-    bool obscureText = false,
-    Color ? borderColor,
-  }) {
-    // ignore: prefer_if_null_operators
-    radius == null ? 4 : radius;
-
-
-
-class TextFieldClass {
-  static TextFormField buildTextFormField({
     double radius = 4, // Default value
     String? labelText,
     String? hintText,

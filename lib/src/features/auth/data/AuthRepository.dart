@@ -88,10 +88,9 @@ class AuthRepository {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
   }
-}
-
 
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;
   }
 }
+

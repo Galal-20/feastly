@@ -6,16 +6,16 @@ class Button extends StatelessWidget {
       {super.key,
       required this.isLoading,
       GlobalKey<FormState>? formKey,
-      // required this.email,
-      // required this.password,
+        this.email,
+        this.password,
       required this.text,
       required this.onPressed, this.backgroundColor, this.style})
       : _formKey = formKey;
 
   final bool isLoading;
   final GlobalKey<FormState>? _formKey;
-  // final String email;
-  // final String password;
+   final String? email;
+   final String? password;
   final String text;
   final void Function()? onPressed;
   final Color? backgroundColor;
