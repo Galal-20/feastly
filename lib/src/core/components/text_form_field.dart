@@ -16,28 +16,46 @@ class TextFieldClass {
   }) {
     // ignore: prefer_if_null_operators
     radius == null ? 4 : radius;
+
+
+
+class TextFieldClass {
+  static TextFormField buildTextFormField({
+    double radius = 4, // Default value
+    String? labelText,
+    String? hintText,
+    String? Function(String?)? validator,
+    void Function(String)? onChanged,
+    Widget? prefixIcon,
+    Widget? suffixIcon,
+    bool obscureText = false,
+    Color? borderColor,
+    TextStyle? textStyle ,
+    TextStyle? hintStyle
+
+
+  }) {
     return TextFormField(
-      
       onChanged: onChanged,
       obscureText: obscureText,
+      style:  textStyle,
       decoration: InputDecoration(
-        
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         labelText: labelText,
         hintText: hintText,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(radius! )),
+        hintStyle: hintStyle,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(radius)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius),
-          borderSide: BorderSide(color:borderColor?? Colors.grey),
+          borderSide: BorderSide(color: borderColor ?? Colors.grey),
         ),
-        focusedBorder:  OutlineInputBorder(borderRadius: BorderRadius.circular(radius),
-          borderSide: BorderSide(color:borderColor?? Colors.white, width: 2.0),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radius),
+          borderSide: BorderSide(
+              color: borderColor ?? Colors.white, width: 2.0),
         ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.width * 0.03,
-          vertical: SizeConfig.height * 0.02,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         floatingLabelStyle: const TextStyle(color: Colors.white),
       ),
       validator: validator,
