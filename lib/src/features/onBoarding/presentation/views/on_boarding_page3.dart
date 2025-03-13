@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_text_styles.dart';
 
-class OnBoardingViewBody extends StatelessWidget {
-  const OnBoardingViewBody({super.key});
+
+class OnBoardingPage3 extends StatelessWidget {
+  const OnBoardingPage3({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         Stack(
           alignment: Alignment.bottomCenter,
@@ -22,20 +23,28 @@ class OnBoardingViewBody extends StatelessWidget {
               imageLocation: Assets.onBoarding1,
             ),
             Positioned(
+              bottom: -185,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  spacing: 15,
                   children: [
                     Text(
-                      AppStrings.onBoardingTitle1,
-                      style: AppTextStyles.styleBold16(context),
+                      AppStrings.onBoardingTitle3,
+                        style: AppTextStyles.styleBold16(context).copyWith(
+                            color: Colors.black
+                        )
                     ),
-                    const SizedBox(height: 15),
                     Text(
-                      AppStrings.onBoardingBody1,
+                      AppStrings.onBoardingBody3,
                       textAlign: TextAlign.center,
-                      style: AppTextStyles.styleMedium16(context),
+                        style: AppTextStyles.styleMedium16(context).copyWith(
+                            color: Colors.black
+                        )
                     ),
                   ],
-                ))
+                ),
+              ),),
           ],
         ),
       ],
