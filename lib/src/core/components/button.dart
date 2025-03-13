@@ -1,19 +1,15 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  const Button({
-    super.key,
-    required this.isLoading,
-    required GlobalKey<FormState> formKey,
-    required this.email,
-    required this.password,
-    required this.text,
-    required this.onPressed
-
-
-  }) : _formKey = formKey;
+  const Button(
+      {super.key,
+      required this.isLoading,
+      required GlobalKey<FormState> formKey,
+      required this.email,
+      required this.password,
+      required this.text,
+      required this.onPressed})
+      : _formKey = formKey;
 
   final bool isLoading;
   final GlobalKey<FormState> _formKey;
@@ -21,7 +17,6 @@ class Button extends StatelessWidget {
   final String password;
   final String text;
   final void Function()? onPressed;
-
 
   @override
   Widget build(BuildContext context) {

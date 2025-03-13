@@ -2,6 +2,8 @@ class AppStrings {
   static const String appName = "Feastly";
 
   // onBoarding screen Strings
+  static const String skip = "Skip";
+  static const String next = "Next";
   static const String onBoardingHeroLogoWidgetTag = "logo";
   static const String onBoardingTitle1 = "Discover AI-Powered Recipes!";
   static const String onBoardingTitle2 = "Explore Trending Meals & Categories!";
@@ -48,5 +50,3 @@ const String ingredients = "Ingredients";
 const String direction = "Direction";
 const String searchRecipes = "Search Recipes";
 const String save = "Save";
-const String skip = "Skip";
-const String next = "Next";
