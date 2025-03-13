@@ -84,6 +84,7 @@ abstract class AppTextStyles {
         fontWeight: FontWeight.w400,
         color: Colors.white,
       );
+      
 
   static double getResponsiveFontSize(BuildContext context, double fontSize) {
     double scaleFactor = getScaleFactor(context);

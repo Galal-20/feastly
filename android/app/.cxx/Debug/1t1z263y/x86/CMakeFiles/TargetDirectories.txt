@@ -1,0 +1,2 @@
+D:/feastly/android/app/.cxx/Debug/1t1z263y/x86/CMakeFiles/edit_cache.dir
+D:/feastly/android/app/.cxx/Debug/1t1z263y/x86/CMakeFiles/rebuild_cache.dir

@@ -18,7 +18,6 @@ class AuthRepository {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-
       await userCredential.user?.updateDisplayName(fullName);
       await userCredential.user?.reload();
       return userCredential.user;
@@ -89,6 +88,8 @@ class AuthRepository {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
   }
+}
+
 
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;
