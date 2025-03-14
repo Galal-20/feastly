@@ -18,8 +18,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            RecipesWidget(recipesType: trendingMeal),
-            RecipesWidget(recipesType: yourRecipse),
+            RecipesWidget(recipesType: yourRecipes),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
@@ -29,6 +28,7 @@ class HomeScreen extends StatelessWidget {
                     context.pushNamed(AppRoutes.kAddurRecipeView);
                   }),
             ),
+            RecipesWidget(recipesType: trendingMeal),
             SizedBox(
               height: 10,
             ),

@@ -2,11 +2,9 @@ import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
-import 'package:feastly/src/localization/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'firebase_options.dart';
 
 void main() async

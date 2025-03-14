@@ -40,7 +40,7 @@ class AddYourMealFields extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         TextFieldClass.buildTextFormField(
-          noOfIngrediants,
+          noOfIngredients,
           'e.g. 5',
           (value) {
             if (value == null || value.isEmpty) {
