@@ -1,3 +1,8 @@
+
+import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/utils/size_config.dart';
+
 import 'package:feastly/src/features/auth/data/AuthRepository.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthBloc.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthEvent.dart';
@@ -6,9 +11,9 @@ import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart'
 import 'package:feastly/src/features/auth/persentation/verification/verification_screen.dart';
 import 'package:feastly/src/features/auth/persentation/widget/auth_wrapper.dart';
 import 'package:feastly/src/features/home/presentation/screens/HomeScreen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,29 +41,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+    SizeConfig.init(context);
+    return MaterialApp.router(
+
+      routerConfig: AppRoutes.router,
       debugShowCheckedModeBanner: false,
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('ar', ''),
-      ],
-      localizationsDelegates: const [],
-      localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale?.languageCode) {
-            return supportedLocale;
-          }
-        }
-        return supportedLocales.first;
-      },
-      // Use go_rout.
-      /*home: const AuthWrapper(),
-      routes: {
-        *//*'/login': (context) => const LoginScreen(),
-        '/register': (context) => const RegisterScreen(),
-        '/verification': (context) => const VerificationScreen(),
-        '/home': (context) => const HomeScreen(),*//*
-      },*/
+      title: AppStrings.appName,
+
+
     );
   }
 }
