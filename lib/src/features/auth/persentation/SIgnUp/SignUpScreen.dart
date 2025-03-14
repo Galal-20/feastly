@@ -1,5 +1,3 @@
-
-import 'package:feastly/src/core/constants/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/components/text_form_field.dart';
@@ -10,8 +8,12 @@ import '../../../../core/utils/validations.dart';
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthEvent.dart';
 import '../AuthBloc/AuthState.dart';
-import '../Login/LoginScreen.dart';
 import '../verification/verification_screen.dart';
+import '../widget/background_from_widget.dart';
+import '../widget/footer_signUp_widget.dart';
+import '../widget/google_button_widget.dart';
+import '../widget/logo_app_widget.dart';
+import '../widget/or_login_now_widget.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -39,15 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: splashColor,
         body: Stack(
           children: [
-            Positioned.fill(
-              child: Opacity(
-                opacity: 0.9,
-                child: Image.asset(
-                  backGround,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            background_form(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: BlocConsumer<AuthBloc, AuthState>(
@@ -68,19 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: Colors.white, width: 2),
-                              ),
-                              child: Image.asset(
-                                chefHat,
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            logo_app(),
                             const SizedBox(height: 30),
                             TextFieldClass.buildTextFormField(
                               labelText: fullName,
@@ -207,53 +189,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            Row(
-                              children: const [
-                                Expanded(child: Divider(color: Colors.white)),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
-                                    orLoginNow,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                Expanded(child: Divider(color: Colors.white)),
-                              ],
-                            ),
+                            or_login_now(),
                             const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    BlocProvider.of<AuthBloc>(context)
-                                        .add(GoogleSignInRequested());
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.asset(
-                                      googleLogo,
-                                      width: 30,
-                                      height: 30,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            googleButton(),
                             const SizedBox(height: 20),
-                            TextButton(
-                              onPressed: () {
-                                SharedFunctions.pushAndRemoveUntil(context, LoginScreen());
-                                },
-                              child: const Text(
-                                loginNow,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
+                            footer_signUp(),
                           ],
                         ),
                       ),

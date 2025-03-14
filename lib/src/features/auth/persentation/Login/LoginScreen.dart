@@ -2,8 +2,10 @@ import 'package:feastly/src/core/functions/functions.dart';
 import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../main.dart';
 import '../../../../core/components/button.dart';
 import '../../../../core/components/text_form_field.dart';
 import '../../../../core/constants/colors.dart';
@@ -13,6 +15,10 @@ import '../../../../core/utils/validations.dart';
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthEvent.dart';
 import '../AuthBloc/AuthState.dart';
+import '../widget/background_from_widget.dart';
+import '../widget/footer_login_widget.dart';
+import '../widget/google_button_widget.dart';
+import '../widget/logo_app_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -79,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
           }else{
             // After make Home Screen make this line.
-            // SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
+            //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
           }
 
         }else  if (state is AuthError) {
@@ -90,39 +96,21 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         backgroundColor: splashColor,
-        body: Stack(
+        body:
+        Stack(
           children: [
-            Positioned.fill(
-              child: Opacity(
-                opacity: 0.9,
-                child: Image.asset(
-                  backGround,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            background_form(),
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                  child: Column(
+                  child:
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 40),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: Image.asset(
-                          chefHat,
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      logo_app(),
                       const SizedBox(height: 40),
                       Form(
                         key: _formKey,
@@ -200,52 +188,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: _onLoginPressed,
                             ),
                             const SizedBox(height: 20),
-                            GestureDetector(
-                              onTap: () {
-                                BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
-                                      blurRadius: 4,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Image.asset(
-                                  googleLogo,
-                                  width: 30,
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  dontHaveMessage,
-                                  style: TextStyle(color: Colors.white70),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    SharedFunctions.pushAndRemoveUntil(context, RegisterScreen());
-                                  },
-                                  child: const Text(
-                                    signUp,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
+                      googleButton(),
+                      const SizedBox(height: 20),
+                      footer_login(),
                     ],
                   ),
                 ),
@@ -257,3 +205,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+
+

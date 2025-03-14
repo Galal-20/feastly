@@ -1,13 +1,14 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../data/AuthRepository.dart';
+import '../../../../core/DI/service_locator.dart';
+import '../../data/datasource/AuthRepository.dart';
 import 'AuthEvent.dart';
 import 'AuthState.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
+
 
   AuthBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,

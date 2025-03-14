@@ -1,3 +1,5 @@
+/*
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -27,12 +29,14 @@ class AuthRepository {
     }
   }
 
-  /*Future<void> sendEmailVerification() async {
+  */
+/*Future<void> sendEmailVerification() async {
     User? user = _firebaseAuth.currentUser;
     if (user != null && !user.emailVerified) {
       await user.sendEmailVerification();
     }
-  }*/
+  }*//*
+
   Future<void> sendEmailVerification() async {
     final user = _firebaseAuth.currentUser;
     if (user != null && !user.emailVerified) {
@@ -94,3 +98,69 @@ class AuthRepository {
     return _firebaseAuth.currentUser;
   }
 }
+*/
+
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../../core/auth/firebase_auth_service.dart';
+import 'auth_data_source.dart';
+
+
+class AuthRepository implements AuthDataSource {
+  final FirebaseAuthDataSource _firebaseAuthService;
+
+  AuthRepository({required FirebaseAuthDataSource firebaseAuthService})
+      : _firebaseAuthService = firebaseAuthService;
+
+  @override
+  Future<User?> signUp({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String password,
+  }) {
+    return _firebaseAuthService.signUp(
+      fullName: fullName,
+      email: email,
+      phone: phone,
+      password: password,
+
+    );
+  }
+
+
+  @override
+  Future<void> sendEmailVerification() {
+    return _firebaseAuthService.sendEmailVerification();
+  }
+
+  @override
+  Future<User?> logIn({
+    required String email,
+    required String password,
+  }) {
+    return _firebaseAuthService.logIn(
+      email: email,
+      password: password,
+    );
+  }
+
+  @override
+  Future<void> logOut() async {
+    await _firebaseAuthService.logOut();
+  }
+
+  @override
+  User? getCurrentUser() {
+    return _firebaseAuthService.getCurrentUser();
+  }
+
+  @override
+  Future<User?> signInWithGoogle() {
+    return _firebaseAuthService.signInWithGoogle();
+  }
+
+
+}
+
+

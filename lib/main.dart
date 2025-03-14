@@ -1,11 +1,7 @@
-import 'package:feastly/src/features/auth/data/AuthRepository.dart';
+import 'package:feastly/src/core/auth/firebase_auth_service.dart';
+import 'package:feastly/src/features/auth/data/datasource/AuthRepository.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthBloc.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthEvent.dart';
-import 'package:feastly/src/features/auth/persentation/Login/LoginScreen.dart';
-import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart';
-import 'package:feastly/src/features/auth/persentation/verification/verification_screen.dart';
-import 'package:feastly/src/features/auth/persentation/widget/auth_wrapper.dart';
-import 'package:feastly/src/features/home/presentation/screens/HomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +14,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final authRepository = AuthRepository();
+
+
+  final authRepository = AuthRepository(firebaseAuthService: FirebaseAuthDataSource());
 
   runApp(
     BlocProvider(
@@ -49,14 +47,15 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      // Use go_rout.
-      /*home: const AuthWrapper(),
+     /* // Use go_rout.
+      home: const AuthWrapper(),
       routes: {
-        *//*'/login': (context) => const LoginScreen(),
+        '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/verification': (context) => const VerificationScreen(),
-        '/home': (context) => const HomeScreen(),*//*
+        '/home': (context) => const HomeScreen(),
       },*/
     );
   }
 }
+

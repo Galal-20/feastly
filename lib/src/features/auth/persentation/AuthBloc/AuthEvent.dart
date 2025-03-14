@@ -2,7 +2,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../data/AuthRepository.dart';
+import '../../data/datasource/AuthRepository.dart';
 import 'AuthState.dart';
 
 abstract class AuthEvent {}
