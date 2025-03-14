@@ -15,7 +15,7 @@ class ServiceLocator {
     sl.registerLazySingleton(() => GoogleSignIn());
     sl.registerLazySingleton(() => AuthRepository(
           firebaseAuth: sl(),
-          googleSignIn: sl(),
+
         ));
     sl.registerLazySingleton(() => ProfileDataSource(firebaseAuth: sl()));
     sl.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(profileDataSource: sl()));

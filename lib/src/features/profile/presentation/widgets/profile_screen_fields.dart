@@ -49,25 +49,25 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
         TextFieldClass.buildTextFormField(
             hintText: fullName,
             controller: nameController,
-            borderColor: splashColor,
+            borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
             enabled: false,
             intialValue: state.email,
             hintText: email,
-            borderColor: splashColor,
+            borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
             intialValue: '01000000000',
             hintText: phone,
-            borderColor: splashColor,
+            borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
             enabled: false,
             intialValue: "********",
             hintText: password,
             obscureText: true,
-            borderColor: splashColor,
+            borderColor: AppColors.splashColor,
             radius: 8),
         SizedBox(
           height: SizeConfig.height * 0.025,
@@ -88,7 +88,7 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
                   );
             }
           },
-          backgroundColor: splashColor,
+          backgroundColor: AppColors.splashColor,
           style: AppTextStyles.styleMedium25(context),
         ),
       ],

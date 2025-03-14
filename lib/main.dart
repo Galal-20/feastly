@@ -1,5 +1,6 @@
 import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/core/service_locator/service_locator.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 
 import 'package:feastly/src/core/auth/firebase_auth_service.dart';
@@ -28,7 +29,6 @@ void main() async {
   );
 
 ServiceLocator.init();
-  final authRepository = AuthRepository();
 
 
   final authRepository = AuthRepository(firebaseAuthService: FirebaseAuthDataSource());

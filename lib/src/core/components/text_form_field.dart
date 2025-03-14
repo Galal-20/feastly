@@ -14,12 +14,18 @@ class TextFieldClass {
     TextStyle? hintStyle,
     int maxLines = 1,
     double radius = 4,
+    bool? enabled,
+    String? intialValue,
+    TextEditingController? controller,
 
 
 
 
   }) {
     return TextFormField(
+      controller: controller,
+      enabled: enabled,
+      initialValue: intialValue,
       maxLines: maxLines,
       onChanged: onChanged,
       obscureText: obscureText,
