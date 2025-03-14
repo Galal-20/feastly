@@ -76,6 +76,9 @@ const String searchRecipes = "Search Recipes";
 const String save = "Save";
 const String skip = "Skip";
 const String next = "Next";
+const String profileUpdatedSuccess = "Profile updated successfully";
+
+
 const String nutrition = "Nutrition";
 const String mealType = "Meal Type";
 const String mealName = "Meal Name";

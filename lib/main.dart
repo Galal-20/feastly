@@ -27,6 +27,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+ServiceLocator.init();
+  final authRepository = AuthRepository();
 
 
   final authRepository = AuthRepository(firebaseAuthService: FirebaseAuthDataSource());
