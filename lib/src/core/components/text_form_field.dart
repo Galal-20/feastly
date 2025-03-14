@@ -1,6 +1,17 @@
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
+class TextFieldClass{
+  static  TextFormField buildTextFormField(
+      String labelText,
+      String hintText,
+      String? Function(String?)? validator,
+      void Function(String)? onChanged,
+      Widget? prefixIcon, {
+        Widget? suffixIcon,
+        bool obscureText = false,
+         int maxLines = 1,
+      }) {
 class TextFieldClass {
   static TextFormField buildTextFormField({
     double radius = 4, // Default value
@@ -18,6 +29,7 @@ class TextFieldClass {
 
   }) {
     return TextFormField(
+       maxLines: maxLines,
       onChanged: onChanged,
       obscureText: obscureText,
       style:  textStyle,
