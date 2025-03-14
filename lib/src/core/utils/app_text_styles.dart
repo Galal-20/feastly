@@ -21,6 +21,7 @@ abstract class AppTextStyles {
         fontWeight: FontWeight.w700,
         color: AppColors.splashColor,
       );
+      
 
   static double getResponsiveFontSize(BuildContext context, double fontSize) {
     double scaleFactor = getScaleFactor(context);
