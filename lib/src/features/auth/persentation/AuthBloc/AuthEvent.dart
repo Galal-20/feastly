@@ -32,6 +32,7 @@ class LoginRequest extends AuthEvent {
   });
 }
 
+
 class LogoutRequested extends AuthEvent {}
 
 class AutoLoginRequested extends AuthEvent {}

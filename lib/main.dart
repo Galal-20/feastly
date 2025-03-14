@@ -1,3 +1,5 @@
+import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/service_locator/service_locator.dart';
 import 'package:feastly/src/features/auth/data/AuthRepository.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthBloc.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthEvent.dart';
@@ -19,7 +21,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  
 
+ServiceLocator.init();
   final authRepository = AuthRepository();
 
   runApp(
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(home: LoginScreen(),
       debugShowCheckedModeBanner: false,
       supportedLocales: const [
         Locale('en', ''),

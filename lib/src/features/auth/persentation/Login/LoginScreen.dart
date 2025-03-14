@@ -1,5 +1,6 @@
 import 'package:feastly/src/core/functions/functions.dart';
 import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart';
+import 'package:feastly/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await prefs.setBool('rememberMe', _rememberMe);
     if (_rememberMe) {
       await prefs.setString('email', _email);
-    }else{
+    } else {
       await prefs.remove('email');
     }
   }
@@ -73,16 +74,17 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) async {
         if (state is AuthLoading) {
           CircularProgressIndicator();
-        }else if (state is Authenticated) {
+        } else if (state is Authenticated) {
+          SharedFunctions.pushAndRemoveUntil(context, ProfileScreen());
+
           if (_rememberMe) {
             // After make Home Screen make this line.
             //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
-          }else{
+          } else {
             // After make Home Screen make this line.
             // SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
           }
-
-        }else  if (state is AuthError) {
+        } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
@@ -104,7 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -134,7 +137,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               radius: 20,
                               textStyle: const TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white70),
-                              prefixIcon: const Icon(Icons.email, color: Colors.white),
+                              prefixIcon:
+                                  const Icon(Icons.email, color: Colors.white),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return errorEmailText;
@@ -143,7 +147,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                                 return null;
                               },
-                              onChanged: (value) => setState(() => _email = value),
+                              onChanged: (value) =>
+                                  setState(() => _email = value),
                             ),
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
@@ -152,25 +157,29 @@ class _LoginScreenState extends State<LoginScreen> {
                               radius: 20,
                               textStyle: const TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white70),
-                              prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                              prefixIcon:
+                                  const Icon(Icons.lock, color: Colors.white),
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
                                     _isPasswordHidden = !_isPasswordHidden;
                                   });
                                 },
-                                icon: Icon(_isPasswordHidden ? Icons.visibility_off : Icons.visibility),
+                                icon: Icon(_isPasswordHidden
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
                               ),
                               obscureText: _isPasswordHidden,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return errorPassText;
-                                } else if (!Validation.isValidatePassword(value)) {
+                                } else if (!Validation.isValidatePassword(
+                                    value)) {
                                   return errorPassValid;
                                 }
                                 return null;
                               },
-                              onChanged: (value) =>  _password = value,
+                              onChanged: (value) => _password = value,
                             ),
                             const SizedBox(height: 10),
                             Row(
@@ -202,7 +211,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
+                                BlocProvider.of<AuthBloc>(context)
+                                    .add(GoogleSignInRequested());
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(12),
@@ -234,7 +244,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    SharedFunctions.pushAndRemoveUntil(context, RegisterScreen());
+                                    SharedFunctions.pushAndRemoveUntil(
+                                        context, RegisterScreen());
                                   },
                                   child: const Text(
                                     signUp,

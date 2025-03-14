@@ -57,5 +57,6 @@ const String searchRecipes = "Search Recipes";
 const String save = "Save";
 const String skip = "Skip";
 const String next = "Next";
+const String profileUpdatedSuccess = "Profile updated successfully";
 
 

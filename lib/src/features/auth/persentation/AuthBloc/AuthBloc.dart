@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -87,7 +86,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     String? displayName = prefs.getString("displayName");
 
     if (email != null) {
-      emit(Authenticated(displayName: displayName ?? "User", email: email));
+      emit(Authenticated(
+        displayName: displayName ?? "User",
+        email: email,
+      ));
     } else {
       emit(Unauthenticated());
     }

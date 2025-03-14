@@ -32,6 +32,8 @@ class AuthRepository {
       await user.sendEmailVerification();
     }
   }*/
+
+
   Future<void> sendEmailVerification() async {
     final user = _firebaseAuth.currentUser;
     if (user != null && !user.emailVerified) {
@@ -88,8 +90,6 @@ class AuthRepository {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
   }
-}
-
 
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;

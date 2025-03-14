@@ -1,6 +1,4 @@
-import 'package:feastly/src/core/components/button.dart';
-import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/core/utils/app_text_styles.dart';
+
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:feastly/src/features/profile/presentation/widgets/pick_image.dart';
 import 'package:feastly/src/features/profile/presentation/widgets/profile_screen_fields.dart';
@@ -26,16 +24,7 @@ class ProfileScreenBody extends StatelessWidget {
                 height: SizeConfig.height * 0.03,
               ),
               ProfileScreenFields(),
-              SizedBox(
-                height: SizeConfig.height * 0.05,
-              ),
-              Button(
-                isLoading: false,
-                text: "Save",
-                onPressed: () {},
-                backgroundColor: splashColor,
-                style: AppTextStyles.styleMedium25(context),
-              ),
+             
             ],
           ),
         ),
