@@ -1,4 +1,3 @@
-import 'package:feastly/src/core/components/recipe_card.dart';
 import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 

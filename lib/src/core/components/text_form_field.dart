@@ -11,8 +11,10 @@ class TextFieldClass{
       Widget? prefixIcon, {
         Widget? suffixIcon,
         bool obscureText = false,
+         int maxLines = 1,
       }) {
     return TextFormField(
+       maxLines: maxLines,
       onChanged: onChanged,
       obscureText: obscureText,
       decoration: InputDecoration(

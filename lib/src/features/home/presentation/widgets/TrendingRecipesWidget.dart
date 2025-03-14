@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../../core/components/recipe_card.dart';
-import '../../../../core/constants/strings.dart';
 import '../../../../core/utils/app_text_styles.dart';
 
-class TrendingRecipesWidget extends StatelessWidget{
-  const TrendingRecipesWidget({super.key});
+class RecipesWidget extends StatelessWidget {
+  const RecipesWidget({super.key, required this.recipesType});
+  final String recipesType;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,10 @@ class TrendingRecipesWidget extends StatelessWidget{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(trendingMeal, style: AppTextStyles.styleBold23(context),),
+          Text(
+            recipesType,
+            style: AppTextStyles.styleBold23(context),
+          ),
           SizedBox(height: 10),
           SizedBox(
             height: 160,
@@ -22,7 +25,12 @@ class TrendingRecipesWidget extends StatelessWidget{
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
-                return RecipeCard(imagePath: 'assets/images/dish1.png' , name: 'Pizza', noOfIngredients: '10' , time: '14min',);
+                return RecipeCard(
+                  imagePath: 'assets/images/dish1.png',
+                  name: 'Pizza',
+                  noOfIngredients: '10',
+                  time: '14min',
+                );
               },
             ),
           )
@@ -30,5 +38,4 @@ class TrendingRecipesWidget extends StatelessWidget{
       ),
     );
   }
-  }
-
+}

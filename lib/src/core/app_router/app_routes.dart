@@ -1,3 +1,6 @@
+import 'package:feastly/src/features/home/presentation/bloc/HomeBloc.dart';
+import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
 
@@ -11,6 +14,7 @@ abstract class AppRoutes {
   static const kHomePage = '/HomePage';
   static const kAiResultView = '/AiResultView';
   static const kErrorView = '/ErrorView';
+  static const kAddurRecipeView = '/AddurRecipeView';
 
   static final router = GoRouter(
     initialLocation: AppRoutes.kHomePage,
@@ -55,7 +59,14 @@ abstract class AppRoutes {
         path: kHomePage,
         builder: (context, state) => const HomePage()
       ),
-
+      GoRoute(
+        path: kAddurRecipeView,
+        name: kAddurRecipeView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => PickImageBloc(),
+          child: const AddYourRecipeScreen(),
+        ),
+      ),
 
 
     ],

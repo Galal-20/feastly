@@ -1,4 +1,5 @@
 import 'package:feastly/src/core/Theme/AppTheme.dart';
+import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
 import 'package:feastly/src/localization/app_localizations.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      MaterialApp(
+      MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme(context),
         // supportedLocales: const [Locale('en', ''), Locale('ar', '')],
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
         //   }
         //   return supportedLocales.first;
         // },
-        home: HomePage(),
+        // home: HomePage(),
+        routerConfig: AppRoutes.router
 
       );
   }

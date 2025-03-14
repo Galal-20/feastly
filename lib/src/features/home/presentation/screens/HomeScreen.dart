@@ -1,7 +1,9 @@
+import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/components/button.dart';
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/features/home/presentation/widgets/TrendingRecipesWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/strings.dart';
 import '../widgets/RecommededForYouWidget.dart';
 
@@ -16,11 +18,16 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            TrendingRecipesWidget(),
+            RecipesWidget(recipesType: trendingMeal),
+            RecipesWidget(recipesType: yourRecipse),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
-                  isLoading: false, text: addYourIngredients, onPressed: () {}),
+                  isLoading: false,
+                  text: addYourRecipe,
+                  onPressed: () {
+                    context.pushNamed(AppRoutes.kAddurRecipeView);
+                  }),
             ),
             SizedBox(
               height: 10,
