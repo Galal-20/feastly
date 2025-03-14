@@ -89,40 +89,22 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.splashColor,
-        body: Stack(
+        backgroundColor: splashColor,
+        body:
+        Stack(
           children: [
-            Positioned.fill(
-              child: Opacity(
-                opacity: 0.9,
-                child: Image.asset(
-                  backGround,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            background_form(),
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                  child: Column(
+                  child:
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(height: 40),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: Image.asset(
-                          chefHat,
-                          width: 80,
-                          height: 80,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      logo_app(),
                       const SizedBox(height: 40),
                       Form(
                         key: _formKey,
@@ -200,52 +182,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: _onLoginPressed,
                             ),
                             const SizedBox(height: 20),
-                            GestureDetector(
-                              onTap: () {
-                                BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.4),
-                                      blurRadius: 4,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Image.asset(
-                                  googleLogo,
-                                  width: 30,
-                                  height: 30,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  dontHaveMessage,
-                                  style: TextStyle(color: Colors.white70),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    SharedFunctions.pushAndRemoveUntil(context, RegisterScreen());
-                                  },
-                                  child: const Text(
-                                    signUp,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
+                      googleButton(),
+                      const SizedBox(height: 20),
+                      footer_login(),
                     ],
                   ),
                 ),
