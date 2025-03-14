@@ -20,7 +20,7 @@ class CustomMealImage extends StatelessWidget {
               imagePath = state.imagePath;
             }
             return CircleAvatar(
-              backgroundColor: splashColor,
+              backgroundColor: AppColors.splashColor,
               radius: 65,
               backgroundImage:
                   imagePath != null ? FileImage(File(imagePath)) : null,

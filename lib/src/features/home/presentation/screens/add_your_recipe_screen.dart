@@ -11,7 +11,7 @@ class AddYourRecipeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: splashColor),
+        iconTheme: IconThemeData(color: AppColors.splashColor),
         title: Text(
           addYourRecipe,
           style: AppTextStyles.styleBold25(context),

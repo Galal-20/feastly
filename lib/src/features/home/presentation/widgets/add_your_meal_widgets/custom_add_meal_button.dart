@@ -17,7 +17,7 @@ class CustomAddMealButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        backgroundColor: splashColor,
+        backgroundColor: AppColors.splashColor,
       ),
       onPressed: onPressed,
       child: Text(

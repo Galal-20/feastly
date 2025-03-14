@@ -55,7 +55,7 @@ class CustomBottomNavBar extends StatelessWidget {
         width: isSelected ? 60 : 50,
         height: isSelected ? 60 : 50,
         decoration: BoxDecoration(
-          color: isSelected ? splashColor : Colors.transparent,
+          color: isSelected ? AppColors.splashColor : Colors.transparent,
           shape: BoxShape.circle,
           boxShadow: isSelected ? [BoxShadow(color: Colors.black26, blurRadius: 5)] : [],
         ),

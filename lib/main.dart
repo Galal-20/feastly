@@ -1,8 +1,7 @@
 import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
-import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
-import 'package:feastly/src/core/app_router/app_routes.dart';
+
 import 'package:feastly/src/core/auth/firebase_auth_service.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
@@ -49,7 +48,7 @@ class MyApp extends StatelessWidget {
 
     SizeConfig.init(context);
     return MaterialApp.router(
-      theme: AppTheme.lightTheme(context)
+      theme: AppTheme.lightTheme(context),
       routerConfig: AppRoutes.router,
       debugShowCheckedModeBanner: false,
       title: AppStrings.appName,

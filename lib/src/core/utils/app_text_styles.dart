@@ -9,7 +9,7 @@ abstract class AppTextStyles {
         fontSize: getResponsiveFontSize(context, 20),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w400,
-        color: splashColor,
+        color: AppColors.splashColor,
       );
   static TextStyle styleMedium16(context) => TextStyle(
     fontSize: getResponsiveFontSize(context, 16),
@@ -29,7 +29,7 @@ abstract class AppTextStyles {
         fontSize: getResponsiveFontSize(context, 14),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w500,
-        color: splashColor,
+        color: AppColors.splashColor,
       );
 
   static TextStyle styleBold16(context) => TextStyle(
@@ -50,7 +50,7 @@ abstract class AppTextStyles {
         fontSize: getResponsiveFontSize(context, 25),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w700,
-        color: splashColor,
+        color: AppColors.splashColor,
       );
   static TextStyle styleBold40(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 40),

@@ -21,11 +21,11 @@ class HomeScreen extends StatelessWidget {
             RecipesWidget(recipesType: yourRecipes),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CustomButton(
+              child: Button(
                   isLoading: false,
                   text: addYourRecipe,
                   onPressed: () {
-                    context.pushNamed(AppRoutes.kAddurRecipeView);
+                    context.pushNamed(AppRoutes.kAddUrRecipeView);
                   }),
             ),
             RecipesWidget(recipesType: trendingMeal),
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: splashColor,
+        backgroundColor: AppColors.splashColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
