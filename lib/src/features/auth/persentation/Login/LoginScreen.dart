@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: splashColor,
+        backgroundColor: AppColors.splashColor,
         body: Stack(
           children: [
             Positioned.fill(

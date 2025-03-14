@@ -14,13 +14,15 @@ class ProfileScreenFields extends StatelessWidget {
       spacing: SizeConfig.height * 0.025,
       children: [
         TextFieldClass.buildTextFormField(
-            hintText: "Name", borderColor: splashColor,radius: 8),
+            hintText: "Name", borderColor: AppColors.splashColor,radius: 8),
         TextFieldClass.buildTextFormField(
-            hintText: "E-mail", borderColor: splashColor,radius: 8),
+            hintText: "E-mail", borderColor: AppColors.splashColor,radius: 8),
         TextFieldClass.buildTextFormField(
-            hintText: "Phonr Number", borderColor: splashColor,radius: 8),
+            hintText: "Phonr Number", borderColor: AppColors.splashColor,radius: 8),
         TextFieldClass.buildTextFormField(
-            hintText: "Password", obscureText: true, borderColor: splashColor,radius: 8),
+            hintText: "Password", obscureText: true, borderColor: AppColors.splashColor,
+            radius:
+        8),
       ],
     );
   }

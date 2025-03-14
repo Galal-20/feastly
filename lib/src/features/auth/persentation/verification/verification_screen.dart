@@ -72,7 +72,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: splashColor,
+      backgroundColor: AppColors.splashColor,
       body: Stack(
         children: [
           Positioned.fill(

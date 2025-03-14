@@ -21,7 +21,7 @@ class PickImage extends StatelessWidget {
           bottom: 0,
           right: -2,
           child: CircleAvatar(
-            backgroundColor: splashColor,
+            backgroundColor: AppColors.splashColor,
             radius: SizeConfig.width * 0.065,
             child: FittedBox(
               child: CustomIconButton(

@@ -36,7 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: splashColor,
+        backgroundColor: AppColors.splashColor,
         body: Stack(
           children: [
             Positioned.fill(
@@ -160,7 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Checkbox(
                                   value: agreeToTerms,
                                   activeColor: Colors.white,
-                                  checkColor: splashColor,
+                                  checkColor: AppColors.splashColor,
                                   onChanged: (value) {
                                     setState(() {
                                       agreeToTerms = value!;
@@ -193,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
-                                foregroundColor: splashColor,
+                                foregroundColor: AppColors.splashColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),

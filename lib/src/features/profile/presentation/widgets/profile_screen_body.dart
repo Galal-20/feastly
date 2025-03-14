@@ -33,7 +33,7 @@ class ProfileScreenBody extends StatelessWidget {
                 isLoading: false,
                 text: "Save",
                 onPressed: () {},
-                backgroundColor: splashColor,
+                backgroundColor: AppColors.splashColor,
                 style: AppTextStyles.styleMedium25(context),
               ),
             ],
