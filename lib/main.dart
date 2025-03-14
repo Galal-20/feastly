@@ -1,11 +1,10 @@
-import 'package:feastly/src/features/auth/data/AuthRepository.dart';
+import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/core/auth/firebase_auth_service.dart';
+import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/utils/size_config.dart';
+import 'package:feastly/src/features/auth/data/datasource/AuthRepository.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthBloc.dart';
 import 'package:feastly/src/features/auth/persentation/AuthBloc/AuthEvent.dart';
-import 'package:feastly/src/features/auth/persentation/Login/LoginScreen.dart';
-import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart';
-import 'package:feastly/src/features/auth/persentation/verification/verification_screen.dart';
-import 'package:feastly/src/features/auth/persentation/widget/auth_wrapper.dart';
-import 'package:feastly/src/features/home/presentation/screens/HomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

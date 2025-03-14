@@ -13,6 +13,10 @@ import '../../../../core/utils/validations.dart';
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthEvent.dart';
 import '../AuthBloc/AuthState.dart';
+import '../widget/background_from_widget.dart';
+import '../widget/footer_login_widget.dart';
+import '../widget/google_button_widget.dart';
+import '../widget/logo_app_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -89,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: splashColor,
+        backgroundColor: AppColors.splashColor,
         body:
         Stack(
           children: [
