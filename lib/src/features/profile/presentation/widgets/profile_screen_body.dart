@@ -26,6 +26,7 @@ class ProfileScreenBody extends StatelessWidget {
                 height: SizeConfig.height * 0.03,
               ),
               ProfileScreenFields(),
+              /*
               SizedBox(
                 height: SizeConfig.height * 0.05,
               ),
@@ -36,6 +37,8 @@ class ProfileScreenBody extends StatelessWidget {
                 backgroundColor: AppColors.splashColor,
                 style: AppTextStyles.styleMedium25(context),
               ),
+
+               */
             ],
           ),
         ),

@@ -1,7 +1,10 @@
+import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/functions/functions.dart';
 import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart';
+import 'package:feastly/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/components/button.dart';
@@ -81,9 +84,13 @@ class _LoginScreenState extends State<LoginScreen> {
           if (_rememberMe) {
             // After make Home Screen make this line.
             //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
+
+
           }else{
+
             // After make Home Screen make this line.
-            // SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
+            
+             //SharedFunctions.pushAndRemoveUntil(context, ProfileScreen());
           }
 
         }else  if (state is AuthError) {

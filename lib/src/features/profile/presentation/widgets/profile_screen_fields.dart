@@ -41,7 +41,7 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<AuthBloc>().state as Authenticated;
+    final state = context.read<AuthBloc>().state as Authenticated;
 
     return Column(
       spacing: SizeConfig.height * 0.025,

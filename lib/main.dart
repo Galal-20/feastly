@@ -22,6 +22,7 @@ void main() async {
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (context) => NavBloc()),
+
     ],
       child: const MyApp()));
   await Firebase.initializeApp(
@@ -29,14 +30,14 @@ void main() async {
   );
 
 ServiceLocator.init();
+Bloc.observer= MyBlocObserver();
 
 
-  final authRepository = AuthRepository(firebaseAuthService: FirebaseAuthDataSource());
 
   runApp(
     BlocProvider(
       create: (context) =>
-          AuthBloc(authRepository: authRepository)..add(AutoLoginRequested()),
+          AuthBloc( authRepository: sl())..add(AutoLoginRequested()),
       child: const MyApp(),
     ),
   );
@@ -57,5 +58,30 @@ class MyApp extends StatelessWidget {
 
 
     );
+  }
+}
+class MyBlocObserver extends BlocObserver {
+  @override
+  void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
+    print('onCreate -- ${bloc.runtimeType}');
+  }
+
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    print('onChange -- ${bloc.runtimeType}, $change');
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print('onError -- ${bloc.runtimeType}, $error');
+    super.onError(bloc, error, stackTrace);
+  }
+
+  @override
+  void onClose(BlocBase bloc) {
+    super.onClose(bloc);
+    print('onClose -- ${bloc.runtimeType}');
   }
 }

@@ -1,14 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:feastly/src/core/auth/firebase_auth_service.dart';
+import 'package:feastly/src/features/auth/data/datasource/AuthRepository.dart';
 
 class ProfileDataSource {
-  final FirebaseAuth firebaseAuth;
+  final AuthRepository authRepository;
 
-  ProfileDataSource({required this.firebaseAuth});
+  ProfileDataSource({required this.authRepository});
 
   Future<void> updateProfile({
     required String fullName,
   }) async {
-    final user = firebaseAuth.currentUser;
+    final user = authRepository.getCurrentUser();
     if (user != null) {
       await user.updateDisplayName(fullName);
       await user.reload();
