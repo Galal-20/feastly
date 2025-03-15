@@ -1,6 +1,7 @@
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/functions/functions.dart';
 import 'package:feastly/src/features/auth/persentation/SIgnUp/SignUpScreen.dart';
+import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
 import 'package:feastly/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,7 @@ import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/images.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/utils/validations.dart';
+import '../../../home/presentation/screens/HomeScreen.dart';
 import '../AuthBloc/AuthBloc.dart';
 import '../AuthBloc/AuthEvent.dart';
 import '../AuthBloc/AuthState.dart';
@@ -83,14 +85,12 @@ class _LoginScreenState extends State<LoginScreen> {
         }else if (state is Authenticated) {
           if (_rememberMe) {
             // After make Home Screen make this line.
-            //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
-
-
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => HomePage()));
           }else{
-
             // After make Home Screen make this line.
-            
-             //SharedFunctions.pushAndRemoveUntil(context, ProfileScreen());
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => HomePage()));
           }
 
         }else  if (state is AuthError) {

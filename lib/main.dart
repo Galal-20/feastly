@@ -35,11 +35,13 @@ Bloc.observer= MyBlocObserver();
 
 
   runApp(
-    BlocProvider(
-      create: (context) =>
-          AuthBloc( authRepository: sl())..add(AutoLoginRequested()),
-      child: const MyApp(),
-    ),
+      MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => NavBloc()),
+            BlocProvider (create: (context) =>          AuthBloc( authRepository: sl())..add(AutoLoginRequested()),
+            ),],
+          child: const MyApp()
+      )
   );
 }
 
