@@ -1,8 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'AuthState.dart';
-
 abstract class AuthEvent {}
 
 class SignUpRequest extends AuthEvent {
@@ -23,7 +18,6 @@ class LoginRequest extends AuthEvent {
   final String email;
   final String password;
 
-
   LoginRequest({
     required this.email,
     required this.password,
@@ -39,4 +33,3 @@ class GoogleSignInRequested extends AuthEvent {}
 class CheckEmailVerification extends AuthEvent {}
 
 class ResendEmailVerification extends AuthEvent {}
-

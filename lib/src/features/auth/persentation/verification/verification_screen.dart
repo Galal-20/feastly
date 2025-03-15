@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/core/constants/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../main.dart';
-import '../../../../core/functions/functions.dart';
-import '../AuthBloc/AuthBloc.dart';
-import '../AuthBloc/AuthEvent.dart';
-import '../AuthBloc/AuthState.dart';
+import '../auth_bloc/auth_bloc.dart';
+import '../auth_bloc/auth_event.dart';
+import '../auth_bloc/auth_state.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 
 import '../widget/background_from_widget.dart';
@@ -108,16 +105,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                      Icons.email_rounded,
-                      size: screenWidth * 0.3,
-                      color: Colors.white),
+                  Icon(Icons.email_rounded,
+                      size: screenWidth * 0.3, color: Colors.white),
                   SizedBox(height: screenHeight * 0.03),
-                   Text(
+                  Text(
                     textMessageResend,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.white,
+                      color: Colors.white,
                       fontSize: screenWidth * 0.05,
                     ),
                   ),

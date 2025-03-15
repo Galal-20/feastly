@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/images.dart';
-import '../AuthBloc/AuthBloc.dart';
-import '../AuthBloc/AuthEvent.dart';
+import '../auth_bloc/auth_bloc.dart';
+import '../auth_bloc/auth_event.dart';
 
-class googleButton extends StatelessWidget {
-  const googleButton({
+class GoogleButton extends StatelessWidget {
+  const GoogleButton({
     super.key,
   });
 
@@ -18,8 +17,7 @@ class googleButton extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            BlocProvider.of<AuthBloc>(context)
-                .add(GoogleSignInRequested());
+            BlocProvider.of<AuthBloc>(context).add(GoogleSignInRequested());
           },
           child: Container(
             padding: const EdgeInsets.all(12),
@@ -38,4 +36,3 @@ class googleButton extends StatelessWidget {
     );
   }
 }
-

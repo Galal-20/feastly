@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/functions/functions.dart';
-import '../SIgnUp/SignUpScreen.dart';
+import '../sign_up/sign_up_screen.dart';
 
-class footer_login extends StatelessWidget {
-  const footer_login({
+class FooterLogin extends StatelessWidget {
+  const FooterLogin({
     super.key,
   });
 
@@ -32,4 +31,3 @@ class footer_login extends StatelessWidget {
     );
   }
 }
-

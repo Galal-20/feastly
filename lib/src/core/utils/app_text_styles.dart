@@ -2,8 +2,6 @@ import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
-
 abstract class AppTextStyles {
   static TextStyle styleRegular20(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 20),
@@ -12,18 +10,18 @@ abstract class AppTextStyles {
         color: AppColors.splashColor,
       );
   static TextStyle styleMedium16(context) => TextStyle(
-    fontSize: getResponsiveFontSize(context, 16),
-    fontFamily: 'Ubuntu',
-    fontWeight: FontWeight.w500,
-    color: Colors.white,
-  );
+        fontSize: getResponsiveFontSize(context, 16),
+        fontFamily: 'Ubuntu',
+        fontWeight: FontWeight.w500,
+        color: Colors.white,
+      );
 
   static TextStyle styleRegular12(context) => TextStyle(
-    fontSize: getResponsiveFontSize(context, 12),
-    fontFamily: 'Ubuntu',
-    fontWeight: FontWeight.w400,
-    color: Colors.white,
-  );
+        fontSize: getResponsiveFontSize(context, 12),
+        fontFamily: 'Ubuntu',
+        fontWeight: FontWeight.w400,
+        color: Colors.white,
+      );
 
   static TextStyle styleRegular14(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 14),
@@ -40,11 +38,11 @@ abstract class AppTextStyles {
       );
 
   static TextStyle styleBold23(context) => TextStyle(
-    fontSize: getResponsiveFontSize(context, 20),
-    fontFamily: 'Inter',
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
-  );
+        fontSize: getResponsiveFontSize(context, 20),
+        fontFamily: 'Inter',
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      );
 
   static TextStyle styleBold25(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 25),
@@ -97,11 +95,11 @@ abstract class AppTextStyles {
       );
 
   static TextStyle onBoardingTitle(context) => TextStyle(
-    fontSize: getResponsiveFontSize(context, 24),
-    fontFamily: 'Inter',
-    fontWeight: FontWeight.w700,
-    color: Colors.black,
-  );
+        fontSize: getResponsiveFontSize(context, 24),
+        fontFamily: 'Inter',
+        fontWeight: FontWeight.w700,
+        color: Colors.black,
+      );
 
   static TextStyle onBoardingSubTitle(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 20),

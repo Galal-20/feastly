@@ -1,4 +1,3 @@
-import 'package:feastly/src/core/auth/firebase_auth_service.dart';
 import 'package:feastly/src/features/auth/data/datasource/AuthRepository.dart';
 
 class ProfileDataSource {

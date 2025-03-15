@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../main.dart';
-import '../../../../core/functions/functions.dart';
-import '../../../home/presentation/screens/HomeScreen.dart';
-import '../AuthBloc/AuthBloc.dart';
-import '../AuthBloc/AuthState.dart';
-import '../Login/LoginScreen.dart';
+import '../auth_bloc/auth_bloc.dart';
+import '../auth_bloc/auth_state.dart';
+import '../login/login_screen.dart';
 import '../verification/verification_screen.dart';
 
 class AuthWrapper extends StatelessWidget {

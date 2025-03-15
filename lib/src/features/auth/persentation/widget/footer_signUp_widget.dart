@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/functions/functions.dart';
-import '../Login/LoginScreen.dart';
+import '../login/login_screen.dart';
 
 class footer_signUp extends StatelessWidget {
   const footer_signUp({
@@ -23,4 +23,3 @@ class footer_signUp extends StatelessWidget {
     );
   }
 }
-

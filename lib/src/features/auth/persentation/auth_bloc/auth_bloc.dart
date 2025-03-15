@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/datasource/AuthRepository.dart';
-import 'AuthEvent.dart';
-import 'AuthState.dart';
+import 'auth_event.dart';
+import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
@@ -119,15 +120,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }*/
   Future<void> _sendEmailVerification(Emitter<AuthState> emit) async {
     try {
-      print("Attempting to send verification email...");
+      debugPrint("Attempting to send verification email...");
       await _authRepository.sendEmailVerification();
-      print("Verification email sent successfully!");
+      debugPrint("Verification email sent successfully!");
 
       emit(VerificationEmailSent(
           message:
               "A verification email has been sent. Please check your inbox."));
     } catch (e) {
-      print("Error sending email verification: $e");
+      debugPrint("Error sending email verification: $e");
       emit(AuthError(
           message: "Failed to resend verification email. Please try again."));
     }
@@ -151,12 +152,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await prefs.setString("displayName", displayName ?? "User");
   }*/
 
-  Future<void> _saveUserSession(String? email, String? displayName) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("isLoggedIn", true);
-    await prefs.setString("email", email ?? "");
-    await prefs.setString("displayName", displayName ?? "User");
-  }
+  // Future<void> _saveUserSession(String? email, String? displayName) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setBool("isLoggedIn", true);
+  //   await prefs.setString("email", email ?? "");
+  //   await prefs.setString("displayName", displayName ?? "User");
+  // }
 
   Future<void> _clearPreferences() async {
     final prefs = await SharedPreferences.getInstance();
