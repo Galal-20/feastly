@@ -53,16 +53,18 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             currPage: currIndex,
             pageController: _pageController,
             onNextPressed: navigateToNextPage,
-            onSkipPressed: navigateToLogin,
+            onSkipPressed: () async {
+              await checkLoginStatus();
+            },
           ),
         ),
       ],
     );
   }
 
-  void navigateToNextPage() {
+  void navigateToNextPage() async {
     if (_pageController.page == onBoardingItems.length - 1) {
-      navigateToLogin();
+      await checkLoginStatus();
       return;
     }
     _pageController.nextPage(
@@ -74,9 +76,19 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
     });
   }
 
-  void navigateToLogin() {
+  Future<void> checkLoginStatus() async {
+    var loginStatus =
+        await SharedPreferencesHelper.getBool(AppStrings.userLoggedInKey);
+    if (loginStatus != null && loginStatus) {
+      navigateToScreen(path: AppRoutes.kHomePage);
+    } else {
+      navigateToScreen(path: AppRoutes.kLoginView);
+    }
+  }
+
+  void navigateToScreen({required String path}) {
     SharedPreferencesHelper.saveBool(AppStrings.onBoardingStatusKey, true);
-    GoRouter.of(context).go(AppRoutes.kLoginView);
+    GoRouter.of(context).go(path);
   }
 
   @override

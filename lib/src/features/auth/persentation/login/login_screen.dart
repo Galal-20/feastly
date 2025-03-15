@@ -1,9 +1,11 @@
+import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_event.dart';
 import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_state.dart';
 import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/components/button.dart';
 import '../../../../core/components/text_form_field.dart';
@@ -77,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is AuthLoading) {
           CircularProgressIndicator();
         } else if (state is Authenticated) {
+          GoRouter.of(context).go(AppRoutes.kHomePage);
           if (_rememberMe) {
             // After make Home Screen
           } else {
@@ -96,8 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
-                  padding:
-                       EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -171,10 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   activeColor: Colors.white,
                                   checkColor: Colors.black,
                                 ),
-                                 Text(
-                                  loginCheckBoxText,
-                                  style: AppTextStyles.styleMedium16(context)
-                                ),
+                                Text(loginCheckBoxText,
+                                    style:
+                                        AppTextStyles.styleMedium16(context)),
                               ],
                             ),
                             const SizedBox(height: 20),

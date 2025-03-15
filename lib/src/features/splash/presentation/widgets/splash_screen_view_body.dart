@@ -94,11 +94,21 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
     GoRouter.of(context).go(AppRoutes.kLoginView);
   }
 
+  void navigateToHome() {
+    GoRouter.of(context).go(AppRoutes.kHomePage);
+  }
+
   void checkOnBoardingStatus() async {
     final onBoardingStatus =
         await SharedPreferencesHelper.getBool(AppStrings.onBoardingStatusKey);
+    final loginStatus =
+        await SharedPreferencesHelper.getBool(AppStrings.userLoggedInKey);
     if (onBoardingStatus != null && onBoardingStatus) {
-      navigateToLogin();
+      if (loginStatus != null && loginStatus) {
+        navigateToHome();
+      } else {
+        navigateToLogin();
+      }
     } else {
       navigateToOnBoarding();
     }

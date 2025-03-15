@@ -1,3 +1,5 @@
+import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,6 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             displayName: user.displayName ?? "User",
             email: event.email,
           ));
+          saveLoginStatus(status: true);
         }
       } else {
         emit(AuthError(message: "Login failed. Please try again."));
@@ -69,6 +72,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(AuthError(message: e.toString()));
     }
+  }
+
+  void saveLoginStatus({required bool status}) {
+    SharedPreferencesHelper.saveBool(AppStrings.userLoggedInKey, status);
   }
 
   // make sure use this method in profile ya Hossam
@@ -88,6 +95,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (email != null) {
       emit(Authenticated(displayName: displayName ?? "User", email: email));
+      saveLoginStatus(status: true);
     } else {
       emit(Unauthenticated());
     }
@@ -105,6 +113,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           displayName: user.displayName ?? "User",
           email: user.email ?? "",
         ));
+        saveLoginStatus(status: true);
       } else {
         emit(AuthError(message: "Google sign-in failed. Try again."));
       }
