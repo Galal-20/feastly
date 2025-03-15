@@ -23,7 +23,7 @@ abstract class AppRoutes {
   static const kAddUrRecipeView = '/AddUrRecipeView';
 
   static final router = GoRouter(
-    initialLocation: AppRoutes.kLoginView,
+    initialLocation: AppRoutes.kSplashScreen,
     routes: [
       GoRoute(
         path: kSplashScreen,

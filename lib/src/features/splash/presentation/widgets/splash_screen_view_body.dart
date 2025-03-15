@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:feastly/assets.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -30,7 +31,7 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
     initializeRotationAnimation();
 
     _controller.forward();
-    Timer(const Duration(seconds: 3), navigateToOnBoarding);
+    Timer(const Duration(seconds: 3), checkOnBoardingStatus);
   }
 
   void initializeAnimationController() {
@@ -87,6 +88,20 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
 
   void navigateToOnBoarding() {
     GoRouter.of(context).go(AppRoutes.kOnBoardingView);
+  }
+
+  void navigateToLogin() {
+    GoRouter.of(context).go(AppRoutes.kLoginView);
+  }
+
+  void checkOnBoardingStatus() async {
+    final onBoardingStatus =
+        await SharedPreferencesHelper.getBool(AppStrings.onBoardingStatusKey);
+    if (onBoardingStatus != null && onBoardingStatus) {
+      navigateToLogin();
+    } else {
+      navigateToOnBoarding();
+    }
   }
 
   @override

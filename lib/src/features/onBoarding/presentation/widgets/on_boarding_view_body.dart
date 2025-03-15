@@ -1,3 +1,6 @@
+import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:feastly/src/features/onBoarding/domain/entities/on_boarding_entity.dart';
 import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_on_boarding_bottom_widget.dart';
@@ -5,6 +8,7 @@ import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_on_b
 import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_on_boarding_image_widget.dart';
 import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OnBoardingViewBody extends StatefulWidget {
   const OnBoardingViewBody({super.key});
@@ -49,7 +53,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             currPage: currIndex,
             pageController: _pageController,
             onNextPressed: navigateToNextPage,
-            onSkipPressed: () {},
+            onSkipPressed: navigateToLogin,
           ),
         ),
       ],
@@ -58,10 +62,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
 
   void navigateToNextPage() {
     if (_pageController.page == onBoardingItems.length - 1) {
-      /*print('Login navigate') ;
-
-      Navigator.push(context, MaterialPageRoute(
-          builder: (context) => LoginScreen()));*/
+      navigateToLogin();
       return;
     }
     _pageController.nextPage(
@@ -71,6 +72,11 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
     setState(() {
       currIndex++;
     });
+  }
+
+  void navigateToLogin() {
+    SharedPreferencesHelper.saveBool(AppStrings.onBoardingStatusKey, true);
+    GoRouter.of(context).go(AppRoutes.kLoginView);
   }
 
   @override

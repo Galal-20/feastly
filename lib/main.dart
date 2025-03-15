@@ -15,24 +15,24 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider(create: (context) => NavBloc()),
-  ], child: const MyApp()));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   ServiceLocator.init();
   Bloc.observer = MyBlocObserver();
 
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider(create: (context) => NavBloc()),
-    BlocProvider(
-      create: (context) =>
-          AuthBloc(authRepository: sl())..add(AutoLoginRequested()),
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NavBloc()),
+        BlocProvider(
+          create: (context) =>
+              AuthBloc(authRepository: sl())..add(AutoLoginRequested()),
+        ),
+      ],
+      child: const MyApp(),
     ),
-  ], child: const MyApp()));
+  );
 }
 
 class MyApp extends StatelessWidget {

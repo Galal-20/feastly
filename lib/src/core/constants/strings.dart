@@ -14,6 +14,9 @@ class AppStrings {
       "Stay updated with the latest food trends, browse various meal categories, and find your next favorite dish effortlessly.";
   static const String onBoardingBody3 =
       "No more guessing! Just list your ingredients, and our AI will find the best recipe for you. Cooking has never been this easy!";
+
+  //  shared pref keys
+  static const String onBoardingStatusKey = "onBoardingStatus";
 }
 
 const String titleOnboarding = "like in a Restaurant but at home";
@@ -77,7 +80,6 @@ const String save = "Save";
 const String skip = "Skip";
 const String next = "Next";
 const String profileUpdatedSuccess = "Profile updated successfully";
-
 
 const String nutrition = "Nutrition";
 const String mealType = "Meal Type";
