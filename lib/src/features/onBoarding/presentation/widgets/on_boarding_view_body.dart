@@ -1,4 +1,6 @@
+import 'package:feastly/src/core/functions/functions.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
+import 'package:feastly/src/features/auth/persentation/Login/LoginScreen.dart';
 import 'package:feastly/src/features/onBoarding/domain/entities/on_boarding_entity.dart';
 import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_on_boarding_bottom_widget.dart';
 import 'package:feastly/src/features/onBoarding/presentation/widgets/custom_on_boarding_container.dart';
@@ -50,7 +52,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             pageController: _pageController,
             onNextPressed: navigateToNextPage,
             onSkipPressed: () {
-              //todo implement skip button logic
+
             },
           ),
         ),
@@ -60,7 +62,10 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
 
   void navigateToNextPage() {
     if (_pageController.page == onBoardingItems.length - 1) {
-      //todo implement save onBoarding token logic
+      /*print('Login navigate') ;
+
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) => LoginScreen()));*/
       return;
     }
     _pageController.nextPage(

@@ -1,8 +1,8 @@
+import 'package:feastly/src/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../favourite/presentation/screens/FavouriteScreen.dart';
 import '../../../home/presentation/screens/HomeScreen.dart';
-import '../../../profile/presentation/screens/ProfileScreen.dart';
 import '../../../search/presentation/screens/SearchScreen.dart';
 
 

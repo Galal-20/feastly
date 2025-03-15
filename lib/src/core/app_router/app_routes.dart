@@ -1,3 +1,4 @@
+import 'package:feastly/src/features/auth/persentation/Login/LoginScreen.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
@@ -20,8 +21,12 @@ abstract class AppRoutes {
 
 
   static final router = GoRouter(
-    initialLocation: AppRoutes.kSplashScreen,
+    initialLocation: AppRoutes.kLoginView,
     routes: [
+      GoRoute(
+        path: kLoginView,
+        builder: (context, state) => const LoginScreen(),
+      ),
       GoRoute(
         path: kSplashScreen,
         builder: (context, state) => const SplashScreenView(),
