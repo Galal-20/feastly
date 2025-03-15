@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/strings.dart';
-import '../../../../core/functions/functions.dart';
 import '../login/login_screen.dart';
 
 class footer_signUp extends StatelessWidget {
@@ -14,7 +13,7 @@ class footer_signUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        SharedFunctions.pushAndRemoveUntil(context, LoginScreen());
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       child: const Text(
         loginNow,

@@ -9,9 +9,11 @@ import '../../../../core/components/button.dart';
 import '../../../../core/components/text_form_field.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/strings.dart';
+import '../../../../core/utils/app_text_styles.dart';
 import '../../../../core/utils/validations.dart';
 
 import '../widget/background_from_widget.dart';
+import '../widget/footer_login_widget.dart';
 import '../widget/google_button_widget.dart';
 import '../widget/logo_app_widget.dart';
 
@@ -76,13 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
           CircularProgressIndicator();
         } else if (state is Authenticated) {
           if (_rememberMe) {
-            // After make Home Screen make this line.
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+            // After make Home Screen
           } else {
-            // After make Home Screen make this line.
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+            // After make Home Screen
           }
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -99,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Center(
                 child: SingleChildScrollView(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                       EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,9 +171,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   activeColor: Colors.white,
                                   checkColor: Colors.black,
                                 ),
-                                const Text(
+                                 Text(
                                   loginCheckBoxText,
-                                  style: TextStyle(color: Colors.white),
+                                  style: AppTextStyles.styleMedium16(context)
                                 ),
                               ],
                             ),
@@ -186,6 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               email: _email,
                               password: _password,
                               text: login,
+                              style: AppTextStyles.styleBold23(context),
                               onPressed: _onLoginPressed,
                             ),
                             const SizedBox(height: 20),
@@ -194,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       GoogleButton(),
                       const SizedBox(height: 20),
-                      GoogleButton(),
+                      FooterLogin(),
                     ],
                   ),
                 ),

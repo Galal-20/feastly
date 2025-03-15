@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/functions/functions.dart';
+import '../../../../core/utils/app_text_styles.dart';
 import '../sign_up/sign_up_screen.dart';
 
 class FooterLogin extends StatelessWidget {
@@ -14,17 +15,30 @@ class FooterLogin extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+         Text(
           dontHaveMessage,
-          style: TextStyle(color: Colors.white70),
-        ),
+           style: AppTextStyles.styleBold(
+             context,
+             Colors.white,
+             AppTextStyles.getResponsiveFontSize(context, 20),
+             FontWeight.bold,
+             "Ubuntu"
+           ),
+         ),
         TextButton(
           onPressed: () {
-            SharedFunctions.pushAndRemoveUntil(context, RegisterScreen());
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RegisterScreen()));
           },
-          child: const Text(
+          child:  Text(
             signUp,
-            style: TextStyle(color: Colors.white),
+            style: AppTextStyles.styleBold(
+                context,
+                Colors.white,
+              AppTextStyles.getResponsiveFontSize(context, 20),
+              FontWeight.bold,
+              "Ubuntu"
+            ),
           ),
         ),
       ],

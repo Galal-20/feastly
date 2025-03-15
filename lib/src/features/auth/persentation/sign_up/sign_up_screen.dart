@@ -50,8 +50,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SnackBar(content: Text(state.message)),
                     );
                     if (state.message.contains('verification')) {
-                      SharedFunctions.pushAndRemoveUntil(
-                          context, VerificationScreen());
+                      Navigator.push(context, MaterialPageRoute(builder:
+                      (context) => VerificationScreen()));
                     }
                   }
                 },

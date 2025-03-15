@@ -3,12 +3,35 @@ import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppTextStyles {
-  static TextStyle styleRegular20(context) => TextStyle(
+  static TextStyle styleBold(
+      context,
+      Color? color,
+      double? fontSize,
+      FontWeight? fontWeight,
+      String? fontFamily
+      ) => TextStyle(
+    fontSize: fontSize,
+    fontFamily: fontFamily,
+    fontWeight: fontWeight,
+    color: color,
+  );
+
+  static TextStyle styleRegular20(
+      context
+      ) => TextStyle(
         fontSize: getResponsiveFontSize(context, 20),
         fontFamily: 'Ubuntu',
         fontWeight: FontWeight.w400,
         color: AppColors.splashColor,
       );
+
+  static TextStyle styleRegular12(context) => TextStyle(
+    fontSize: getResponsiveFontSize(context, 12),
+    fontFamily: 'Ubuntu',
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+
   static TextStyle styleMedium16(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 16),
         fontFamily: 'Ubuntu',
@@ -16,19 +39,14 @@ abstract class AppTextStyles {
         color: Colors.white,
       );
 
-  static TextStyle styleRegular12(context) => TextStyle(
-        fontSize: getResponsiveFontSize(context, 12),
-        fontFamily: 'Ubuntu',
-        fontWeight: FontWeight.w400,
-        color: Colors.white,
-      );
 
   static TextStyle styleRegular14(context) => TextStyle(
-        fontSize: getResponsiveFontSize(context, 14),
-        fontFamily: 'Ubuntu',
-        fontWeight: FontWeight.w500,
-        color: AppColors.splashColor,
-      );
+    fontSize: getResponsiveFontSize(context, 14),
+    fontFamily: 'Ubuntu',
+    fontWeight: FontWeight.w500,
+    color: AppColors.splashColor,
+  );
+
 
   static TextStyle styleBold16(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 16),
@@ -43,6 +61,7 @@ abstract class AppTextStyles {
         fontWeight: FontWeight.bold,
         color: Colors.black,
       );
+
 
   static TextStyle styleBold25(context) => TextStyle(
         fontSize: getResponsiveFontSize(context, 25),

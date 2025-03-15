@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:feastly/src/core/constants/colors.dart';
+import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/functions/functions.dart';
+import '../../../home/presentation/screens/HomeScreen.dart';
 import '../auth_bloc/auth_bloc.dart';
 import '../auth_bloc/auth_event.dart';
 import '../auth_bloc/auth_state.dart';
@@ -66,8 +69,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
       ),
     );
     await Future.delayed(const Duration(seconds: 3));
-    // After make Home Screen make this line.
-    //SharedFunctions.pushAndRemoveUntil(context, HomeScreen());
+    // Navigate to home screen
   }
 
   @override
