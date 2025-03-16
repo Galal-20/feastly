@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
-import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../core/functions/functions.dart';
-import '../../../home/presentation/screens/HomeScreen.dart';
 import '../auth_bloc/auth_bloc.dart';
 import '../auth_bloc/auth_event.dart';
 import '../auth_bloc/auth_state.dart';

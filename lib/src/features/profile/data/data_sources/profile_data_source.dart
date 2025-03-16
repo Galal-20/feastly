@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:feastly/src/features/auth/data/datasource/AuthRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

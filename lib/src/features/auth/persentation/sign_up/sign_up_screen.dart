@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/components/text_form_field.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/strings.dart';
-import '../../../../core/functions/functions.dart';
 import '../../../../core/utils/validations.dart';
 import '../auth_bloc/auth_bloc.dart';
 import '../auth_bloc/auth_event.dart';

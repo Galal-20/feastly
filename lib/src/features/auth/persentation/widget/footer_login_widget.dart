@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/strings.dart';
-import '../../../../core/functions/functions.dart';
 import '../../../../core/utils/app_text_styles.dart';
 import '../sign_up/sign_up_screen.dart';
 

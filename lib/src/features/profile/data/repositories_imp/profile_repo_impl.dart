@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:feastly/src/features/profile/data/data_sources/profile_data_source.dart';
 import 'package:feastly/src/features/profile/domain/repositories/profile_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
