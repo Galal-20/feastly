@@ -122,11 +122,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  /*Future<void> _sendEmailVerification(Emitter<AuthState> emit) async {
-    await _authRepository.sendEmailVerification();
-    emit(VerificationEmailSent(
-        message: "A verification email has been sent. Please verify before logging in."));
-  }*/
   Future<void> _sendEmailVerification(Emitter<AuthState> emit) async {
     try {
       debugPrint("Attempting to send verification email...");

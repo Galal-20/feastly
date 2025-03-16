@@ -75,11 +75,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
       ),
     );
     await Future.delayed(const Duration(seconds: 3));
-    SharedPreferencesHelper.saveBool(AppStrings.userLoggedInKey, true);
     navigateToHome();
     // Navigate to home screen
-    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage
-      ()));
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   void navigateToHome() {
