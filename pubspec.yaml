@@ -49,6 +49,8 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   google_sign_in: ^6.3.0
   get_it: ^7.6.4
+  dartz: ^0.10.1
+
 
 
 

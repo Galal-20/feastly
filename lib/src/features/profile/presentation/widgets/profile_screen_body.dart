@@ -2,6 +2,9 @@ import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:feastly/src/features/profile/presentation/widgets/pick_image.dart';
 import 'package:feastly/src/features/profile/presentation/widgets/profile_screen_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/profile_bloc.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({
@@ -24,18 +27,18 @@ class ProfileScreenBody extends StatelessWidget {
               ),
               ProfileScreenFields(),
               /*
-              SizedBox(
-                height: SizeConfig.height * 0.05,
-              ),
-              Button(
-                isLoading: false,
-                text: "Save",
-                onPressed: () {},
-                backgroundColor: AppColors.splashColor,
-                style: AppTextStyles.styleMedium25(context),
-              ),
+            SizedBox(
+              height: SizeConfig.height * 0.05,
+            ),
+            Button(
+              isLoading: false,
+              text: "Save",
+              onPressed: () {},
+              backgroundColor: AppColors.splashColor,
+              style: AppTextStyles.styleMedium25(context),
+            ),
 
-               */
+             */
             ],
           ),
         ),

@@ -45,10 +45,7 @@ abstract class AppRoutes {
       GoRoute(path: kLoginView, builder: (context, state) => LoginScreen()),
       GoRoute(
         path: kProfileView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => ProfileBloc(sl()),
-          child: ProfileScreen(),
-        ),
+        builder: (context, state) => ProfileScreen(),
       )
 
       // GoRoute(

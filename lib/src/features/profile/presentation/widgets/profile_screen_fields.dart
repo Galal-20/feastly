@@ -25,9 +25,9 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
   @override
   void initState() {
     super.initState();
-    final state = context.read<AuthBloc>().state;
-    if (state is Authenticated) {
-      nameController = TextEditingController(text: state.displayName);
+    final state = context.read<ProfileBloc>().state;
+    if (state is ProfileLoaded) {
+      nameController = TextEditingController(text: context.read<ProfileBloc>().myuser.displayName);
     } else {
       nameController = TextEditingController();
     }
@@ -41,7 +41,7 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.read<AuthBloc>().state as Authenticated;
+    final user = context.read<ProfileBloc>().myuser;
 
     return Column(
       spacing: SizeConfig.height * 0.025,
@@ -53,7 +53,7 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
             radius: 8),
         TextFieldClass.buildTextFormField(
             enabled: false,
-            intialValue: state.email,
+            intialValue: user.email,
             hintText: email,
             borderColor: AppColors.splashColor,
             radius: 8),
@@ -82,10 +82,11 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
                   content: Text(hintFullName),
                 ),
               );
-            } else if (nameController.text != state.displayName) {
+            } else if (nameController.text != user.displayName) {
               context.read<ProfileBloc>().add(
                     UpdateProfile(fullName: nameController.text),
                   );
+              user.displayName!= nameController.text;
             }
           },
           backgroundColor: AppColors.splashColor,

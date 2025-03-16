@@ -14,7 +14,9 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return BlocProvider(
-      create: (context) => ProfileBloc(sl()) ,
+      create: (context) =>
+      ProfileBloc(sl(), sl())
+        ..add(ProfileData()),
       child: BlocListener<ProfileBloc, ProfileState>(
         listener: (context, state) {
           if (state is ProfileUpdated) {
@@ -27,7 +29,20 @@ class ProfileScreen extends StatelessWidget {
         },
         child: Scaffold(
           // appBar: CustomAppBar(),
-          body: ProfileScreenBody(),
+          body: BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              if(state is ProfileLoading){
+                return CircularProgressIndicator();
+
+              }
+              if(state is ProfileLoaded || state is ProfileUpdated) {
+                return ProfileScreenBody();
+              }else {
+                return Container();
+              }
+
+            },
+          ),
         ),
       ),
     );

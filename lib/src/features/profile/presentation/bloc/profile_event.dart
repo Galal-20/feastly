@@ -14,3 +14,6 @@ class UpdateProfile extends ProfileEvent {
     required this.fullName,
   });
 }
+class ProfileData extends ProfileEvent {
+
+}

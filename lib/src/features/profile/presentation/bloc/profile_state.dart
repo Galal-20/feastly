@@ -9,6 +9,9 @@ sealed class ProfileState extends Equatable {
 
 final class ProfileInitial extends ProfileState {}
 final class ProfileLoading extends ProfileState {}
+final class ProfileLoaded extends   ProfileState {
+  const ProfileLoaded();
+}
 final class ProfileUpdated extends ProfileState {}
 final class ProfileError extends ProfileState {
   final String message;
