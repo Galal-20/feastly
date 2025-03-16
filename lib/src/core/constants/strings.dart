@@ -17,6 +17,7 @@ class AppStrings {
 
   //  shared pref keys
   static const String onBoardingStatusKey = "onBoardingStatus";
+  static const String userLoggedInKey = "loggedIn";
 }
 
 const String titleOnboarding = "like in a Restaurant but at home";
