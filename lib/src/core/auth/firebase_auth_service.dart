@@ -26,12 +26,6 @@ class FirebaseAuthDataSource {
     }
   }
 
-  /*Future<void> sendEmailVerification() async {
-    User? user = _firebaseAuth.currentUser;
-    if (user != null && !user.emailVerified) {
-      await user.sendEmailVerification();
-    }
-  }*/
   Future<void> sendEmailVerification() async {
     final user = _firebaseAuth.currentUser;
     if (user != null && !user.emailVerified) {
