@@ -5,7 +5,8 @@ import 'package:feastly/src/features/profile/presentation/widgets/profile_screen
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/service_locator/service_locator.dart';
+import '../../../../core/DI/service_locator.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -32,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
           body: BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
               if(state is ProfileLoading){
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
 
               }
               if(state is ProfileLoaded || state is ProfileUpdated) {

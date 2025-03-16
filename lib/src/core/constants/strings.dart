@@ -96,3 +96,4 @@ const String fats = "Fats";
 const String kcal = "Kcal";
 const String vitamins = "Vitamins";
 const String yourRecipes = "Your Recipes";
+const String signOut = "Sign Out";

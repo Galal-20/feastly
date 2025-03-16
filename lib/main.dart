@@ -1,7 +1,7 @@
 import 'package:feastly/bloc_observer.dart';
+import 'package:feastly/src/core/DI/service_locator.dart';
 import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
-import 'package:feastly/src/core/service_locator/service_locator.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/utils/size_config.dart';

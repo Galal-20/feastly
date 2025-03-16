@@ -6,7 +6,7 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class Authenticated extends AuthState {
-  final String displayName;
+   final String displayName;
   final String email;
 
   Authenticated({required this.displayName, required this.email});

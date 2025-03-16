@@ -1,59 +1,43 @@
+import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/components/button.dart';
 import 'package:feastly/src/core/components/text_form_field.dart';
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
-import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_bloc.dart';
-import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_state.dart';
+import 'package:feastly/src/features/auth/data/datasource/AuthRepository.dart';
+
 import 'package:feastly/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-class ProfileScreenFields extends StatefulWidget {
+import '../../../../core/DI/service_locator.dart';
+
+class ProfileScreenFields extends StatelessWidget {
   const ProfileScreenFields({
     super.key,
   });
 
   @override
-  State<ProfileScreenFields> createState() => _ProfileScreenFieldsState();
-}
-
-class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
-  TextEditingController nameController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    final state = context.read<ProfileBloc>().state;
-    if (state is ProfileLoaded) {
-      nameController = TextEditingController(text: context.read<ProfileBloc>().myuser.displayName);
-    } else {
-      nameController = TextEditingController();
-    }
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final user = context.read<ProfileBloc>().myuser;
 
     return Column(
       spacing: SizeConfig.height * 0.025,
       children: [
         TextFieldClass.buildTextFormField(
             hintText: fullName,
-            controller: nameController,
+            controller: context
+                .read<ProfileBloc>()
+                .nameController,
             borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
             enabled: false,
-            intialValue: user.email,
+            intialValue: context
+                .read<ProfileBloc>()
+                .myUser
+                .email,
             hintText: email,
             borderColor: AppColors.splashColor,
             radius: 8),
@@ -76,23 +60,60 @@ class _ProfileScreenFieldsState extends State<ProfileScreenFields> {
           isLoading: false,
           text: save,
           onPressed: () {
-            if (nameController.text.isEmpty) {
+            if (context
+                .read<ProfileBloc>()
+                .nameController
+                .text
+                .isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(hintFullName),
                 ),
               );
-            } else if (nameController.text != user.displayName) {
+            } else if (context
+                .read<ProfileBloc>()
+                .nameController
+                .text != context
+                .read<ProfileBloc>()
+                .myUser
+                .displayName) {
               context.read<ProfileBloc>().add(
-                    UpdateProfile(fullName: nameController.text),
-                  );
-              user.displayName!= nameController.text;
+                UpdateProfile(fullName: context
+                    .read<ProfileBloc>()
+                    .nameController
+                    .text),
+              );
+              context
+                  .read<ProfileBloc>()
+                  .myUser
+                  .displayName != context
+                  .read<ProfileBloc>()
+                  .nameController
+                  .text;
             }
           },
           backgroundColor: AppColors.splashColor,
           style: AppTextStyles.styleMedium25(context),
         ),
+
+        Button(isLoading: false,
+          text: signOut,
+          onPressed: () {
+            sl<AuthRepository>().logOut();
+            context.go(AppRoutes.kLoginView);
+          },
+          backgroundColor: AppColors.splashColor,
+          style: AppTextStyles.styleMedium25(context),
+        )
       ],
     );
   }
+
 }
+
+
+
+
+
+
+

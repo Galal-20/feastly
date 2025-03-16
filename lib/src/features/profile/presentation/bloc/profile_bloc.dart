@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:feastly/src/features/profile/domain/usecases/update_name.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/usecases/get_profile_data_ usecase.dart';
@@ -12,7 +13,9 @@ part 'profile_state.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileUpdateNameUseCase profileUpdateNameUseCase;
   final GetProfileDataUseCase getProfileDataUseCase;
-  late User myuser ;
+  late User myUser ;
+  TextEditingController nameController = TextEditingController( );
+
   ProfileBloc(this.profileUpdateNameUseCase, this.getProfileDataUseCase) : super(ProfileInitial()) {
     on<UpdateProfile>(_onUpdatingProfileRequested);
     on<ProfileData>(_onFetchingUserProfile);
@@ -23,7 +26,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(ProfileLoading());
     try {
       final  user = await getProfileDataUseCase();
-      myuser = user;
+      myUser = user;
+      nameController.text = myUser.displayName!;
       emit(ProfileLoaded());
     } catch (e) {
       emit(ProfileError(message: e.toString()));
