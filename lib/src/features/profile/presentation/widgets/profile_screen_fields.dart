@@ -102,6 +102,8 @@ class ProfileScreenFields extends StatelessWidget {
           onPressed: () {
             sl<AuthRepository>().logOut();
             SharedPreferencesHelper.remove(AppStrings.userLoggedInKey);
+            SharedPreferencesHelper.remove(isVerifiedKey);
+            SharedPreferencesHelper.remove(rememberMeKey);
             context.go(AppRoutes.kLoginView);
           },
           backgroundColor: AppColors.splashColor,
