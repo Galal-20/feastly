@@ -79,8 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is Authenticated) {
           if (_rememberMe) {
             // After make Home Screen
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
           } else {
             // After make Home Screen
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
           }
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(

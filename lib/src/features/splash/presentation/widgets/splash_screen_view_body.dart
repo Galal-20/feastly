@@ -7,6 +7,7 @@ import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenViewBody extends StatefulWidget {
   const SplashScreenViewBody({super.key});
@@ -97,9 +98,14 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
   void checkOnBoardingStatus() async {
     final onBoardingStatus =
         await SharedPreferencesHelper.getBool(AppStrings.onBoardingStatusKey);
+    final prefs = await SharedPreferences.getInstance();
+    final isVerified = prefs.getBool('isVerified') ?? false;
     if (onBoardingStatus != null && onBoardingStatus) {
-      navigateToLogin();
-    } else {
+      if (isVerified) {
+        navigateToHome();
+      } else {
+        navigateToLogin();
+      }    } else {
       navigateToOnBoarding();
     }
   }
@@ -108,5 +114,10 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void navigateToHome() {
+    GoRouter.of(context).go(AppRoutes.kHomePage);
+
   }
 }

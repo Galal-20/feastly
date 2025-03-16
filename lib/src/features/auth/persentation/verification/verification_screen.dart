@@ -23,11 +23,13 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   bool isCooldown = false;
   Timer? _timer;
+  bool verified = false;
 
   @override
   void initState() {
     super.initState();
     _startVerificationCheckTimer();
+
   }
 
   @override
@@ -59,8 +61,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Future<void> _handleVerificationSuccess() async {
     _timer?.cancel();
     // Save login state
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("isLoggedIn", true);
+    // Save verification state in SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isVerified', true);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(verificationSuc),
@@ -70,6 +73,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
     );
     await Future.delayed(const Duration(seconds: 3));
     // Navigate to home screen
+    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage
+      ()));
   }
 
   @override
@@ -101,6 +106,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 );
               } else if (state is EmailVerified) {
                 _handleVerificationSuccess();
+                //_checkEmailVerification();
               }
             },
             child: Center(
