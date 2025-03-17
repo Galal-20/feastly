@@ -39,7 +39,7 @@ class TextFieldClass {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(radius)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius),
-          borderSide: BorderSide(color: borderColor ?? Colors.grey),
+          borderSide: BorderSide(color: borderColor ?? Colors.white),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius),

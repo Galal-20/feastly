@@ -14,7 +14,7 @@ class PublicButton extends StatelessWidget {
 
   const PublicButton({
     super.key,
-    this.backgroundColor = tPrimaryColor,
+    this.backgroundColor = AppColors.tPrimaryColor,
     required this.function,
     this.width,
     required this.text,

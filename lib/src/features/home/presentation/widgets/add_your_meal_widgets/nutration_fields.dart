@@ -12,17 +12,17 @@ class NutrationFields extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CustomRoundedField(label: protein),
-            CustomRoundedField(label: carb),
-            CustomRoundedField(label: fats)
+            CustomRoundedField(label: AppStrings.protein),
+            CustomRoundedField(label: AppStrings.carb),
+            CustomRoundedField(label: AppStrings.fats)
           ],
         ),
         const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CustomRoundedField(label: kcal),
-            CustomRoundedField(label: vitamins),
+            CustomRoundedField(label: AppStrings.kcal),
+            CustomRoundedField(label: AppStrings.vitamins),
           ],
         ),
       ],

@@ -21,7 +21,7 @@ class CustomIconButton extends StatelessWidget {
       icon: Icon(
         icon,
         size: iconSize ?? SizeConfig.width * 0.1,
-        color: iconColor ?? tSecondaryColor,
+        color: iconColor ?? AppColors.tSecondaryColor,
       ),
     );
   }

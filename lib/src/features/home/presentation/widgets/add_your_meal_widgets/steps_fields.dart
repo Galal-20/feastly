@@ -10,7 +10,7 @@ class StepsFields extends StatelessWidget {
     return Column(
       children: [
         TextFieldClass.buildTextFormField(
-          labelText:  step1,
+          labelText:  AppStrings.step1,
           hintText: 'e.g. Mix egg and flour.......',
           validator:
           (value) {
@@ -30,7 +30,7 @@ class StepsFields extends StatelessWidget {
         const SizedBox(height: 20),
         TextFieldClass.buildTextFormField(
           labelText:
-          step2,
+          AppStrings.step2,
           hintText:
           'e.g. Add 2 cups of water...',
           validator:

@@ -17,7 +17,7 @@ class CustomRoundedField extends StatelessWidget {
       width: 100,
       height: 48,
       decoration: BoxDecoration(
-        color: tWhite,
+        color: AppColors.tWhite,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: Colors.grey[400]!,

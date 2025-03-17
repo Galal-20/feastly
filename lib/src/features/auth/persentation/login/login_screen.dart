@@ -114,18 +114,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           children: [
                             TextFieldClass.buildTextFormField(
-                              labelText: labelTextEmail,
-                              hintText: hintEmailText,
+                              borderColor: AppColors.tWhite,
+
+                              labelText: AppStrings.labelTextEmail,
+                              hintText: AppStrings.hintEmailText,
                               radius: 20,
                               textStyle: const TextStyle(color: Colors.white),
-                              hintStyle: const TextStyle(color: Colors.white70),
+                              hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
                                   const Icon(Icons.email, color: Colors.white),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return errorEmailText;
+                                  return AppStrings.errorEmailText;
                                 } else if (!Validation.isValidateEmail(value)) {
-                                  return errorEmailValid;
+                                  return AppStrings.errorEmailValid;
                                 }
                                 return null;
                               },
@@ -134,11 +136,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
-                              labelText: labelTextPass,
-                              hintText: hintPassText,
+                              borderColor: AppColors.tWhite,
+
+                              labelText: AppStrings.labelTextPass,
+                              hintText: AppStrings.hintPassText,
                               radius: 20,
-                              textStyle: const TextStyle(color: Colors.white),
-                              hintStyle: const TextStyle(color: Colors.white70),
+                              textStyle:  TextStyle(color: Colors.white),
+                              hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
                                   const Icon(Icons.lock, color: Colors.white),
                               suffixIcon: IconButton(
@@ -154,10 +158,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               obscureText: _isPasswordHidden,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return errorPassText;
+                                  return AppStrings.errorPassText;
                                 } else if (!Validation.isValidatePassword(
                                     value)) {
-                                  return errorPassValid;
+                                  return AppStrings.errorPassValid;
                                 }
                                 return null;
                               },
@@ -175,9 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   activeColor: Colors.white,
                                   checkColor: Colors.black,
                                 ),
-                                Text(loginCheckBoxText,
-                                    style:
-                                        AppTextStyles.styleMedium16(context)),
+                                Text(AppStrings.loginCheckBoxText,
+                                    style: Theme.of(context).textTheme.bodyMedium!),
                               ],
                             ),
                             const SizedBox(height: 20),
@@ -186,9 +189,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               formKey: _formKey,
                               email: _email,
                               password: _password,
-                              text: login,
-                              style: AppTextStyles.styleBold23(context),
+                              text: AppStrings.login,
                               onPressed: _onLoginPressed,
+                              backgroundColor: AppColors.tWhite,
+                              style: TextStyle(
+                                color: AppColors.splashColor,
+                                fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 20),
                           ],

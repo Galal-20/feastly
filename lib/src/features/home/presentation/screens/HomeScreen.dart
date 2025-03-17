@@ -18,17 +18,17 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            RecipesWidget(recipesType: yourRecipes),
+            RecipesWidget(recipesType: AppStrings.yourRecipes),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Button(
                   isLoading: false,
-                  text: addYourRecipe,
+                  text: AppStrings.addYourRecipe,
                   onPressed: () {
                     context.pushNamed(AppRoutes.kAddUrRecipeView);
                   }),
             ),
-            RecipesWidget(recipesType: trendingMeal),
+            RecipesWidget(recipesType: AppStrings.trendingMeal),
             SizedBox(
               height: 10,
             ),

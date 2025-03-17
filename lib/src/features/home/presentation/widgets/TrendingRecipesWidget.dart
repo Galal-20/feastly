@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/components/recipe_card.dart';
-import '../../../../core/utils/app_text_styles.dart';
 
 class RecipesWidget extends StatelessWidget {
   const RecipesWidget({super.key, required this.recipesType});
@@ -16,7 +15,7 @@ class RecipesWidget extends StatelessWidget {
         children: [
           Text(
             recipesType,
-            style: AppTextStyles.styleBold23(context),
+            style: Theme.of(context).textTheme.displaySmall,
           ),
           SizedBox(height: 10),
           SizedBox(

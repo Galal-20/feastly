@@ -66,7 +66,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
     await prefs.setBool('isVerified', true);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text(verificationSuc),
+        content: Text(AppStrings.verificationSuc),
         backgroundColor: Colors.green,
         duration: Duration(seconds: 3),
       ),
@@ -121,7 +121,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       size: screenWidth * 0.3, color: Colors.white),
                   SizedBox(height: screenHeight * 0.03),
                   Text(
-                    textMessageResend,
+                    AppStrings.textMessageResend,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -139,7 +139,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       ),
                     ),
                     child: Text(
-                      resendEmail,
+                      AppStrings.resendEmail,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: screenWidth * 0.045,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/strings.dart';
@@ -11,13 +10,13 @@ class or_login_now extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: const [
+      children:  [
         Expanded(child: Divider(color: Colors.white)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
-            orLoginNow,
-            style: TextStyle(color: Colors.white),
+            AppStrings.orLoginNow,
+            style: Theme.of(context).textTheme.bodyMedium ,
           ),
         ),
         Expanded(child: Divider(color: Colors.white)),

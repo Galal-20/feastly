@@ -27,11 +27,12 @@ class ProfileScreenFields extends StatelessWidget {
       spacing: SizeConfig.height * 0.025,
       children: [
         TextFieldClass.buildTextFormField(
-            hintText: fullName,
+            hintText: AppStrings.fullName,
+            hintStyle: Theme.of(context).textTheme.labelLarge,
             controller: context
                 .read<ProfileBloc>()
                 .nameController,
-            borderColor: AppColors.splashColor,
+             borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
             enabled: false,
@@ -39,18 +40,21 @@ class ProfileScreenFields extends StatelessWidget {
                 .read<ProfileBloc>()
                 .myUser
                 .email,
-            hintText: email,
+            hintText: AppStrings.email,
+            hintStyle: Theme.of(context).textTheme.labelLarge,
             borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
             intialValue: '01000000000',
-            hintText: phone,
-            borderColor: AppColors.splashColor,
+            hintText: AppStrings.phone,
+            hintStyle: Theme.of(context).textTheme.labelLarge,
+             borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
             enabled: false,
             intialValue: "********",
-            hintText: password,
+            hintText: AppStrings.password,
+            hintStyle: Theme.of(context).textTheme.labelLarge,
             obscureText: true,
             borderColor: AppColors.splashColor,
             radius: 8),
@@ -59,7 +63,7 @@ class ProfileScreenFields extends StatelessWidget {
         ),
         Button(
           isLoading: false,
-          text: save,
+          text: AppStrings.save,
           onPressed: () {
             if (context
                 .read<ProfileBloc>()
@@ -68,7 +72,7 @@ class ProfileScreenFields extends StatelessWidget {
                 .isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(hintFullName),
+                  content: Text(AppStrings.hintFullName),
                 ),
               );
             } else if (context
@@ -94,20 +98,18 @@ class ProfileScreenFields extends StatelessWidget {
             }
           },
           backgroundColor: AppColors.splashColor,
-          style: AppTextStyles.styleMedium25(context),
         ),
 
         Button(isLoading: false,
-          text: signOut,
+          text: AppStrings.signOut,
           onPressed: () {
             sl<AuthRepository>().logOut();
             SharedPreferencesHelper.remove(AppStrings.userLoggedInKey);
-            SharedPreferencesHelper.remove(isVerifiedKey);
-            SharedPreferencesHelper.remove(rememberMeKey);
+            SharedPreferencesHelper.remove(AppStrings.isVerifiedKey);
+            SharedPreferencesHelper.remove(AppStrings.rememberMeKey);
             context.go(AppRoutes.kLoginView);
           },
           backgroundColor: AppColors.splashColor,
-          style: AppTextStyles.styleMedium25(context),
         )
       ],
     );

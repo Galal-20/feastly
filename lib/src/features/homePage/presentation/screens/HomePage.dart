@@ -26,8 +26,8 @@ class HomePage extends StatelessWidget {
                 width: 30,
               ),
               Text(
-                feastly,
-                style: Theme.of(context).textTheme.bodyMedium,
+                AppStrings.feastly,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               const Spacer(),
               Image.asset('assets/images/Notification.png'),

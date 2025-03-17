@@ -15,7 +15,7 @@ class RecommendedForYouWidget extends StatelessWidget{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(recommendedMeal, style: AppTextStyles.styleBold23(context),),
+          Text(AppStrings.recommendedMeal, style:Theme.of(context).textTheme.displaySmall,),
           SizedBox(height: 10),
           ListView.builder(
             shrinkWrap: true,

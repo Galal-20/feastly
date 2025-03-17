@@ -39,7 +39,7 @@ class CustomMealImage extends StatelessWidget {
           bottom: 10,
           left: 100,
           child: CircleAvatar(
-            backgroundColor: tWhite,
+            backgroundColor: AppColors.tWhite,
             child: IconButton(
               onPressed: () {
                 context.read<PickImageBloc>().add(PickImageEvent());

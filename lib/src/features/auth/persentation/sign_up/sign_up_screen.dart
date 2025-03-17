@@ -64,28 +64,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             logo_app(),
                             const SizedBox(height: 30),
                             TextFieldClass.buildTextFormField(
-                              labelText: fullName,
-                              hintText: hintFullName,
+                              borderColor: AppColors.tWhite,
+                              labelText: AppStrings.fullName,
+                              hintText: AppStrings.hintFullName,
                               radius: 20,
                               textStyle: TextStyle(color: Colors.white),
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
                                   Icon(Icons.person, color: Colors.white),
                               onChanged: (value) => fullNameController = value,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return errorFullName;
+                                  return AppStrings.errorFullName;
                                 }
                                 return null;
                               },
                             ),
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
-                              labelText: email,
-                              hintText: hintEmail,
+                              borderColor: AppColors.tWhite,
+
+                              labelText: AppStrings.email,
+                              hintText: AppStrings.hintEmail,
                               radius: 20,
                               textStyle: TextStyle(color: Colors.white),
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
                                   Icon(Icons.email, color: Colors.white),
                               onChanged: (value) => emailController = value,
@@ -93,18 +96,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (value == null ||
                                     value.isEmpty ||
                                     !Validation.isValidateEmail(value)) {
-                                  return errorEmail;
+                                  return AppStrings.errorEmail;
                                 }
                                 return null;
                               },
                             ),
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
-                              labelText: phone,
-                              hintText: hintPhone,
+                              borderColor: AppColors.tWhite,
+
+                              labelText: AppStrings.phone,
+                              hintText: AppStrings.hintPhone,
                               radius: 20,
                               textStyle: TextStyle(color: Colors.white),
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
                                   Icon(Icons.phone, color: Colors.white),
                               onChanged: (value) => phoneController = value,
@@ -112,18 +117,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (value == null ||
                                     value.isEmpty ||
                                     !Validation.isValidPhone(value)) {
-                                  return errorPhone;
+                                  return AppStrings.errorPhone;
                                 }
                                 return null;
                               },
                             ),
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
-                              labelText: password,
-                              hintText: hintPassword,
+                              borderColor: AppColors.tWhite,
+
+                              labelText: AppStrings.password,
+                              hintText: AppStrings.hintPassword,
                               radius: 20,
                               textStyle: TextStyle(color: Colors.white),
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.white),
                               onChanged: (value) => passwordController = value,
                               prefixIcon: Icon(Icons.lock, color: Colors.white),
                               suffixIcon: IconButton(
@@ -141,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (value == null ||
                                     value.isEmpty ||
                                     !Validation.isValidatePassword(value)) {
-                                  return errorPassword;
+                                  return AppStrings.errorPassword;
                                 }
                                 return null;
                               },
@@ -161,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 const Expanded(
                                   child: Text(
-                                    condition,
+                                    AppStrings.condition,
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
@@ -195,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: state is AuthLoading
                                   ? const CircularProgressIndicator()
                                   : const Text(
-                                      register,
+                                AppStrings.register,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),

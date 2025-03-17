@@ -165,7 +165,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _clearPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(rememberMeKey, false);
+    await prefs.setBool(AppStrings.rememberMeKey, false);
     await prefs.clear();
   }
 
@@ -178,7 +178,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await user?.reload();
       if (user != null && user.emailVerified) {
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool(isVerifiedKey, true);
+        await prefs.setBool(AppStrings.isVerifiedKey, true);
 
         emit(EmailVerified());
       }

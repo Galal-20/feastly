@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants/colors.dart';
+
 class Button extends StatelessWidget {
   const Button(
       {super.key,
@@ -27,14 +29,13 @@ class Button extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor:backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          backgroundColor: backgroundColor ?? AppColors.splashColor
         ),
         child: isLoading
             ? CircularProgressIndicator(color: Colors.black)
-            : Text(text, style:style?? TextStyle(color: Colors.black)),
+            : Text(text, style: style ?? Theme.of(context).textTheme.displayMedium!.copyWith(
+          color: AppColors.tWhite
+        ),),
       ),
     );
   }

@@ -15,7 +15,7 @@ class PickImage extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: SizeConfig.width * 0.2,
-          backgroundColor: tgrey,
+          backgroundColor: AppColors.tGrey,
         ),
         Positioned(
           bottom: 0,

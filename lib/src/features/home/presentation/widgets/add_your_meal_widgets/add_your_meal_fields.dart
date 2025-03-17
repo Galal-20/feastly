@@ -10,7 +10,7 @@ class AddYourMealFields extends StatelessWidget {
     return Column(
       children: [
         TextFieldClass.buildTextFormField(
-          labelText: mealType,
+          labelText: AppStrings.mealType,
           hintText: 'e.g. Breakfast, Lunch, Dinner',
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -25,7 +25,7 @@ class AddYourMealFields extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         TextFieldClass.buildTextFormField(
-          labelText: mealName,
+          labelText: AppStrings.mealName,
           hintText: 'e.g. Chicken Salad',
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -40,7 +40,7 @@ class AddYourMealFields extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         TextFieldClass.buildTextFormField(
-          labelText: noOfIngredients,
+          labelText: AppStrings.noOfIngredients,
           hintText: 'e.g. 5',
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -58,7 +58,7 @@ class AddYourMealFields extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         TextFieldClass.buildTextFormField(
-          labelText: time,
+          labelText: AppStrings.time,
           hintText: 'e.g. 30',
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -76,7 +76,7 @@ class AddYourMealFields extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         TextFieldClass.buildTextFormField(
-          labelText: summary,
+          labelText: AppStrings.summary,
           hintText: 'e.g. A delicious salad with fresh ingredients...',
           validator: (value) {
             if (value == null || value.isEmpty) {

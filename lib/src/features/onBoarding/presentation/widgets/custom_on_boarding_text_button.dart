@@ -1,6 +1,8 @@
 import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/colors.dart';
+
 class CustomOnBoardingTextButton extends StatelessWidget {
   const CustomOnBoardingTextButton({
     super.key,
@@ -15,7 +17,9 @@ class CustomOnBoardingTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: AppTextStyles.textBtnStyle(context),
+        style:Theme.of(context).textTheme.displayMedium!.copyWith(
+            color: AppColors.splashColor
+        ),
         textAlign: TextAlign.center,
       ),
     );

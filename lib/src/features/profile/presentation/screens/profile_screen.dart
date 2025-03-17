@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
           if (state is ProfileUpdated) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(profileUpdatedSuccess),
+                content: Text(AppStrings.profileUpdatedSuccess),
               ),
             );
           }

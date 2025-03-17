@@ -16,7 +16,7 @@ class footer_signUp extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       child: const Text(
-        loginNow,
+        AppStrings.loginNow,
         style: TextStyle(color: Colors.white),
       ),
     );

@@ -10,23 +10,23 @@ class IngredientsFields extends StatelessWidget {
     return Column(
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          CustomRoundedField(label: ingredients),
-          CustomRoundedField(label: pieces),
+          CustomRoundedField(label: AppStrings.ingredients),
+          CustomRoundedField(label: AppStrings.pieces),
         ]),
         const SizedBox(height: 16),
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          CustomRoundedField(label: ingredients),
-          CustomRoundedField(label: pieces),
+          CustomRoundedField(label: AppStrings.ingredients),
+          CustomRoundedField(label: AppStrings.pieces),
         ]),
         const SizedBox(height: 16),
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          CustomRoundedField(label: ingredients),
-          CustomRoundedField(label: pieces),
+          CustomRoundedField(label: AppStrings.ingredients),
+          CustomRoundedField(label: AppStrings.pieces),
         ]),
         const SizedBox(height: 16),
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          CustomRoundedField(label: ingredients),
-          CustomRoundedField(label:pieces),
+          CustomRoundedField(label: AppStrings.ingredients),
+          CustomRoundedField(label:AppStrings.pieces),
         ]),
       ],
     );
