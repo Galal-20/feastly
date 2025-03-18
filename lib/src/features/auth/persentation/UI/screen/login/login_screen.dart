@@ -1,23 +1,21 @@
 import 'package:feastly/src/core/app_router/app_routes.dart';
-import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_bloc.dart';
-import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_event.dart';
-import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_state.dart';
 import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../core/components/button.dart';
-import '../../../../core/components/text_form_field.dart';
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/strings.dart';
-import '../../../../core/utils/app_text_styles.dart';
-import '../../../../core/utils/validations.dart';
-
-import '../widget/background_from_widget.dart';
-import '../widget/footer_login_widget.dart';
-import '../widget/google_button_widget.dart';
-import '../widget/logo_app_widget.dart';
+import '../../../../../../core/components/button.dart';
+import '../../../../../../core/components/text_form_field.dart';
+import '../../../../../../core/constants/colors.dart';
+import '../../../../../../core/constants/strings.dart';
+import '../../../../../../core/utils/validations.dart';
+import '../../../auth_bloc/auth_bloc.dart';
+import '../../../auth_bloc/auth_event.dart';
+import '../../../auth_bloc/auth_state.dart';
+import '../../widget/background_from_widget.dart';
+import '../../widget/footer_login_widget.dart';
+import '../../widget/google_button_widget.dart';
+import '../../widget/logo_app_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

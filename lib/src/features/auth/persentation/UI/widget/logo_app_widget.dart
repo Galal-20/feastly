@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/images.dart';
+import '../../../../../core/constants/images.dart';
+
+
 
 class logo_app extends StatelessWidget {
   const logo_app({
