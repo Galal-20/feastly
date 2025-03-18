@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/strings.dart';
+import '../../../../../core/constants/strings.dart';
 import '../screen/login/login_screen.dart';
+
 
 class footer_signUp extends StatelessWidget {
   const footer_signUp({

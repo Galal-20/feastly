@@ -6,7 +6,6 @@ import 'package:feastly/src/features/profile/domain/usecases/update_name.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../features/auth/data/datasource/AuthRepository.dart';
 import '../../features/auth/data/datasource/auth_data_source.dart';
 import '../../features/profile/domain/usecases/get_profile_data_ usecase.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../core/constants/images.dart';
+import '../../../../../core/constants/images.dart';
+
 
 class background_form extends StatelessWidget {
   const background_form({
