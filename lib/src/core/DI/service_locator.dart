@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../features/auth/data/datasource/AuthRepository.dart';
+import '../../features/auth/data/datasource/auth_data_source.dart';
 import '../../features/profile/domain/usecases/get_profile_data_ usecase.dart';
 
 final sl = GetIt.instance;
@@ -16,6 +17,8 @@ class ServiceLocator {
     sl.registerLazySingleton(() => GoogleSignIn());
     sl.registerLazySingleton(() => FirebaseAuthDataSource());
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
+    sl.registerLazySingleton<AuthDataSource>(() => AuthRepository(firebaseAuthService: sl()));
+
 
 
     sl.registerLazySingleton(() => ProfileDataSource(authRepository: sl()));

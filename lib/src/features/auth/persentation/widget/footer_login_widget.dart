@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/strings.dart';
-import '../sign_up/sign_up_screen.dart';
+import '../screen/sign_up/sign_up_screen.dart';
 
 class FooterLogin extends StatelessWidget {
   const FooterLogin({

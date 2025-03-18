@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/DI/service_locator.dart';
+import '../../../auth/data/datasource/auth_data_source.dart';
 
 class ProfileScreenFields extends StatelessWidget {
   const ProfileScreenFields({
