@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constants/images.dart';
-import '../auth_bloc/auth_bloc.dart';
-import '../auth_bloc/auth_event.dart';
+import '../controllers/auth_bloc/auth_bloc.dart';
+import '../controllers/auth_bloc/auth_event.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({

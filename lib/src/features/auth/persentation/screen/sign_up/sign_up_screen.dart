@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/components/text_form_field.dart';
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/strings.dart';
-import '../../../../core/utils/validations.dart';
-import '../auth_bloc/auth_bloc.dart';
-import '../auth_bloc/auth_event.dart';
-import '../auth_bloc/auth_state.dart';
+import '../../../../../core/components/text_form_field.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/strings.dart';
+import '../../../../../core/utils/validations.dart';
+import '../../controllers/auth_bloc/auth_bloc.dart';
+import '../../controllers/auth_bloc/auth_event.dart';
+import '../../controllers/auth_bloc/auth_state.dart';
+import '../../widget/background_from_widget.dart';
+import '../../widget/footer_signUp_widget.dart';
+import '../../widget/google_button_widget.dart';
+import '../../widget/logo_app_widget.dart';
+import '../../widget/or_login_now_widget.dart';
 import '../verification/verification_screen.dart';
-import '../widget/background_from_widget.dart';
-import '../widget/footer_signUp_widget.dart';
-import '../widget/google_button_widget.dart';
-import '../widget/logo_app_widget.dart';
-import '../widget/or_login_now_widget.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
