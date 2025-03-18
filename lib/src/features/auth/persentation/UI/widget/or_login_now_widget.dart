@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/strings.dart';
+import '../../../../../core/constants/strings.dart';
+
 
 class or_login_now extends StatelessWidget {
   const or_login_now({
