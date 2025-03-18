@@ -29,7 +29,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
   void initState() {
     super.initState();
     _startVerificationCheckTimer();
-
   }
 
   @override

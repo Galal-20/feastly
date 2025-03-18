@@ -12,9 +12,10 @@ class CustomOnBoardingSubTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-        color: AppColors.splashColor
-      ),
+      style: Theme.of(context)
+          .textTheme
+          .titleMedium!
+          .copyWith(color: AppColors.splashColor),
       textAlign: TextAlign.center,
     );
   }

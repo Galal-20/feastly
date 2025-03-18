@@ -49,8 +49,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SnackBar(content: Text(state.message)),
                     );
                     if (state.message.contains('verification')) {
-                      Navigator.push(context, MaterialPageRoute(builder:
-                      (context) => VerificationScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VerificationScreen()));
                     }
                   }
                 },
@@ -83,7 +85,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
                               borderColor: AppColors.tWhite,
-
                               labelText: AppStrings.email,
                               hintText: AppStrings.hintEmail,
                               radius: 20,
@@ -104,7 +105,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
                               borderColor: AppColors.tWhite,
-
                               labelText: AppStrings.phone,
                               hintText: AppStrings.hintPhone,
                               radius: 20,
@@ -125,7 +125,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
                               borderColor: AppColors.tWhite,
-
                               labelText: AppStrings.password,
                               hintText: AppStrings.hintPassword,
                               radius: 20,
@@ -202,7 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: state is AuthLoading
                                   ? const CircularProgressIndicator()
                                   : const Text(
-                                AppStrings.register,
+                                      AppStrings.register,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),

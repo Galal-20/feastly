@@ -82,10 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
           GoRouter.of(context).go(AppRoutes.kHomePage);
           if (_rememberMe) {
             // After make Home Screen
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
           } else {
             // After make Home Screen
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
           }
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -115,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             TextFieldClass.buildTextFormField(
                               borderColor: AppColors.tWhite,
-
                               labelText: AppStrings.labelTextEmail,
                               hintText: AppStrings.hintEmailText,
                               radius: 20,
@@ -137,11 +138,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 20),
                             TextFieldClass.buildTextFormField(
                               borderColor: AppColors.tWhite,
-
                               labelText: AppStrings.labelTextPass,
                               hintText: AppStrings.hintPassText,
                               radius: 20,
-                              textStyle:  TextStyle(color: Colors.white),
+                              textStyle: TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
                                   const Icon(Icons.lock, color: Colors.white),
@@ -180,7 +180,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   checkColor: Colors.black,
                                 ),
                                 Text(AppStrings.loginCheckBoxText,
-                                    style: Theme.of(context).textTheme.bodyMedium!),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!),
                               ],
                             ),
                             const SizedBox(height: 20),
@@ -193,8 +195,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: _onLoginPressed,
                               backgroundColor: AppColors.tWhite,
                               style: TextStyle(
-                                color: AppColors.splashColor,
-                                fontWeight: FontWeight.bold),
+                                  color: AppColors.splashColor,
+                                  fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 20),
                           ],

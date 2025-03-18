@@ -10,42 +10,34 @@ class StepsFields extends StatelessWidget {
     return Column(
       children: [
         TextFieldClass.buildTextFormField(
-          labelText:  AppStrings.step1,
+          labelText: AppStrings.step1,
           hintText: 'e.g. Mix egg and flour.......',
-          validator:
-          (value) {
+          validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter first step';
             }
             return null;
           },
-          onChanged:
-          (value) {
+          onChanged: (value) {
             debugPrint('Summary entered: $value');
           },
-          prefixIcon:
-          const Icon(Icons.description),
+          prefixIcon: const Icon(Icons.description),
           maxLines: 2,
         ),
         const SizedBox(height: 20),
         TextFieldClass.buildTextFormField(
-          labelText:
-          AppStrings.step2,
-          hintText:
-          'e.g. Add 2 cups of water...',
-          validator:
-          (value) {
+          labelText: AppStrings.step2,
+          hintText: 'e.g. Add 2 cups of water...',
+          validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter second step';
             }
             return null;
           },
-          onChanged:
-          (value) {
+          onChanged: (value) {
             debugPrint('Summary entered: $value');
           },
-          prefixIcon:
-          const Icon(Icons.description),
+          prefixIcon: const Icon(Icons.description),
           maxLines: 2,
         ),
         const SizedBox(height: 20),

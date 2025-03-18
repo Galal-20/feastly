@@ -22,9 +22,10 @@ class CustomAddMealButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         AppStrings.addYourRecipe,
-        style: Theme.of(context).textTheme.displayMedium!.copyWith(
-          color: AppColors.tWhite
-        ),
+        style: Theme.of(context)
+            .textTheme
+            .displayMedium!
+            .copyWith(color: AppColors.tWhite),
       ),
     );
   }

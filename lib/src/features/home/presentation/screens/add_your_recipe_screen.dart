@@ -14,9 +14,10 @@ class AddYourRecipeScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: AppColors.splashColor),
         title: Text(
           AppStrings.addYourRecipe,
-          style: Theme.of(context).textTheme.displayLarge!.copyWith(
-            color: AppColors.splashColor
-          ),
+          style: Theme.of(context)
+              .textTheme
+              .displayLarge!
+              .copyWith(color: AppColors.splashColor),
         ),
         centerTitle: true,
       ),

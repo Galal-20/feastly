@@ -13,16 +13,16 @@ class FooterLogin extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-         Text(
-           AppStrings.dontHaveMessage,
-           style: Theme.of(context).textTheme.titleLarge,
-         ),
+        Text(
+          AppStrings.dontHaveMessage,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         TextButton(
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => RegisterScreen()));
           },
-          child:  Text(
+          child: Text(
             AppStrings.signUp,
             style: Theme.of(context).textTheme.titleLarge,
           ),

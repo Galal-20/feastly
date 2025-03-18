@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/DI/service_locator.dart';
 
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -15,9 +14,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return BlocProvider(
-      create: (context) =>
-      ProfileBloc(sl(), sl())
-        ..add(ProfileData()),
+      create: (context) => ProfileBloc(sl(), sl())..add(ProfileData()),
       child: BlocListener<ProfileBloc, ProfileState>(
         listener: (context, state) {
           if (state is ProfileUpdated) {
@@ -32,16 +29,14 @@ class ProfileScreen extends StatelessWidget {
           // appBar: CustomAppBar(),
           body: BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
-              if(state is ProfileLoading){
+              if (state is ProfileLoading) {
                 return Center(child: CircularProgressIndicator());
-
               }
-              if(state is ProfileLoaded || state is ProfileUpdated) {
+              if (state is ProfileLoaded || state is ProfileUpdated) {
                 return ProfileScreenBody();
-              }else {
+              } else {
                 return Container();
               }
-
             },
           ),
         ),

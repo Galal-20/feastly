@@ -35,7 +35,7 @@ class AuthRepository {
     if (user != null && !user.emailVerified) {
       await user.sendEmailVerification();
     }
-  }*//*
+  }*/ /*
 
   Future<void> sendEmailVerification() async {
     final user = _firebaseAuth.currentUser;
@@ -105,7 +105,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/auth/firebase_auth_service.dart';
 import 'auth_data_source.dart';
 
-
 class AuthRepository implements AuthDataSource {
   final FirebaseAuthDataSource _firebaseAuthService;
 
@@ -124,10 +123,8 @@ class AuthRepository implements AuthDataSource {
       email: email,
       phone: phone,
       password: password,
-
     );
   }
-
 
   @override
   Future<void> sendEmailVerification() {
@@ -159,8 +156,4 @@ class AuthRepository implements AuthDataSource {
   Future<User?> signInWithGoogle() {
     return _firebaseAuthService.signInWithGoogle();
   }
-
-
 }
-
-

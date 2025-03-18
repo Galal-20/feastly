@@ -17,9 +17,9 @@ class ServiceLocator {
     sl.registerLazySingleton(() => FirebaseAuthDataSource());
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
 
-
     sl.registerLazySingleton(() => ProfileDataSource(authRepository: sl()));
-    sl.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(profileDataSource: sl()));
+    sl.registerLazySingleton<ProfileRepo>(
+        () => ProfileRepoImpl(profileDataSource: sl()));
     sl.registerLazySingleton(() => ProfileUpdateNameUseCase(repository: sl()));
     sl.registerLazySingleton(() => GetProfileDataUseCase(repository: sl()));
   }

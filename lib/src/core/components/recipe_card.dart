@@ -53,9 +53,10 @@ class RecipeCard extends StatelessWidget {
                   ),
                   Text(
                     time,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: AppColors.splashColor
-                      ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: AppColors.splashColor),
                   )
                 ],
               ),

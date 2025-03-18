@@ -1,4 +1,5 @@
 import 'package:feastly/src/features/ai_chat/presentation/widgets/ai_chat_screen_body.dart';
+import 'package:feastly/src/features/ai_chat/presentation/widgets/custom_ai_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class AiChatScreen extends StatelessWidget {
@@ -7,13 +8,7 @@ class AiChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'AI Chat',
-          style: Theme.of(context).textTheme.displayLarge,
-        ),
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: buildCustomAiAppBar(context),
       backgroundColor: Colors.white,
       body: AiChatScreenBody(),
     );

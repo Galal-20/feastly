@@ -13,7 +13,8 @@ class footer_signUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       child: const Text(
         AppStrings.loginNow,

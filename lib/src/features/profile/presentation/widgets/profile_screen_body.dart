@@ -3,7 +3,6 @@ import 'package:feastly/src/features/profile/presentation/widgets/pick_image.dar
 import 'package:feastly/src/features/profile/presentation/widgets/profile_screen_fields.dart';
 import 'package:flutter/material.dart';
 
-
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({
     super.key,

@@ -8,12 +8,11 @@ class ProfileRepoImpl extends ProfileRepo {
   ProfileRepoImpl({required this.profileDataSource});
 
   @override
-  Future< User> getUserProfile() async{
+  Future<User> getUserProfile() async {
     try {
-    final  user=  await profileDataSource.getUserProfile();
+      final user = await profileDataSource.getUserProfile();
 
-    return user;
-
+      return user;
     } catch (e) {
       throw Exception(e);
     }
