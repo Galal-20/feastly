@@ -10,6 +10,7 @@ class AppColors {
   static const tWhite = Colors.white;
   static const tBlack = Colors.black;
   static const tGrey = Color(0xFFD9D9D9);
+  static const tG = Color(0xFF9586AC);
 }
 
 
