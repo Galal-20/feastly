@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                     if (state.message.contains('verification')) {
                       Navigator.push(context, MaterialPageRoute(builder:
-                      (context) => VerificationScreen()));
+                          (context) => VerificationScreen()));
                     }
                   }
                 },
@@ -71,7 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textStyle: TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
-                                  Icon(Icons.person, color: Colors.white),
+                              Icon(Icons.person, color: Colors.white),
                               onChanged: (value) => fullNameController = value,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -90,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textStyle: TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
-                                  Icon(Icons.email, color: Colors.white),
+                              Icon(Icons.email, color: Colors.white),
                               onChanged: (value) => emailController = value,
                               validator: (value) {
                                 if (value == null ||
@@ -111,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textStyle: TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
-                                  Icon(Icons.phone, color: Colors.white),
+                              Icon(Icons.phone, color: Colors.white),
                               onChanged: (value) => phoneController = value,
                               validator: (value) {
                                 if (value == null ||
@@ -180,17 +180,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onPressed: (state is AuthLoading || !agreeToTerms)
                                   ? null
                                   : () {
-                                      if (_formKey.currentState!.validate()) {
-                                        BlocProvider.of<AuthBloc>(context).add(
-                                          SignUpRequest(
-                                            fullName: fullNameController,
-                                            email: emailController,
-                                            phone: phoneController,
-                                            password: passwordController,
-                                          ),
-                                        );
-                                      }
-                                    },
+                                if (_formKey.currentState!.validate()) {
+                                  BlocProvider.of<AuthBloc>(context).add(
+                                    SignUpRequest(
+                                      fullName: fullNameController,
+                                      email: emailController,
+                                      phone: phoneController,
+                                      password: passwordController,
+                                    ),
+                                  );
+                                }
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 foregroundColor: AppColors.splashColor,
@@ -203,9 +203,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ? const CircularProgressIndicator()
                                   : const Text(
                                 AppStrings.register,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const SizedBox(height: 20),
                             or_login_now(),
