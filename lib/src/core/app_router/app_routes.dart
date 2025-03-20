@@ -1,12 +1,13 @@
 import 'package:feastly/src/core/utils/app_animations.dart';
 import 'package:feastly/src/features/ai_chat/presentation/views/ai_chat_screen.dart';
-import 'package:feastly/src/features/auth/persentation/login/login_screen.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:feastly/src/features/home/presentation/bloc/HomeBloc.dart';
 import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/auth/auth_bloc/auth_bloc.dart';
+import '../../features/auth/auth_bloc/auth_event.dart';
 import '../../features/auth/persentation/UI/screen/login/login_screen.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
 import '../DI/service_locator.dart';
