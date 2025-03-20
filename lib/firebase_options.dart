@@ -50,19 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBp7-fKzAkRLsxP-D7_nE6ryyDPhmx0TAU',
-    appId: '1:632756796635:android:ddf9b2a72ed739b36160fe',
-    messagingSenderId: '632756796635',
-    projectId: 'feastly-a5138',
-    storageBucket: 'feastly-a5138.firebasestorage.app',
+    apiKey: 'AIzaSyBa0tsEEdCH5bLxieztyqmG-beUU4xqsEs',
+    appId: '1:137749814345:android:369e6fcc4275f33bd9b398',
+    messagingSenderId: '137749814345',
+    projectId: 'meal-recommendations---b1',
+    storageBucket: 'meal-recommendations---b1.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDUe15dEmvSmFU8POXTFrzIlrzy7qwfJto',
-    appId: '1:632756796635:ios:12e3bd4dc75936d26160fe',
-    messagingSenderId: '632756796635',
-    projectId: 'feastly-a5138',
-    storageBucket: 'feastly-a5138.firebasestorage.app',
+    apiKey: 'AIzaSyBUgNVNrYm4Ph5Ysk77eIC3HNyn0hwL6kY',
+    appId: '1:137749814345:ios:cd271bff36eb23abd9b398',
+    messagingSenderId: '137749814345',
+    projectId: 'meal-recommendations---b1',
+    storageBucket: 'meal-recommendations---b1.appspot.com',
+    androidClientId: '137749814345-00kbtjnqhnof1pe8kee4j334uehm8nqf.apps.googleusercontent.com',
+    iosClientId: '137749814345-4bctiifr8ikslbfitqq48j2anl56u0ou.apps.googleusercontent.com',
     iosBundleId: 'com.example.feastly',
   );
+
 }

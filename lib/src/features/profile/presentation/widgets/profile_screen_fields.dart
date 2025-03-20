@@ -6,7 +6,6 @@ import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
 import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
-import 'package:feastly/src/features/auth/data/datasource/AuthRepository.dart';
 
 import 'package:feastly/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/DI/service_locator.dart';
+import '../../../auth/data/datasource/auth_data_source.dart';
 
 class ProfileScreenFields extends StatelessWidget {
   const ProfileScreenFields({
