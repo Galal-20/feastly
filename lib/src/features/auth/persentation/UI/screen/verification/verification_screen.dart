@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/constants/colors.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:feastly/src/core/constants/strings.dart';
-import '../../../auth_bloc/auth_bloc.dart';
-import '../../../auth_bloc/auth_event.dart';
-import '../../../auth_bloc/auth_state.dart';
 import '../../widget/background_from_widget.dart';
 
 class VerificationScreen extends StatefulWidget {

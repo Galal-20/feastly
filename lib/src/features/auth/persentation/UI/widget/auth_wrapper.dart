@@ -1,7 +1,7 @@
+import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../auth_bloc/auth_bloc.dart';
-import '../../auth_bloc/auth_state.dart';
 import '../screen/login/login_screen.dart';
 import '../screen/verification/verification_screen.dart';
 
@@ -10,6 +10,7 @@ class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
 
   @override
+
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {

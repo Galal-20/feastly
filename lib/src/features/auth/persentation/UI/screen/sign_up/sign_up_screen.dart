@@ -1,12 +1,12 @@
+import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/components/text_form_field.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/strings.dart';
 import '../../../../../../core/utils/validations.dart';
-import '../../../auth_bloc/auth_bloc.dart';
-import '../../../auth_bloc/auth_event.dart';
-import '../../../auth_bloc/auth_state.dart';
 import '../../widget/background_from_widget.dart';
 import '../../widget/footer_signUp_widget.dart';
 import '../../widget/google_button_widget.dart';
@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                     if (state.message.contains('verification')) {
                       Navigator.push(context, MaterialPageRoute(builder:
-                      (context) => VerificationScreen()));
+                          (context) => VerificationScreen()));
                     }
                   }
                 },
@@ -71,7 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textStyle: TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
-                                  Icon(Icons.person, color: Colors.white),
+                              Icon(Icons.person, color: Colors.white),
                               onChanged: (value) => fullNameController = value,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -90,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textStyle: TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
-                                  Icon(Icons.email, color: Colors.white),
+                              Icon(Icons.email, color: Colors.white),
                               onChanged: (value) => emailController = value,
                               validator: (value) {
                                 if (value == null ||
@@ -111,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textStyle: TextStyle(color: Colors.white),
                               hintStyle: const TextStyle(color: Colors.white),
                               prefixIcon:
-                                  Icon(Icons.phone, color: Colors.white),
+                              Icon(Icons.phone, color: Colors.white),
                               onChanged: (value) => phoneController = value,
                               validator: (value) {
                                 if (value == null ||
@@ -180,17 +180,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onPressed: (state is AuthLoading || !agreeToTerms)
                                   ? null
                                   : () {
-                                      if (_formKey.currentState!.validate()) {
-                                        BlocProvider.of<AuthBloc>(context).add(
-                                          SignUpRequest(
-                                            fullName: fullNameController,
-                                            email: emailController,
-                                            phone: phoneController,
-                                            password: passwordController,
-                                          ),
-                                        );
-                                      }
-                                    },
+                                if (_formKey.currentState!.validate()) {
+                                  BlocProvider.of<AuthBloc>(context).add(
+                                    SignUpRequest(
+                                      fullName: fullNameController,
+                                      email: emailController,
+                                      phone: phoneController,
+                                      password: passwordController,
+                                    ),
+                                  );
+                                }
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
                                 foregroundColor: AppColors.splashColor,
@@ -203,9 +203,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ? const CircularProgressIndicator()
                                   : const Text(
                                 AppStrings.register,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const SizedBox(height: 20),
                             or_login_now(),
