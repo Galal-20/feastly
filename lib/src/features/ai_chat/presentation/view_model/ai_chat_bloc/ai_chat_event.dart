@@ -5,3 +5,5 @@ class AiChatRecommendMealEvent extends AiChatEvent {
 
   AiChatRecommendMealEvent({required this.inputText});
 }
+
+class AiChatSendBtnEvent extends AiChatEvent {}

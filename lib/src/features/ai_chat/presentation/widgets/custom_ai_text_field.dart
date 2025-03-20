@@ -8,11 +8,18 @@ class CustomAiTextField extends StatelessWidget {
   const CustomAiTextField({
     super.key,
     this.onSubmitted,
+    this.onIconTap,
+    this.enabled = true,
+    this.controller,
   });
   final void Function(String)? onSubmitted;
+  final void Function()? onIconTap;
+  final bool enabled;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
@@ -44,16 +51,20 @@ class CustomAiTextField extends StatelessWidget {
             .copyWith(color: Color(0xff767676)),
         suffixIcon: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SvgPicture.asset(
-            Assets.submitIcon,
-            colorFilter:
-                ColorFilter.mode(AppColors.splashColor, BlendMode.srcIn),
-            width: 30,
-            height: 30,
+          child: InkWell(
+            onTap: onIconTap,
+            child: SvgPicture.asset(
+              Assets.submitIcon,
+              colorFilter:
+                  ColorFilter.mode(AppColors.splashColor, BlendMode.srcIn),
+              width: 30,
+              height: 30,
+            ),
           ),
         ),
       ),
       onSubmitted: onSubmitted,
+      enabled: enabled,
     );
   }
 }

@@ -17,29 +17,41 @@ class AiChatScreenBody extends StatelessWidget {
         vertical: SizeConfig.height * 0.03,
         horizontal: SizeConfig.width * 0.03,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: BlocBuilder<AiChatBloc, AiChatState>(
-            builder: (context, state) {
-              if (state is AiChatRecommendMealSuccess) {
-                return CustomAiFoodContainer(
-                  aiChatEntity: state.aiChatEntity,
-                );
-              } else if (state is AiChatRecommendMealFail) {
-                return Text(state.errMsg);
-              }
-              return SizedBox();
-            },
-          )),
-          CustomAiTextField(
-            onSubmitted: (text) {
-              context
-                  .read<AiChatBloc>()
-                  .add(AiChatRecommendMealEvent(inputText: text));
-            },
-          ),
-        ],
+      child: BlocBuilder<AiChatBloc, AiChatState>(
+        builder: (context, state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: BlocBuilder<AiChatBloc, AiChatState>(
+                  builder: (context, state) {
+                    if (state is AiChatRecommendMealSuccess) {
+                      return CustomAiFoodContainer(
+                        aiChatEntity: state.aiChatEntity,
+                      );
+                    } else if (state is AiChatRecommendMealFail) {
+                      return Text(state.errMsg);
+                    }
+                    return SizedBox();
+                  },
+                ),
+              ),
+              CustomAiTextField(
+                onSubmitted: (text) {
+                  context
+                      .read<AiChatBloc>()
+                      .add(AiChatRecommendMealEvent(inputText: text));
+                },
+                controller: context.read<AiChatBloc>().textEditingController,
+                onIconTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  context.read<AiChatBloc>().add(AiChatSendBtnEvent());
+                },
+                enabled: state is! AiChatRecommendMealLoading,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
