@@ -32,3 +32,4 @@ class FooterLogin extends StatelessWidget {
     );
   }
 }
+
