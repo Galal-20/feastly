@@ -1,4 +1,7 @@
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_state.dart';
 import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,9 +12,6 @@ import '../../../../../../core/components/text_form_field.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/strings.dart';
 import '../../../../../../core/utils/validations.dart';
-import '../../../auth_bloc/auth_bloc.dart';
-import '../../../auth_bloc/auth_event.dart';
-import '../../../auth_bloc/auth_state.dart';
 import '../../widget/background_from_widget.dart';
 import '../../widget/footer_login_widget.dart';
 import '../../widget/google_button_widget.dart';
