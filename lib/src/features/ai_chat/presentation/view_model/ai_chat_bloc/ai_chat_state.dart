@@ -1,16 +1,21 @@
-part of 'ai_chat_bloc.dart';
+import 'package:feastly/src/features/ai_chat/domain/entities/ai_chat_entity.dart';
 
-sealed class AiChatState extends Equatable {
+abstract class AiChatState {
   const AiChatState();
-
-  @override
-  List<Object> get props => [];
 }
 
 final class AiChatInitial extends AiChatState {}
 
 final class AiChatRecommendMealLoading extends AiChatState {}
 
-final class AiChatRecommendMealSuccess extends AiChatState {}
+final class AiChatRecommendMealSuccess extends AiChatState {
+  final AiChatEntity aiChatEntity;
 
-final class AiChatRecommendMealFail extends AiChatState {}
+  const AiChatRecommendMealSuccess({required this.aiChatEntity});
+}
+
+final class AiChatRecommendMealFail extends AiChatState {
+  final String errMsg;
+
+  const AiChatRecommendMealFail({required this.errMsg});
+}

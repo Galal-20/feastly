@@ -1,12 +1,14 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
+import 'package:feastly/src/features/ai_chat/domain/entities/ai_chat_entity.dart';
 import 'package:flutter/material.dart';
 
 class CustomAiFoodContainer extends StatelessWidget {
   const CustomAiFoodContainer({
     super.key,
+    required this.aiChatEntity,
   });
-
+  final AiChatEntity aiChatEntity;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -20,25 +22,25 @@ class CustomAiFoodContainer extends StatelessWidget {
             width: SizeConfig.width * 0.7,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    'https://media.istockphoto.com/id/1421688556/photo/beef-shawarma-on-a-dark-background-shawarma-with-beef-in-pita-bread.jpg?s=2048x2048&w=is&k=20&c=nEkg52X3RhTVmAZpBpfBvIsoN_RI4WGdtmPAu7e635Y='),
+                image: NetworkImage(aiChatEntity.imageNetworkUrl),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(30),
             ),
           ),
           Text(
-            'Shawrma',
+            aiChatEntity.foodName,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
                 ),
+            overflow: TextOverflow.ellipsis,
           ),
           Row(
             children: [
               Text(
-                '10 Ingrediants',
+                '${aiChatEntity.noOfIngredients} Ingrediants',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Color(0xff8A8A8A),
                       fontWeight: FontWeight.w500,
@@ -48,7 +50,7 @@ class CustomAiFoodContainer extends StatelessWidget {
                 width: SizeConfig.width * 0.04,
               ),
               Text(
-                '14 Mins',
+                '${aiChatEntity.time} Mins',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       color: AppColors.splashColor,
                       fontWeight: FontWeight.w500,

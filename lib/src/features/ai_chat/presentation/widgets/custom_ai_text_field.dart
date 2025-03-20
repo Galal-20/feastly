@@ -7,8 +7,9 @@ import 'package:flutter_svg/svg.dart';
 class CustomAiTextField extends StatelessWidget {
   const CustomAiTextField({
     super.key,
+    this.onSubmitted,
   });
-
+  final void Function(String)? onSubmitted;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -52,6 +53,7 @@ class CustomAiTextField extends StatelessWidget {
           ),
         ),
       ),
+      onSubmitted: onSubmitted,
     );
   }
 }

@@ -1,14 +1,7 @@
-part of 'ai_chat_bloc.dart';
-
-sealed class AiChatEvent extends Equatable {
-  const AiChatEvent();
-
-  @override
-  List<Object> get props => [];
-}
+abstract class AiChatEvent {}
 
 class AiChatRecommendMealEvent extends AiChatEvent {
   final String inputText;
 
-  const AiChatRecommendMealEvent({required this.inputText});
+  AiChatRecommendMealEvent({required this.inputText});
 }

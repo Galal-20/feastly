@@ -2,7 +2,7 @@ class AiChatEntity {
   final String imageNetworkUrl;
   final String foodName;
   final int noOfIngredients;
-  final String time;
+  final int time;
 
   AiChatEntity({
     required this.imageNetworkUrl,

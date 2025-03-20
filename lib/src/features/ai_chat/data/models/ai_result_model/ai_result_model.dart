@@ -6,13 +6,13 @@ import 'nutritional_information.dart';
 class AiResultModel extends AiChatEntity {
   String foodTitle;
   String typeOfMeat;
-  String cookingTime;
-  String servings;
+  int cookingTime;
+  int servings;
   String summary;
   String imageUrl;
   NutritionalInformation nutritionalInformation;
   List<Ingredient> ingredients;
-  List<String> directions;
+  List<dynamic> directions;
 
   AiResultModel({
     required this.foodTitle,
@@ -34,8 +34,8 @@ class AiResultModel extends AiChatEntity {
   factory AiResultModel.fromJson(Map<String, dynamic> json) => AiResultModel(
         foodTitle: json['food_title'] as String,
         typeOfMeat: json['type_of_meat'] as String,
-        cookingTime: json['cooking_time'] as String,
-        servings: json['servings'] as String,
+        cookingTime: json['cooking_time'] as int,
+        servings: json['servings'] as int,
         summary: json['summary'] as String,
         imageUrl: json['image_url'] as String,
         nutritionalInformation: NutritionalInformation.fromJson(
@@ -43,7 +43,7 @@ class AiResultModel extends AiChatEntity {
         ingredients: (json['ingredients'] as List<dynamic>)
             .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
             .toList(),
-        directions: json['directions'] as List<String>,
+        directions: json['directions'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,8 +61,8 @@ class AiResultModel extends AiChatEntity {
   AiResultModel copyWith({
     String? foodTitle,
     String? typeOfMeat,
-    String? cookingTime,
-    String? servings,
+    int? cookingTime,
+    int? servings,
     String? summary,
     String? imageUrl,
     NutritionalInformation? nutritionalInformation,
