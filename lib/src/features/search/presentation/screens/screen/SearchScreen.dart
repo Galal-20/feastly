@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../widget/SearchAnchorWidget.dart';
 import '../widget/recipeCard.dart';
 
