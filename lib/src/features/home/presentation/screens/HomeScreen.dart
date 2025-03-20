@@ -1,48 +1,60 @@
-import 'package:feastly/src/core/app_router/app_routes.dart';
-import 'package:feastly/src/core/components/button.dart';
-import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/features/home/presentation/widgets/TrendingRecipesWidget.dart';
+import 'package:feastly/src/features/home/presentation/widgets/build_app_floating_buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../core/constants/strings.dart';
 import '../widgets/RecommededForYouWidget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    animation = Tween<double>(begin: 0, end: 1).animate(controller);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            RecipesWidget(recipesType: AppStrings.yourRecipes),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Button(
-                  isLoading: false,
-                  text: AppStrings.addYourRecipe,
-                  onPressed: () {
-                    context.pushNamed(AppRoutes.kAddUrRecipeView);
-                  }),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                RecipesWidget(recipesType: AppStrings.yourRecipes),
+                RecipesWidget(recipesType: AppStrings.trendingMeal),
+                SizedBox(
+                  height: 10,
+                ),
+                RecommendedForYouWidget(),
+              ],
             ),
-            RecipesWidget(recipesType: AppStrings.trendingMeal),
-            SizedBox(
-              height: 10,
-            ),
-            RecommendedForYouWidget(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.splashColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        onPressed: () {},
-        child: Icon(Icons.add, color: Colors.white),
+          ),
+          BuildAppFloatingButtons(
+            animation: animation,
+            controller: controller,
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/constants/strings.dart';
-import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:feastly/src/features/home/presentation/widgets/add_your_meal_widgets/add_your_meal_body.dart';
 import 'package:flutter/material.dart';
 
