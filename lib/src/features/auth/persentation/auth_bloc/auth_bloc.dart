@@ -3,16 +3,16 @@ import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../data/datasource/AuthRepository.dart';
+import '../../data/datasource/auth_data_source.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _authRepository;
+  final AuthDataSource _authDataSource;
 
-  AuthBloc({required AuthRepository authRepository})
-      : _authRepository = authRepository,
+
+  AuthBloc({required AuthDataSource authRepository})
+      : _authDataSource = authRepository,
         super(AuthInitial()) {
     on<SignUpRequest>(_onSignUpRequested);
     on<LoginRequest>(_onLoginRequested);
@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       SignUpRequest event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      final user = await _authRepository.signUp(
+      final user = await _authDataSource.signUp(
         fullName: event.fullName,
         email: event.email,
         phone: event.phone,
@@ -48,7 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       LoginRequest event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      final user = await _authRepository.logIn(
+      final user = await _authDataSource.logIn(
         email: event.email,
         password: event.password,
       );
@@ -82,7 +82,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onSignOutRequested(
       AuthEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    await _authRepository.logOut();
+    await _authDataSource.logOut();
     await _clearPreferences();
     emit(Unauthenticated());
   }
@@ -105,7 +105,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       GoogleSignInRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      final user = await _authRepository.signInWithGoogle();
+      final user = await _authDataSource.signInWithGoogle();
 
       if (user != null) {
         //await _saveUserSession(user.email, user.displayName);
@@ -125,7 +125,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _sendEmailVerification(Emitter<AuthState> emit) async {
     try {
       debugPrint("Attempting to send verification email...");
-      await _authRepository.sendEmailVerification();
+      await _authDataSource.sendEmailVerification();
       debugPrint("Verification email sent successfully!");
 
       emit(VerificationEmailSent(
@@ -174,7 +174,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
 
     try {
-      final user = _authRepository.getCurrentUser();
+      final user = _authDataSource.getCurrentUser();
       await user?.reload();
       if (user != null && user.emailVerified) {
         final prefs = await SharedPreferences.getInstance();

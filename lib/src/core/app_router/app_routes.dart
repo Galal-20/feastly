@@ -7,7 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:feastly/src/features/home/presentation/bloc/HomeBloc.dart';
 import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/auth/persentation/UI/screen/login/login_screen.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
+import '../DI/service_locator.dart';
 
 abstract class AppRoutes {
   static const kSplashScreen = '/';
@@ -20,7 +22,6 @@ abstract class AppRoutes {
   static const kAiChatView = '/AiChatView';
   static const kErrorView = '/ErrorView';
   static const kAddUrRecipeView = '/AddUrRecipeView';
-
   static final router = GoRouter(
     initialLocation: AppRoutes.kAiChatView,
     routes: [
@@ -50,6 +51,14 @@ abstract class AppRoutes {
         ),
       ),
 
+      GoRoute(
+        path: kLoginView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthBloc(authRepository: sl())..add(AutoLoginRequested()), // Now
+          // registered properly
+          child: LoginScreen(),
+        ),
+      ),
       // GoRoute(
       //   path: kLoginView,
       //   pageBuilder: (context, state) =>

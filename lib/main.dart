@@ -2,11 +2,10 @@ import 'package:feastly/bloc_observer.dart';
 import 'package:feastly/src/core/DI/service_locator.dart';
 import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
-import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_bloc.dart';
-import 'package:feastly/src/features/auth/persentation/auth_bloc/auth_event.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,10 +23,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => NavBloc()),
-        BlocProvider(
-          create: (context) =>
-              AuthBloc(authRepository: sl())..add(AutoLoginRequested()),
-        ),
+        BlocProvider(create: (context) => AuthBloc(authRepository: sl())),
       ],
       child: const MyApp(),
     ),
