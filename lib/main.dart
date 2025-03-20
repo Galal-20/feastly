@@ -1,21 +1,33 @@
+import 'package:feastly/bloc_observer.dart';
+import 'package:feastly/src/core/DI/service_locator.dart';
 import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
-import 'package:feastly/src/features/homePage/presentation/screens/HomePage.dart';
+import 'package:feastly/src/core/constants/strings.dart';
+import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 
-void main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider(create: (context) => NavBloc()),
-    ],
-      child: const MyApp()));
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  ServiceLocator.init();
+  Bloc.observer = MyBlocObserver();
+
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NavBloc()),
+        BlocProvider(create: (context) => AuthBloc(authRepository: sl())),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,29 +35,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme(context),
-        // supportedLocales: const [Locale('en', ''), Locale('ar', '')],
-        // localizationsDelegates: const [
-        //   AppLocalizations.delegate,
-        //   GlobalMaterialLocalizations.delegate,
-        //   GlobalWidgetsLocalizations.delegate,
-        //   GlobalCupertinoLocalizations.delegate,
-        // ],
-        // localeResolutionCallback: (locale, supportedLocales) {
-        //   for (var supportedLocale in supportedLocales) {
-        //     if (supportedLocale.languageCode == locale?.languageCode) {
-        //       return supportedLocale;
-        //     }
-        //   }
-        //   return supportedLocales.first;
-        // },
-        // home: HomePage(),
-        routerConfig: AppRoutes.router
-
-      );
+    SizeConfig.init(context);
+    return MaterialApp.router(
+      theme: AppTheme.lightTheme(context),
+      routerConfig: AppRoutes.router,
+      debugShowCheckedModeBanner: false,
+      title: AppStrings.appName,
+    );
   }
 }
-

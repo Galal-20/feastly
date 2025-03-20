@@ -36,7 +36,7 @@ class RecipeCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 name,
-                style: AppTextStyles.styleBold25(context).copyWith(color: Colors.black),
+                style: Theme.of(context).textTheme.displayMedium,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
@@ -46,14 +46,16 @@ class RecipeCard extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "$noOfIngredients $ingredients ",
-                    style: AppTextStyles.styleRegular14(context).copyWith(color: greyColor),
+                    "$noOfIngredients ${AppStrings.ingredients} ",
+                    style: Theme.of(context).textTheme.bodyLarge,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   Text(
                     time,
-                      style: AppTextStyles.styleRegular14(context),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: AppColors.splashColor
+                      ),
                   )
                 ],
               ),

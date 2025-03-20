@@ -1,26 +1,87 @@
 {
   "project_info": {
-    "project_number": "632756796635",
-    "project_id": "feastly-a5138",
-    "storage_bucket": "feastly-a5138.firebasestorage.app"
+    "project_number": "137749814345",
+    "project_id": "meal-recommendations---b1",
+    "storage_bucket": "meal-recommendations---b1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:632756796635:android:ddf9b2a72ed739b36160fe",
+        "mobilesdk_app_id": "1:137749814345:android:369e6fcc4275f33bd9b398",
         "android_client_info": {
           "package_name": "com.example.feastly"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "137749814345-p6b0k8db851rhm6k3tf3i2n3u704ikiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBp7-fKzAkRLsxP-D7_nE6ryyDPhmx0TAU"
+          "current_key": "AIzaSyBa0tsEEdCH5bLxieztyqmG-beUU4xqsEs"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137749814345-p6b0k8db851rhm6k3tf3i2n3u704ikiu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137749814345-hnlusci2k47h092hm567rbne0nc9ccce.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mealRecommendationB1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137749814345:android:fdb76ad655f9b68dd9b398",
+        "android_client_info": {
+          "package_name": "com.example.meal_recommendations"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137749814345-00kbtjnqhnof1pe8kee4j334uehm8nqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meal_recommendations",
+            "certificate_hash": "8f4a66954ddea1a62be847fcb949e7fbc2f81d66"
+          }
+        },
+        {
+          "client_id": "137749814345-p6b0k8db851rhm6k3tf3i2n3u704ikiu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa0tsEEdCH5bLxieztyqmG-beUU4xqsEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137749814345-p6b0k8db851rhm6k3tf3i2n3u704ikiu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137749814345-hnlusci2k47h092hm567rbne0nc9ccce.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mealRecommendationB1"
+              }
+            }
+          ]
         }
       }
     }

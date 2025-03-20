@@ -1,6 +1,5 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/constants/strings.dart';
-import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomAddMealButton extends StatelessWidget {
@@ -17,12 +16,14 @@ class CustomAddMealButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        backgroundColor: splashColor,
+        backgroundColor: AppColors.splashColor,
       ),
       onPressed: onPressed,
       child: Text(
-        addYourRecipe,
-        style: AppTextStyles.styleMedium25(context),
+        AppStrings.addYourRecipe,
+        style: Theme.of(context).textTheme.displayMedium!.copyWith(
+          color: AppColors.tWhite
+        ),
       ),
     );
   }

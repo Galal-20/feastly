@@ -1,33 +1,54 @@
+import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
+import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
+import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
+import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:feastly/src/features/home/presentation/bloc/HomeBloc.dart';
 import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import '../../features/auth/persentation/UI/screen/login/login_screen.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
-
+import '../DI/service_locator.dart';
 
 abstract class AppRoutes {
   static const kSplashScreen = '/';
-  static const kAuthHomeView = '/AuthHomeView';
+  static const kOnBoardingView = '/OnBoardingView';
   static const kLoginView = '/LoginView';
   static const kRegisterView = '/RegisterView';
+  static const kProfileView = '/ProfileView';
   static const kHomeScreen = '/HomeScreen';
   static const kHomePage = '/HomePage';
   static const kAiResultView = '/AiResultView';
   static const kErrorView = '/ErrorView';
-  static const kAddurRecipeView = '/AddurRecipeView';
-
+  static const kAddUrRecipeView = '/AddUrRecipeView';
   static final router = GoRouter(
-    initialLocation: AppRoutes.kHomePage,
+    initialLocation: AppRoutes.kSplashScreen,
     routes: [
-      // GoRoute(
-      //   path: kSplashScreen,
-      //   builder: (context, state) => const SplashScreenView(),
-      // ),
-      // GoRoute(
-      //   path: kAuthHomeView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customGrowTransition(state, const AuthHomeView()),
-      // ),
+      GoRoute(
+        path: kSplashScreen,
+        builder: (context, state) => const SplashScreenView(),
+      ),
+      GoRoute(
+        path: kOnBoardingView,
+        builder: (context, state) => const OnBoardingView(),
+      ),
+      GoRoute(path: kHomePage, builder: (context, state) => const HomePage()),
+      GoRoute(
+        path: kAddUrRecipeView,
+        name: kAddUrRecipeView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => PickImageBloc(),
+          child: const AddYourRecipeScreen(),
+        ),
+      ),
+      GoRoute(
+        path: kLoginView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthBloc(authRepository: sl())..add(AutoLoginRequested()), // Now
+          // registered properly
+          child: LoginScreen(),
+        ),
+      ),
       // GoRoute(
       //   path: kLoginView,
       //   pageBuilder: (context, state) =>
@@ -47,6 +68,11 @@ abstract class AppRoutes {
       //       )),
       // ),
       // GoRoute(
+      //   path: kHomeView,
+      //   pageBuilder: (context, state) =>
+      //       AppAnimations.customGrowTransition(state, const HomeView()),
+      // ),
+      // GoRoute(
       //   path: kErrorView,
       //   pageBuilder: (context, state) => AppAnimations.customGrowTransition(
       //       state,
@@ -55,20 +81,6 @@ abstract class AppRoutes {
       //         onPressed: (state.extra as ErrorScreenArgs).onPressed,
       //       )),
       // ),
-      GoRoute(
-        path: kHomePage,
-        builder: (context, state) => const HomePage()
-      ),
-      GoRoute(
-        path: kAddurRecipeView,
-        name: kAddurRecipeView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => PickImageBloc(),
-          child: const AddYourRecipeScreen(),
-        ),
-      ),
-
-
     ],
   );
 }

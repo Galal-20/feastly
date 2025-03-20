@@ -20,7 +20,7 @@ class CustomMealImage extends StatelessWidget {
               imagePath = state.imagePath;
             }
             return CircleAvatar(
-              backgroundColor: splashColor,
+              backgroundColor: AppColors.splashColor,
               radius: 65,
               backgroundImage:
                   imagePath != null ? FileImage(File(imagePath)) : null,
@@ -39,7 +39,7 @@ class CustomMealImage extends StatelessWidget {
           bottom: 10,
           left: 100,
           child: CircleAvatar(
-            backgroundColor: tWhite,
+            backgroundColor: AppColors.tWhite,
             child: IconButton(
               onPressed: () {
                 context.read<PickImageBloc>().add(PickImageEvent());

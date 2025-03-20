@@ -1,7 +1,6 @@
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../constants/strings.dart';
 
@@ -53,8 +52,7 @@ class RecommendedCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
                     name,
-                    style: AppTextStyles.styleBold25(context)
-                        .copyWith(color: Colors.black),
+                    style: Theme.of(context).textTheme.displayLarge,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -64,15 +62,16 @@ class RecommendedCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "$noOfIngredients $ingredients ",
-                        style: AppTextStyles.styleRegular20(context)
-                            .copyWith(color: greyColor),
+                        "$noOfIngredients ${AppStrings.ingredients} ",
+                        style:Theme.of(context).textTheme.titleSmall,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
                       Text(
                         time,
-                        style: AppTextStyles.styleRegular20(context),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: AppColors.splashColor
+                        ),
                       )
                     ],
                   ),
