@@ -26,7 +26,22 @@ abstract class RetrofitServices {
 }
 
 // create Dio Object
+// Increases connect timeout for better handling
+// Sets Accept header for JSON requests
 createDioObject() {
+  Dio dio = Dio()
+    ..options.connectTimeout = Duration(seconds: 5)
+    ..options.receiveTimeout = Duration(seconds: 10)
+    ..options.headers = {'Accept': 'application/json'}
+    ..interceptors.add(LogInterceptor(
+      request: true,
+      requestBody: true,
+      responseBody: true,
+      error: true,
+    ));
+  return dio;
+}
+/*createDioObject() {
   Dio dio = Dio();
   dio
     ..options.connectTimeout = Duration(milliseconds: 1000)
@@ -38,4 +53,4 @@ createDioObject() {
     requestBody: true,
   ));
   return dio;
-}
+}*/

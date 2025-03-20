@@ -20,16 +20,12 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  late var vertical;
-  late var horizontal;
 
   String selectedFilter = "Default";
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    vertical = MediaQuery.of(context).size.height * 0.02;
-    horizontal = MediaQuery.of(context).size.width * 0.02;
   }
 
   @override
@@ -42,15 +38,14 @@ class _SearchScreenState extends State<SearchScreen> {
         child: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
             List<Meal> meals = [];
-
             if (state is SearchSuccess) {
               meals = state.meals;
             }
-
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: vertical, horizontal: horizontal),
+                    vertical: MediaQuery.of(context).size.height * 0.02,
+                    horizontal: MediaQuery.of(context).size.width * 0.02),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
