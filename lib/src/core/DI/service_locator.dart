@@ -1,10 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:feastly/src/core/auth/firebase_auth_service.dart';
+import 'package:feastly/src/core/network/pixabay_api.dart';
 import 'package:feastly/src/core/network/retrofit.dart';
+import 'package:feastly/src/features/ai_chat/data/data_source/image_remote_data_source.dart';
 import 'package:feastly/src/features/ai_chat/data/data_source/remote_data_source.dart';
 import 'package:feastly/src/features/ai_chat/data/repos/ai_chat_repo_impl.dart';
+import 'package:feastly/src/features/ai_chat/data/repos/get_image_repo_impl.dart';
 import 'package:feastly/src/features/ai_chat/domain/repos/ai_chat_repo.dart';
+import 'package:feastly/src/features/ai_chat/domain/repos/get_image_repo.dart';
 import 'package:feastly/src/features/ai_chat/domain/use_case/get_ai_chat_response_use_case.dart';
+import 'package:feastly/src/features/ai_chat/domain/use_case/get_image_use_case.dart';
 import 'package:feastly/src/features/profile/data/data_sources/profile_data_source.dart';
 import 'package:feastly/src/features/profile/data/repositories_imp/profile_repo_impl.dart';
 import 'package:feastly/src/features/profile/domain/repositories/profile_repo.dart';
@@ -41,5 +46,12 @@ class ServiceLocator {
         () => AiChatRepoImpl(aiRemoteDataSource: sl<AiRemoteDataSource>()));
     sl.registerLazySingleton<GetAiChatResponseUseCase>(
         () => GetAiChatResponseUseCase(aiChatRepo: sl<AiChatRepo>()));
+    sl.registerLazySingleton<PixabayApi>(() => PixabayApi(createDioObject()));
+    sl.registerLazySingleton<ImageRemoteDataSource>(
+        () => ImageRemoteDataSourceImpl(pixabayApi: sl<PixabayApi>()));
+    sl.registerLazySingleton<GetImageRepo>(() =>
+        GetImageRepoImpl(imageRemoteDataSource: sl<ImageRemoteDataSource>()));
+    sl.registerLazySingleton<GetImageUseCase>(
+        () => GetImageUseCase(getImageRepo: sl<GetImageRepo>()));
   }
 }

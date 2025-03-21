@@ -1,5 +1,6 @@
 import 'package:feastly/src/core/DI/service_locator.dart';
 import 'package:feastly/src/features/ai_chat/domain/use_case/get_ai_chat_response_use_case.dart';
+import 'package:feastly/src/features/ai_chat/domain/use_case/get_image_use_case.dart';
 import 'package:feastly/src/features/ai_chat/presentation/view_model/ai_chat_bloc/ai_chat_bloc.dart';
 import 'package:feastly/src/features/ai_chat/presentation/widgets/ai_chat_screen_body.dart';
 import 'package:feastly/src/features/ai_chat/presentation/widgets/custom_ai_app_bar.dart';
@@ -18,7 +19,8 @@ class AiChatScreen extends StatelessWidget {
       appBar: buildCustomAiAppBar(context),
       backgroundColor: Colors.white,
       body: BlocProvider(
-        create: (context) => AiChatBloc(sl<GetAiChatResponseUseCase>()),
+        create: (context) =>
+            AiChatBloc(sl<GetAiChatResponseUseCase>(), sl<GetImageUseCase>()),
         child: AiChatScreenBody(),
       ),
     );

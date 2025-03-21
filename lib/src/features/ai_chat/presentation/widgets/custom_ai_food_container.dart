@@ -18,7 +18,9 @@ class CustomAiFoodContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomAiContainerImageWidget(),
+          CustomAiContainerImageWidget(
+            imageUrl: aiChatEntity.imageNetworkUrl,
+          ),
           SizedBox(
             height: SizeConfig.height * 0.01,
           ),

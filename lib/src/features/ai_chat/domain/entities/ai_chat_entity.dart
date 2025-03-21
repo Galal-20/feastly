@@ -1,5 +1,5 @@
 class AiChatEntity {
-  final String imageNetworkUrl;
+  String imageNetworkUrl;
   final String foodName;
   final int noOfIngredients;
   final int time;

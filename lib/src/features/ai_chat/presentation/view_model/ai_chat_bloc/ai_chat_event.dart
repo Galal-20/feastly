@@ -7,3 +7,9 @@ class AiChatRecommendMealEvent extends AiChatEvent {
 }
 
 class AiChatSendBtnEvent extends AiChatEvent {}
+
+// class GetImageEvent extends AiChatEvent {
+//   final String foodName;
+
+//   GetImageEvent({required this.foodName});
+// }
