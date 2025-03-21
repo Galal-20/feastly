@@ -15,24 +15,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       SearchQueryChanged event, Emitter<SearchState> emit) async {
     emit(SearchLoading());
 
-    /*try {
-      final response = await searchUseCase.search(event.query, event.filter);
-
-      if (response.meals != null && response.meals!.isNotEmpty) {
-        emit(SearchSuccess(response.meals!));
-      } else {
-        emit(SearchError("No meals found."));
-      }
-    } catch (e) {
-      emit(SearchError("Something went wrong: $e"));
-    }*/
-    // Handles network errors separately
     try {
-      final response = await searchUseCase.search(event.query, event.filter);
-      if (response.meals != null && response.meals!.isNotEmpty) {
-        emit(SearchSuccess(response.meals!));
+      final recipes = await searchUseCase.search(event.query, event.filter);
+
+      if (recipes.isNotEmpty) {
+        emit(SearchSuccess(recipes));
       } else {
-        emit(SearchError("No results found for '${event.query}'."));
+        emit(SearchError("No results found for '${event.query}'"));
       }
     } on DioException catch (e) {
       emit(SearchError("Network error: ${e.message}"));
@@ -40,5 +29,4 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchError("Unexpected error occurred. Please try again."));
     }
   }
-
 }

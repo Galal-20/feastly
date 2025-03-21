@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/network/retrofit.dart';
-import '../../../../mealDetails/data/models/meal.dart';
-import '../../../domain/usecases/uaseCase.dart';
+import '../../../../../core/DI/service_locator.dart';
+import '../../../domain/entities/entity.dart';
 import '../../bloc/SearchBloc.dart';
 import '../../bloc/SearchEvent.dart';
 import '../../bloc/SearchState.dart';
@@ -11,8 +10,6 @@ import '../widget/SearchAnchorWidget.dart';
 import '../widget/recipeCard.dart';
 
 class SearchScreen extends StatefulWidget {
-  static const String routeName = "Search Screen";
-
   const SearchScreen({super.key});
 
   @override
@@ -20,32 +17,28 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-
   String selectedFilter = "Default";
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocProvider(
-        create: (context) =>
-            SearchBloc(SearchUseCase(RetrofitServices(createDioObject()))),
+        create: (context) => SearchBloc(sl()),
         child: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
-            List<Meal> meals = [];
+            List<RecipeEntity> recipes = [];
+
             if (state is SearchSuccess) {
-              meals = state.meals;
+              recipes = state.recipes;
             }
+
             return SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.02,
-                    horizontal: MediaQuery.of(context).size.width * 0.02),
+                  vertical: MediaQuery.of(context).size.height * 0.02,
+                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -72,15 +65,15 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: ListView.builder(
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(),
-                          itemCount: meals.length,
+                          itemCount: recipes.length,
                           itemBuilder: (context, index) {
-                            final meal = meals[index];
+                            final recipe = recipes[index];
                             return recipeCard(
-                              meal.strMeal ?? "",
-                              meal.strCategory ?? "",
-                              meal.strArea ?? "",
-                              false, //Handle Fav
-                              meal.strMealThumb ?? "",
+                              recipe.strMeal ?? "",
+                              recipe.strCategory ?? "",
+                              recipe.strArea ?? "",
+                              false, // Handle Fav
+                              recipe.strMealThumb ?? "",
                             );
                           },
                         ),

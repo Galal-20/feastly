@@ -1,14 +1,14 @@
-import 'package:dio/dio.dart';
-import '../models/model.dart';
-
-abstract class RecipeRemoteDataSource {
-  Future<List<RecipeModel>> searchMeals(String query);
-}
-
-class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
-  final Dio dio;
-
-  RecipeRemoteDataSourceImpl(this.dio);
+// import 'package:dio/dio.dart';
+// import '../models/model.dart';
+//
+// abstract class RecipeRemoteDataSource {
+//   Future<List<RecipeModel>> searchMeals(String query);
+// }
+//
+// class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
+//   final Dio dio;
+//
+//   RecipeRemoteDataSourceImpl(this.dio);
 
 /*  @override
   Future<List<RecipeModel>> searchMeals(String query) async {
@@ -32,10 +32,44 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
     }
   }*/
 
+//   @override
+//   Future<List<RecipeModel>> searchMeals(String query) async {
+//     try {
+//       final response = await dio.get("https://www.themealdb.com/api/json/v1/1/search.php?s=$query");
+//
+//       if (response.statusCode == 200) {
+//         final meals = response.data['meals'] as List?;
+//         return meals != null
+//             ? meals.map((meal) => RecipeModel.fromJson(meal)).toList()
+//             : [];
+//       }
+//       throw DioException(requestOptions: response.requestOptions, response: response);
+//     } on DioException catch (e) {
+//       throw Exception("Dio Error: ${e.message}");
+//     } catch (e) {
+//       throw Exception("Unexpected Error: $e");
+//     }
+//   }
+// }
+
+import 'package:dio/dio.dart';
+import '../models/model.dart';
+
+abstract class RecipeRemoteDataSource {
+  Future<List<RecipeModel>> searchMeals(String query);
+}
+
+class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
+  final Dio dio;
+
+  RecipeRemoteDataSourceImpl(this.dio);
+
   @override
   Future<List<RecipeModel>> searchMeals(String query) async {
     try {
-      final response = await dio.get("https://www.themealdb.com/api/json/v1/1/search.php?s=$query");
+      final response = await dio.get(
+          "https://www.themealdb.com/api/json/v1/1/search.php?s=$query"
+      );
 
       if (response.statusCode == 200) {
         final meals = response.data['meals'] as List?;
@@ -43,7 +77,10 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
             ? meals.map((meal) => RecipeModel.fromJson(meal)).toList()
             : [];
       }
-      throw DioException(requestOptions: response.requestOptions, response: response);
+      throw DioException(
+        requestOptions: response.requestOptions,
+        response: response,
+      );
     } on DioException catch (e) {
       throw Exception("Dio Error: ${e.message}");
     } catch (e) {
@@ -51,4 +88,3 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
     }
   }
 }
-
