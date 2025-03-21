@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 class CustomRoundedField extends StatelessWidget {
   final String label;
   final void Function(String)? onChanged;
+  final TextEditingController? controller;
 
   const CustomRoundedField({
     super.key,
     required this.label,
-    this.onChanged,
+    this.onChanged, this.controller,
   });
 
   @override
@@ -25,6 +26,7 @@ class CustomRoundedField extends StatelessWidget {
       ),
       child: Center(
         child: TextFormField(
+          controller:controller ,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return "Enter value";

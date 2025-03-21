@@ -1,20 +1,19 @@
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
-
 import '../constants/strings.dart';
 
 class RecipeCard extends StatelessWidget {
-  final String imagePath;
   final String name;
   final String noOfIngredients;
   final String time;
+  final Widget child;
 
-  RecipeCard({
-    required this.imagePath,
+  const RecipeCard({
+    super.key,
     required this.name,
     required this.noOfIngredients,
     required this.time,
+    required this.child,
   });
 
   @override
@@ -30,33 +29,41 @@ class RecipeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.asset(imagePath)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                name,
-                style: Theme.of(context).textTheme.displayMedium,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+              borderRadius: BorderRadius.circular(15),
+              child: SizedBox(
+                height: 90,
+                width: double.infinity,
+                child: child,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "$noOfIngredients ${AppStrings.ingredients} ",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    name,
+                    style: Theme.of(context).textTheme.displayMedium,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
-                  Text(
-                    time,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: AppColors.splashColor
+                  Row(
+                    children: [
+                      Text(
+                        "$noOfIngredients ${AppStrings.ingredients} ",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                  )
+                      Text(
+                        "$time ${AppStrings.minutes} ",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: AppColors.splashColor),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
