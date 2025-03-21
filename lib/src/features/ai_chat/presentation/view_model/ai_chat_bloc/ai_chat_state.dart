@@ -11,11 +11,11 @@ final class AiChatRecommendMealLoading extends AiChatState {}
 final class AiChatRecommendMealSuccess extends AiChatState {
   final AiChatEntity aiChatEntity;
 
-  const AiChatRecommendMealSuccess({required this.aiChatEntity});
+  AiChatRecommendMealSuccess({required this.aiChatEntity});
 }
 
 final class AiChatRecommendMealFail extends AiChatState {
   final String errMsg;
 
-  const AiChatRecommendMealFail({required this.errMsg});
+  AiChatRecommendMealFail({required this.errMsg});
 }

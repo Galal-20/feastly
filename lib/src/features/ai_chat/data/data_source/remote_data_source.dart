@@ -64,6 +64,9 @@ Now, process the following user input: [$message],and remove comments and don't 
         response.output!.replaceFirst('json', '').replaceAll('```', '').trim();
 
     Map<String, dynamic> jsonMap = jsonDecode(proccessedResponse);
+    if (jsonMap.containsKey('error')) {
+      throw GeminiException(jsonMap['error']);
+    }
     return AiResultModel.fromJson(jsonMap);
   }
 }
