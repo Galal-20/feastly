@@ -17,7 +17,7 @@ class AiChatScreenBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: AiChatScreenTopWidget(),
+            child: SingleChildScrollView(child: AiChatScreenTopWidget()),
           ),
           AiChatScreenBottomWidget(),
         ],
