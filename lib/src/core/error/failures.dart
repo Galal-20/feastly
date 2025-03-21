@@ -6,6 +6,18 @@ abstract class Failures {
 
 class GeminiFailures extends Failures {
   GeminiFailures({required super.message});
+
+  @override
+  String toString() => message;
+
+  @override
+  int get hashCode => message.hashCode;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GeminiFailures &&
+          runtimeType == other.runtimeType &&
+          message == other.message;
 }
 
 class UserFailures extends Failures {

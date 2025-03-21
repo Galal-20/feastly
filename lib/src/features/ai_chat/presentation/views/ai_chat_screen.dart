@@ -1,4 +1,5 @@
 import 'package:feastly/src/core/DI/service_locator.dart';
+import 'package:feastly/src/core/constants/keys.dart';
 import 'package:feastly/src/features/ai_chat/domain/use_case/get_ai_chat_response_use_case.dart';
 import 'package:feastly/src/features/ai_chat/domain/use_case/get_image_use_case.dart';
 import 'package:feastly/src/features/ai_chat/presentation/view_model/ai_chat_bloc/ai_chat_bloc.dart';
@@ -13,7 +14,7 @@ class AiChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Gemini.init(apiKey: 'AIzaSyAae3716tSU-vMeK7vQJ7HXn503hr0q-vo');
+    Gemini.init(apiKey: googleApiKey);
 
     return Scaffold(
       appBar: buildCustomAiAppBar(context),
