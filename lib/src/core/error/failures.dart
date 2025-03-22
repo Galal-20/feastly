@@ -23,3 +23,10 @@ class GeminiFailures extends Failures {
 class UserFailures extends Failures {
   UserFailures({required super.message});
 }
+class ServerFailure extends Failure {
+  ServerFailure({required super.errormessage});
+}
+
+class NetworkFailure extends Failure {
+  NetworkFailure({required super.errormessage});
+}

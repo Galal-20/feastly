@@ -20,9 +20,9 @@ class _RetrofitServices implements RetrofitServices {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<MealResponse> getMealById(String mealId) async {
+  Future<MealResponse> getMealById(String id) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'i': mealId};
+    final queryParameters = <String, dynamic>{r'i': id};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MealResponse>(
