@@ -10,17 +10,13 @@ class TextFieldClass {
     Widget? suffixIcon,
     bool obscureText = false,
     Color? borderColor,
-    TextStyle? textStyle ,
+    TextStyle? textStyle,
     TextStyle? hintStyle,
     int maxLines = 1,
     double radius = 4,
     bool? enabled,
     String? intialValue,
     TextEditingController? controller,
-
-
-
-
   }) {
     return TextFormField(
       controller: controller,
@@ -29,7 +25,7 @@ class TextFieldClass {
       maxLines: maxLines,
       onChanged: onChanged,
       obscureText: obscureText,
-      style:  textStyle,
+      style: textStyle,
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
@@ -43,8 +39,8 @@ class TextFieldClass {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius),
-          borderSide: BorderSide(
-              color: borderColor ?? Colors.white, width: 2.0),
+          borderSide:
+              BorderSide(color: borderColor ?? Colors.white, width: 2.0),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         floatingLabelStyle: const TextStyle(color: Colors.white),
@@ -53,5 +49,3 @@ class TextFieldClass {
     );
   }
 }
-
-

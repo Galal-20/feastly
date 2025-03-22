@@ -7,8 +7,6 @@ import '../bloc/NavBloc.dart';
 import '../bloc/NavEvent.dart';
 import '../bloc/NavState.dart';
 
-
-
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({super.key});
 
@@ -32,10 +30,14 @@ class CustomBottomNavBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildNavItem(context, "assets/svg/home.svg", 0, state.selectedIndex),
-                  _buildNavItem(context, "assets/svg/heart.svg", 1, state.selectedIndex),
-                  _buildNavItem(context, "assets/svg/search.svg", 2, state.selectedIndex),
-                  _buildNavItem(context, "assets/svg/user.svg", 3, state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/home.svg", 0, state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/heart.svg", 1, state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/search.svg", 2, state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/user.svg", 3, state.selectedIndex),
                 ],
               ),
             ),
@@ -45,7 +47,8 @@ class CustomBottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(BuildContext context, String svgPath, int index, int selectedIndex) {
+  Widget _buildNavItem(
+      BuildContext context, String svgPath, int index, int selectedIndex) {
     bool isSelected = index == selectedIndex;
 
     return GestureDetector(
@@ -57,16 +60,16 @@ class CustomBottomNavBar extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected ? AppColors.splashColor : Colors.transparent,
           shape: BoxShape.circle,
-          boxShadow: isSelected ? [BoxShadow(color: Colors.black26, blurRadius: 5)] : [],
+          boxShadow: isSelected
+              ? [BoxShadow(color: Colors.black26, blurRadius: 5)]
+              : [],
         ),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: SvgPicture.asset(
             svgPath,
             colorFilter: ColorFilter.mode(
-                isSelected ? Colors.white : Colors.black,
-                BlendMode.srcIn
-            ),
+                isSelected ? Colors.white : Colors.black, BlendMode.srcIn),
           ),
         ),
       ),

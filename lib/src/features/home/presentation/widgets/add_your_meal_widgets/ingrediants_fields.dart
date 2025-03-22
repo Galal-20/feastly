@@ -26,7 +26,7 @@ class IngredientsFields extends StatelessWidget {
         const SizedBox(height: 16),
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           CustomRoundedField(label: AppStrings.ingredients),
-          CustomRoundedField(label:AppStrings.pieces),
+          CustomRoundedField(label: AppStrings.pieces),
         ]),
       ],
     );

@@ -38,9 +38,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.0.0
+  flutter_gemini: ^3.0.0
   flutter_localization: ^0.3.1
   flutter_svg: ^2.0.17
   get_it: ^7.6.4
+  gif_view: ^1.0.1
   go_router: ^14.8.1
   google_fonts: ^6.2.1
   google_sign_in: ^6.3.0
@@ -49,6 +51,7 @@ dependencies:
   json_annotation: ^4.9.0
   json_serializable: ^6.9.4
   lottie: ^3.3.1
+  mockito: ^5.4.5
   retrofit: ^4.4.2
   retrofit_generator: ^9.1.9
   shared_preferences: ^2.5.2

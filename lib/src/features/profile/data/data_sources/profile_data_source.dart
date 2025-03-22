@@ -9,15 +9,13 @@ class ProfileDataSource {
 
   Future<User> getUserProfile() async {
     try {
-      final User  user =  authRepository.getCurrentUser() as User;
+      final User user = authRepository.getCurrentUser() as User;
 
       return user;
-
-    } on FirebaseAuthException  catch (e) {
+    } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
     }
   }
-
 
   Future<void> updateProfile({
     required String fullName,

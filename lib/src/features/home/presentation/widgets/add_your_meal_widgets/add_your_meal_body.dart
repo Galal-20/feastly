@@ -23,15 +23,19 @@ class AddYourMealBody extends StatelessWidget {
           const Center(child: CustomMealImage()),
           const SizedBox(height: 20),
           AddYourMealFields(),
-          Text(AppStrings.nutrition, style: Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: AppColors.splashColor
-          )),
+          Text(AppStrings.nutrition,
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(color: AppColors.splashColor)),
           const SizedBox(height: 16),
           NutrationFields(),
           const SizedBox(height: 20),
-          Text(AppStrings.ingredients, style: Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: AppColors.splashColor
-          )),
+          Text(AppStrings.ingredients,
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(color: AppColors.splashColor)),
           const SizedBox(height: 20),
           IngredientsFields(),
           const SizedBox(height: 20),

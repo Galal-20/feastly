@@ -40,8 +40,7 @@ class PublicButton extends StatelessWidget {
           padding: const EdgeInsets.all(4.0),
           child: Text(
             text,
-            style: TextStyle(color: textColor,
-                fontSize: 16),
+            style: TextStyle(color: textColor, fontSize: 16),
           ),
         ),
       ),

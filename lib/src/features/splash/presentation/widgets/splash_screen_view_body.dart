@@ -105,7 +105,8 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
         navigateToHome();
       } else {
         navigateToLogin();
-      }    } else {
+      }
+    } else {
       navigateToOnBoarding();
     }
   }
@@ -118,6 +119,5 @@ class _SplashScreenViewBodyState extends State<SplashScreenViewBody>
 
   void navigateToHome() {
     GoRouter.of(context).go(AppRoutes.kHomePage);
-
   }
 }

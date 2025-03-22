@@ -5,7 +5,7 @@ import 'package:feastly/src/features/mealDetails/domain/repositories/get_meal_de
 
 class GetMealDetailsRepositoryImpl implements GetMealDetailsRepository{
   @override
-  Future<Either<Failure, MealEntity>> getMealDetails({required int id}) {
+  Future<Either<Failures, MealEntity>> getMealDetails({required int id}) {
     // TODO: implement getMealDetails
     throw UnimplementedError();
   }

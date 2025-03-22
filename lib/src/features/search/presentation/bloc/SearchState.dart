@@ -36,3 +36,4 @@ class SearchError extends SearchState {
 
   SearchError(this.message);
 }
+

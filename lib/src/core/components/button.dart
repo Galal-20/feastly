@@ -5,12 +5,14 @@ import '../constants/colors.dart';
 class Button extends StatelessWidget {
   const Button(
       {super.key,
-        required this.isLoading,
-        GlobalKey<FormState>? formKey,
-        this.email,
-        this.password,
-        required this.text,
-        required this.onPressed, this.backgroundColor, this.style})
+      required this.isLoading,
+      GlobalKey<FormState>? formKey,
+      this.email,
+      this.password,
+      required this.text,
+      required this.onPressed,
+      this.backgroundColor,
+      this.style})
       : _formKey = formKey;
 
   final bool isLoading;
@@ -29,13 +31,17 @@ class Button extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? AppColors.splashColor
-        ),
+            backgroundColor: backgroundColor ?? AppColors.splashColor),
         child: isLoading
             ? CircularProgressIndicator(color: Colors.black)
-            : Text(text, style: style ?? Theme.of(context).textTheme.displayMedium!.copyWith(
-          color: AppColors.tWhite
-        ),),
+            : Text(
+                text,
+                style: style ??
+                    Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .copyWith(color: AppColors.tWhite),
+              ),
       ),
     );
   }
