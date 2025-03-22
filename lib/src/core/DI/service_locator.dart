@@ -17,9 +17,12 @@ import 'package:feastly/src/features/profile/domain/usecases/update_name.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import '../../features/auth/data/datasource/auth_data_source.dart';
 import '../../features/profile/domain/usecases/get_profile_data_ usecase.dart';
+import '../../features/search/data/data_sources/RecipeRemote.dart';
+import '../../features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
+import '../../features/search/domain/repositories/RecipeRepository.dart';
+import '../../features/search/domain/usecases/uaseCase.dart';
 
 final sl = GetIt.instance;
 
@@ -53,5 +56,14 @@ class ServiceLocator {
         GetImageRepoImpl(imageRemoteDataSource: sl<ImageRemoteDataSource>()));
     sl.registerLazySingleton<GetImageUseCase>(
         () => GetImageUseCase(getImageRepo: sl<GetImageRepo>()));
+    sl.registerLazySingleton(() => Dio());
+
+    sl.registerLazySingleton<RecipeRemoteDataSource>(
+        () => RecipeRemoteDataSourceImpl(sl()));
+
+    sl.registerLazySingleton<RecipeRepository>(
+        () => RecipeRepositoryImpl(sl()));
+    sl.registerLazySingleton(() => SearchUseCase(sl()));
   }
 }
+

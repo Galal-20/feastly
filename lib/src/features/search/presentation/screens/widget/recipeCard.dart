@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-Widget recipeCard(String title, String category, String ingredients,
-    String time, bool isFavorite) {
+Widget recipeCard(
+  String title,
+  String category,
+  String area,
+  bool isFavorite,
+  String imageUrl,
+) {
   return Card(
     color: Colors.white,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -13,8 +18,8 @@ Widget recipeCard(String title, String category, String ingredients,
         children: [
           ClipRRect(
               borderRadius: BorderRadius.circular(70),
-              child: Image(
-                image: AssetImage("assets/images/dish1.png"),
+              child: Image.network(
+                imageUrl,
                 width: 110,
                 height: 110,
                 fit: BoxFit.cover,
@@ -41,11 +46,7 @@ Widget recipeCard(String title, String category, String ingredients,
                 ),
                 SizedBox(height: 4),
                 Text(
-                  "$ingredients ",
-                  style: TextStyle(color: Colors.black54, fontSize: 14),
-                ),
-                Text(
-                  "$time ",
+                  "$area ",
                   style: TextStyle(color: Colors.black54, fontSize: 14),
                 ),
                 SizedBox(height: 4),
