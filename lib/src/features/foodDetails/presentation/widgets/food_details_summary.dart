@@ -1,11 +1,13 @@
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/features/foodDetails/presentation/widgets/dymmy.dart';
+import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
 import 'package:flutter/material.dart';
 
 class FoodDetailsSummary extends StatelessWidget {
   final Key summaryKey;
+  final MealEntity meal;
 
-  const FoodDetailsSummary({super.key, required this.summaryKey});
+  const FoodDetailsSummary(
+      {super.key, required this.summaryKey, required this.meal});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +18,7 @@ class FoodDetailsSummary extends StatelessWidget {
               .textTheme
               .titleSmall!
               .copyWith(color: AppColors.splashColor),
-          dummydata['strInstructions']),
+          meal.strInstructions!),
     );
   }
 }

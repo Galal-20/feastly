@@ -1,2 +1,1 @@
-class Uasecase {
-}
+class Uasecase {}

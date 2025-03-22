@@ -1,6 +1,32 @@
+abstract class Failures {
+  final String message;
 
-abstract class Failure {}
+  Failures({required this.message});
+}
 
-class ServerFailure extends Failure {}
+class GeminiFailures extends Failures {
+  GeminiFailures({required super.message});
 
-class NetworkFailure extends Failure {}
+  @override
+  String toString() => message;
+
+  @override
+  int get hashCode => message.hashCode;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GeminiFailures &&
+          runtimeType == other.runtimeType &&
+          message == other.message;
+}
+
+class UserFailures extends Failures {
+  UserFailures({required super.message});
+}
+class ServerFailure extends Failures {
+  ServerFailure({required super.message});
+}
+
+/*class NetworkFailure extends Failure {
+  NetworkFailure({required super.errormessage});
+}*/

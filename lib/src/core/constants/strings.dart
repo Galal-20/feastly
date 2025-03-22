@@ -19,6 +19,12 @@ class AppStrings {
   static const String onBoardingStatusKey = "onBoardingStatus";
   static const String userLoggedInKey = "loggedIn";
 
+  // ai chat screen
+  static const String aiAppBarTitle = 'AI Chat';
+  static const String aiChatScreenTextFieldHint =
+      "Enter your ingrediantes and your goal ";
+  //---------------------------------------------------------------------
+
   static const String titleOnboarding = "like in a Restaurant but at home";
   static const String bodyOnBoarding =
       ", consectetur adipiscing elit, sed do eiusmod "

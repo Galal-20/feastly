@@ -17,9 +17,10 @@ class CustomOnBoardingTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style:Theme.of(context).textTheme.displayMedium!.copyWith(
-            color: AppColors.splashColor
-        ),
+        style: Theme.of(context)
+            .textTheme
+            .displayMedium!
+            .copyWith(color: AppColors.splashColor),
         textAlign: TextAlign.center,
       ),
     );

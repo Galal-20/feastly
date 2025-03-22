@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.white,
             actions: [
               const SizedBox(
                 width: 20,

@@ -20,6 +20,13 @@ class CustomAddMealButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: child,
+      child: Text(
+        AppStrings.addYourRecipe,
+        style: Theme.of(context)
+            .textTheme
+            .displayMedium!
+            .copyWith(color: AppColors.tWhite),
+      ),
     );
   }
 }

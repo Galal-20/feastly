@@ -7,7 +7,6 @@ class GetProfileDataUseCase {
 
   GetProfileDataUseCase({required this.repository});
 
-
   Future<User> call() async {
     return repository.getUserProfile();
   }

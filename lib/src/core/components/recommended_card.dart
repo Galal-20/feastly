@@ -63,15 +63,16 @@ class RecommendedCard extends StatelessWidget {
                     children: [
                       Text(
                         "$noOfIngredients ${AppStrings.ingredients} ",
-                        style:Theme.of(context).textTheme.titleSmall,
+                        style: Theme.of(context).textTheme.titleSmall,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
                       Text(
                         time,
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: AppColors.splashColor
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .copyWith(color: AppColors.splashColor),
                       )
                     ],
                   ),

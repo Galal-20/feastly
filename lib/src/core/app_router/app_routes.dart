@@ -1,13 +1,18 @@
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
+import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_bloc.dart';
+import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_event.dart';
+import 'package:feastly/src/features/foodDetails/presentation/screens/food_details_screen.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/ai_chat/presentation/views/ai_chat_screen.dart';
 import '../../features/auth/persentation/UI/screen/login/login_screen.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
 import '../DI/service_locator.dart';
+import '../utils/app_animations.dart';
 
 abstract class AppRoutes {
   static const kSplashScreen = '/';
@@ -17,16 +22,30 @@ abstract class AppRoutes {
   static const kProfileView = '/ProfileView';
   static const kHomeScreen = '/HomeScreen';
   static const kHomePage = '/HomePage';
-  static const kAiResultView = '/AiResultView';
+  static const kAiChatView = '/AiChatView';
   static const kErrorView = '/ErrorView';
   static const kAddUrRecipeView = '/AddUrRecipeView';
+  static const kFoodDetailsScreen = '/kFoodDetailsScreen';
+
   static final router = GoRouter(
-    initialLocation: AppRoutes.kSplashScreen,
+    initialLocation: AppRoutes.kLoginView,
     routes: [
+      GoRoute(
+        path: '$kFoodDetailsScreen/:id',
+        builder: (context, state) {
+    final id = state.pathParameters['id'];
+    return BlocProvider(
+          create: (context) =>
+              sl<MealDetailsBloc>()..add(GetMealDetailsEvent(id: id!)),
+          child: FoodDetailsScreen(),
+        );
+  },
+      ),
       GoRoute(
         path: kSplashScreen,
         builder: (context, state) => const SplashScreenView(),
       ),
+
       GoRoute(
         path: kOnBoardingView,
         builder: (context, state) => const OnBoardingView(),
@@ -37,6 +56,15 @@ abstract class AppRoutes {
         name: kAddUrRecipeView,
         builder: (context, state) => const AddYourRecipeScreen(),
       ),
+      //GoRoute(path: kLoginView, builder: (context, state) => LoginScreen()),
+      GoRoute(
+        path: kAiChatView,
+        pageBuilder: (context, state) => AppAnimations.customSlideUpTransition(
+          state,
+          AiChatScreen(),
+        ),
+      ),
+
       GoRoute(
         path: kLoginView,
         builder: (context, state) => BlocProvider(

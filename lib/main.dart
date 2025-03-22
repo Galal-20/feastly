@@ -25,7 +25,6 @@ void main() async {
       providers: [
         BlocProvider(create: (context)=>AddYourRecipeBloc(storeUserRecipeUseCase: sl())),
         BlocProvider(create: (context) => NavBloc()),
-        BlocProvider(create: (context) => AuthBloc(authRepository: sl())),
       ],
       child: const MyApp(),
     ),

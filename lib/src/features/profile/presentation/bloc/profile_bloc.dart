@@ -13,10 +13,11 @@ part 'profile_state.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final ProfileUpdateNameUseCase profileUpdateNameUseCase;
   final GetProfileDataUseCase getProfileDataUseCase;
-  late User myUser ;
-  TextEditingController nameController = TextEditingController( );
+  late User myUser;
+  TextEditingController nameController = TextEditingController();
 
-  ProfileBloc(this.profileUpdateNameUseCase, this.getProfileDataUseCase) : super(ProfileInitial()) {
+  ProfileBloc(this.profileUpdateNameUseCase, this.getProfileDataUseCase)
+      : super(ProfileInitial()) {
     on<UpdateProfile>(_onUpdatingProfileRequested);
     on<ProfileData>(_onFetchingUserProfile);
   }
@@ -25,7 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ProfileData event, Emitter<ProfileState> emit) async {
     emit(ProfileLoading());
     try {
-      final  user = await getProfileDataUseCase();
+      final user = await getProfileDataUseCase();
       myUser = user;
       nameController.text = myUser.displayName!;
       emit(ProfileLoaded());
