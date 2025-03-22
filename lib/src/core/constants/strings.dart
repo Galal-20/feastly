@@ -110,4 +110,5 @@ class AppStrings {
   static const String signOut = "Sign Out";
   static const String isVerifiedKey = "isVerified";
   static const String rememberMeKey = "rememberMe";
+  static const String minutes = "min";
 }

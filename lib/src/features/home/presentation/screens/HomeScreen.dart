@@ -1,6 +1,10 @@
+import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
+import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_event.dart';
 import 'package:feastly/src/features/home/presentation/widgets/TrendingRecipesWidget.dart';
 import 'package:feastly/src/features/home/presentation/widgets/build_app_floating_buttons.dart';
+import 'package:feastly/src/features/home/presentation/widgets/build_user_recipes_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/strings.dart';
 import '../widgets/RecommededForYouWidget.dart';
 
@@ -23,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
     );
     animation = Tween<double>(begin: 0, end: 1).animate(controller);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AddYourRecipeBloc>().add(FetchRecipeEvent());
+    });
   }
 
   @override
@@ -41,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                RecipesWidget(recipesType: AppStrings.yourRecipes),
+                BuildUserRecipesListView(recipesType: AppStrings.yourRecipes),
                 RecipesWidget(recipesType: AppStrings.trendingMeal),
                 SizedBox(
                   height: 10,

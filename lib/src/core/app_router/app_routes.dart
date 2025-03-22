@@ -6,7 +6,6 @@ import 'package:feastly/src/features/foodDetails/presentation/screens/food_detai
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
-import 'package:feastly/src/features/home/presentation/bloc/HomeBloc.dart';
 import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/ai_chat/presentation/views/ai_chat_screen.dart';
@@ -55,10 +54,7 @@ abstract class AppRoutes {
       GoRoute(
         path: kAddUrRecipeView,
         name: kAddUrRecipeView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => PickImageBloc(),
-          child: const AddYourRecipeScreen(),
-        ),
+        builder: (context, state) => const AddYourRecipeScreen(),
       ),
       //GoRoute(path: kLoginView, builder: (context, state) => LoginScreen()),
       GoRoute(
