@@ -1,4 +1,3 @@
-
 import 'package:feastly/src/features/home/presentation/widgets/add_your_meal_widgets/build_add_your_meal_body.dart';
 import 'package:flutter/material.dart';
 
@@ -83,45 +82,5 @@ class _AddYourMealBodyState extends State<AddYourMealBody> {
         piece4Controller: piece4Controller,
         step1Controller: step1Controller,
         step2Controller: step2Controller);
-    return Form(
-      key: formKey,
-      child: ListView(
-        children: [
-          const Center(child: CustomMealImage()),
-          const SizedBox(height: 20),
-          AddYourMealFields(),
-          Text(AppStrings.nutrition,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(color: AppColors.splashColor)),
-          const SizedBox(height: 16),
-          NutrationFields(),
-          const SizedBox(height: 20),
-          Text(AppStrings.ingredients,
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(color: AppColors.splashColor)),
-          const SizedBox(height: 20),
-          IngredientsFields(),
-          const SizedBox(height: 20),
-          StepsFields(),
-          const SizedBox(height: 20),
-          CustomAddMealButton(
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                context.pop();
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text('Please fill all required fields')),
-                );
-              }
-            },
-          )
-        ],
-      ),
-    );
   }
 }

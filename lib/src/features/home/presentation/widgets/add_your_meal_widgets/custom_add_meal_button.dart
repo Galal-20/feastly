@@ -1,6 +1,8 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constants/strings.dart';
+
 class CustomAddMealButton extends StatelessWidget {
   const CustomAddMealButton({
     super.key,
@@ -19,7 +21,6 @@ class CustomAddMealButton extends StatelessWidget {
         backgroundColor: AppColors.splashColor,
       ),
       onPressed: onPressed,
-      child: child,
       child: Text(
         AppStrings.addYourRecipe,
         style: Theme.of(context)

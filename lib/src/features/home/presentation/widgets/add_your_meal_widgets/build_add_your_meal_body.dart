@@ -138,12 +138,12 @@ class BuildAddYourMealBody extends StatelessWidget {
                 child: state is StoreLoading
                     ? CircularProgressIndicator(color: AppColors.tWhite)
                     : Text(
-                        AppStrings.addYourRecipe,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(color: AppColors.tWhite),
-                      ),
+                  AppStrings.addYourRecipe,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayMedium!
+                      .copyWith(color: AppColors.tWhite),
+                ),
                 onPressed: () {
                   addYourMeal(context);
                 },

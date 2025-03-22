@@ -152,8 +152,7 @@ packages:
       sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
- feature/homeScreen/logic
+    version: "1.1.1"
   cloud_firestore:
     dependency: "direct main"
     description:
@@ -178,7 +177,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.4.5"
-    version: "1.1.1"
   code_builder:
     dependency: transitive
     description:
@@ -279,10 +277,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "289279317b4b16eb2bb7e271abccd4bf84ec9bdcbe999e278a94b804f5630418"
+      sha256: "16ed7b077ef01ad6170a3d0c57caa4a112a38d7a2ed5602e0aca9ca6f3d98da6"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.3"
   file:
     dependency: transitive
     description:
@@ -747,10 +745,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: "53385261521cc4a0c4658fd0ad07a7d14591cf8fc33abbceae306ddb974888dc"
+      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.2"
+    version: "0.7.1"
   json_annotation:
     dependency: "direct main"
     description:
@@ -939,10 +937,10 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      sha256: "07c8f0b1913bcde1ff0d26e57ace2f3012ccbf2b204e070290dad3bb22797646"
+      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.0"
+    version: "6.0.2"
   platform:
     dependency: transitive
     description:
@@ -1309,6 +1307,5 @@ packages:
     source: hosted
     version: "9.1.1"
 sdks:
-  dart: ">=3.7.0 <4.0.0"
   dart: ">=3.6.1 <4.0.0"
   flutter: ">=3.27.0"
