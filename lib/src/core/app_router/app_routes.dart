@@ -1,6 +1,5 @@
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
-import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
@@ -36,10 +35,7 @@ abstract class AppRoutes {
       GoRoute(
         path: kAddUrRecipeView,
         name: kAddUrRecipeView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => AddYourRecipeBloc(storeUserRecipeUseCase: sl()),
-          child: const AddYourRecipeScreen(),
-        ),
+        builder: (context, state) => const AddYourRecipeScreen(),
       ),
       GoRoute(
         path: kLoginView,
