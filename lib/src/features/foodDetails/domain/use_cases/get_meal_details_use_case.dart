@@ -8,7 +8,7 @@ class GetMealDetailsUseCase {
 
   GetMealDetailsUseCase({required this.getMealDetailsRepository});
 
-  Future<Either<Failure, MealEntity>> call({required String id}) async {
+  Future<Either<Failures, MealEntity>> call({required String id}) async {
     return await getMealDetailsRepository.getMealDetails(id: id);
   }
 }

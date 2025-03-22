@@ -15,7 +15,7 @@ class MealDetailsBloc extends Bloc<MealDetailsEvent, MealDetailsState> {
       final result = await getMealDetailsUseCase(id: event.id);
       log(result.toString());
       result.fold(
-        (failure) => emit(MealDetailsError(message: failure.errormessage)),
+        (failure) => emit(MealDetailsError(message: failure.message)),
         (meal) {
           emit(MealDetailsLoaded(meal: meal));
         },

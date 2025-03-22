@@ -10,7 +10,6 @@ abstract class RetrofitServices {
 
   @GET("lookup.php")
   Future<MealResponse> getMealById(@Query("i") String id);
-  Future<MealResponse> getMealById(@Query("i") String mealId);
 
   @GET("search.php")
   Future<MealResponse> searchByName(@Query("s") String name);

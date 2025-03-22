@@ -9,9 +9,11 @@ import 'package:go_router/go_router.dart';
 import 'package:feastly/src/features/home/presentation/bloc/HomeBloc.dart';
 import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/ai_chat/presentation/views/ai_chat_screen.dart';
 import '../../features/auth/persentation/UI/screen/login/login_screen.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
 import '../DI/service_locator.dart';
+import '../utils/app_animations.dart';
 
 abstract class AppRoutes {
   static const kSplashScreen = '/';
@@ -27,7 +29,6 @@ abstract class AppRoutes {
   static const kFoodDetailsScreen = '/kFoodDetailsScreen';
 
   static final router = GoRouter(
-    initialLocation: AppRoutes.kAiChatView,
     initialLocation: AppRoutes.kLoginView,
     routes: [
       GoRoute(
@@ -59,7 +60,7 @@ abstract class AppRoutes {
           child: const AddYourRecipeScreen(),
         ),
       ),
-      GoRoute(path: kLoginView, builder: (context, state) => LoginScreen()),
+      //GoRoute(path: kLoginView, builder: (context, state) => LoginScreen()),
       GoRoute(
         path: kAiChatView,
         pageBuilder: (context, state) => AppAnimations.customSlideUpTransition(

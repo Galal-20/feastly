@@ -4,6 +4,7 @@ import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dar
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+
 class FoodDetailsAppBar extends StatelessWidget {
   final MealEntity meal;
   const FoodDetailsAppBar({super.key, required this.meal});
@@ -18,7 +19,7 @@ class FoodDetailsAppBar extends StatelessWidget {
           size: 40,
         )
       ],
-      actionsPadding: EdgeInsets.all(10),
+      //actionsPadding: EdgeInsets.all(10),
       backgroundColor: Colors.white,
       leading: IconButton(
         icon: Icon(Icons.arrow_back_ios),

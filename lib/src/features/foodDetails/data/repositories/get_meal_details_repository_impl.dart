@@ -10,14 +10,14 @@ class GetMealDetailsRepositoryImpl implements GetMealDetailsRepository {
   GetMealDetailsRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, Meal>> getMealDetails({required String id}) async {
+  Future<Either<Failures, Meal>> getMealDetails({required String id}) async {
     try {
       final data = await remoteDataSource.getMealDetails(id: id);
       return Right(data);
     } on ServerException catch (e) {
-      return Left(ServerFailure(errormessage: e.errormessage));
+      return Left(ServerFailure(message: e.errormessage));
     } catch (e) {
-      return Left(ServerFailure(errormessage: "An unexpected error occurred"));
+      return Left(ServerFailure(message: "An unexpected error occurred"));
     }
   }
 }

@@ -1,7 +1,9 @@
+/*
 import 'package:dartz/dartz.dart';
 import 'package:feastly/src/core/error/failures.dart';
-import 'package:feastly/src/features/mealDetails/domain/entities/meal_entity.dart';
-import 'package:feastly/src/features/mealDetails/domain/repositories/get_meal_details_repository.dart';
+
+import '../../../foodDetails/domain/entities/meal_entity.dart';
+import '../../../foodDetails/domain/repositories/get_meal_details_repository.dart';
 
 class GetMealDetailsRepositoryImpl implements GetMealDetailsRepository{
   @override
@@ -10,4 +12,4 @@ class GetMealDetailsRepositoryImpl implements GetMealDetailsRepository{
     throw UnimplementedError();
   }
 
-}
+}*/
