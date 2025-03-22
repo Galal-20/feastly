@@ -4,7 +4,6 @@ import 'package:feastly/src/core/components/text_form_field.dart';
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
-import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 
 import 'package:feastly/src/features/profile/presentation/bloc/profile_bloc.dart';

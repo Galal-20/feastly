@@ -8,14 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MealDetailsBloc extends Bloc<MealDetailsEvent, MealDetailsState> {
   final GetMealDetailsUseCase getMealDetailsUseCase;
-  MealDetailsBloc({required this.getMealDetailsUseCase}) : super(MealDetailsInitial()) {
+  MealDetailsBloc({required this.getMealDetailsUseCase})
+      : super(MealDetailsInitial()) {
     on<GetMealDetailsEvent>((event, emit) async {
       emit(MealDetailsLoading());
       final result = await getMealDetailsUseCase(id: event.id);
       log(result.toString());
       result.fold(
         (failure) => emit(MealDetailsError(message: failure.errormessage)),
-        (meal) => emit(MealDetailsLoaded(meal: meal)),
+        (meal) {
+          emit(MealDetailsLoaded(meal: meal));
+        },
       );
     });
   }

@@ -1,9 +1,7 @@
-import 'dart:developer';
 
 import 'package:feastly/src/core/error/exceptions.dart';
 import 'package:feastly/src/core/network/retrofit.dart';
 import 'package:feastly/src/features/foodDetails/data/models/meal.dart';
-import 'package:feastly/src/features/foodDetails/data/models/meal_response.dart';
 
 abstract class GetMealDetailsRemoteDataSource {
   Future<Meal> getMealDetails({required String id});

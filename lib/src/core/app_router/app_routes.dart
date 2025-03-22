@@ -1,5 +1,7 @@
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
+import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_bloc.dart';
+import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_event.dart';
 import 'package:feastly/src/features/foodDetails/presentation/screens/food_details_screen.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
@@ -10,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/persentation/UI/screen/login/login_screen.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
 import '../DI/service_locator.dart';
-
 
 abstract class AppRoutes {
   static const kSplashScreen = '/';
@@ -26,11 +27,18 @@ abstract class AppRoutes {
   static const kFoodDetailsScreen = '/kFoodDetailsScreen';
 
   static final router = GoRouter(
-    initialLocation: AppRoutes.kFoodDetailsScreen,
+    initialLocation: AppRoutes.kLoginView,
     routes: [
       GoRoute(
-        path: kFoodDetailsScreen,
-        builder: (context, state) => FoodDetailsScreen(),
+        path: '$kFoodDetailsScreen/:id',
+        builder: (context, state) {
+    final id = state.pathParameters['id'];
+    return BlocProvider(
+          create: (context) =>
+              sl<MealDetailsBloc>()..add(GetMealDetailsEvent(id: id!)),
+          child: FoodDetailsScreen(),
+        );
+  },
       ),
       GoRoute(
         path: kSplashScreen,

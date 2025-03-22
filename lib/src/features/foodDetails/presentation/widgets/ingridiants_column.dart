@@ -1,20 +1,20 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
-import 'package:feastly/src/features/foodDetails/presentation/widgets/dymmy.dart';
+import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
 import 'package:flutter/material.dart';
 
 class IngridiantsColoumn extends StatelessWidget {
   final Key widgetKey;
+  final MealEntity meal;
 
   const IngridiantsColoumn({
     super.key,
-    required this.widgetKey,
+    required this.widgetKey, required this.meal,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
@@ -23,11 +23,9 @@ class IngridiantsColoumn extends StatelessWidget {
           ),
           child: Text(
             key: widgetKey,
-            'Total Ingredients 9',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium!
-                .copyWith(color: AppColors.splashColor,fontWeight: FontWeight.bold),
+            'Total Ingredients ${meal.ingredients.length}',
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                color: AppColors.splashColor, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
@@ -49,7 +47,7 @@ class IngridiantsColoumn extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      '${dummydata['strIngredient${index + 1}']} ',
+                      meal.ingredients[index + 1],
                       style: Theme.of(context)
                           .textTheme
                           .labelLarge!
@@ -57,7 +55,7 @@ class IngridiantsColoumn extends StatelessWidget {
                     ),
                   ],
                 ),
-                trailing: Text('${dummydata['strMeasure${index + 1}']} ',
+                trailing: Text(meal.measures[index + 1],
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!
