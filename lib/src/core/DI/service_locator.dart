@@ -41,14 +41,12 @@ final sl = GetIt.instance;
 
 class ServiceLocator {
   static void init() {
+    sl.registerLazySingleton<Dio>(() => DioClient().dio);
     sl.registerLazySingleton(() => GoogleSignIn());
     sl.registerLazySingleton(() => FirebaseAuthDataSource());
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
-    sl.registerLazySingleton<AuthDataSource>(
-        () => AuthRepository(firebaseAuthService: sl()));
-    sl.registerLazySingleton(() => ProfileDataSource(authRepository: sl()));
-    sl.registerLazySingleton<ProfileRepo>(
-        () => ProfileRepoImpl(profileDataSource: sl()));
+    sl.registerLazySingleton<AuthDataSource>(() => AuthRepository(firebaseAuthService: sl()));
+    sl.registerLazySingleton(() => ProfileDataSource(authRepository: sl()));sl.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(profileDataSource: sl()));
     sl.registerLazySingleton(() => ProfileUpdateNameUseCase(repository: sl()));
     sl.registerLazySingleton(() => GetProfileDataUseCase(repository: sl()));
     // Meal Details
@@ -56,60 +54,47 @@ class ServiceLocator {
         GetMealDetailsRemoteDataSourceWithRetrofit(retrofitServices: sl()));
 
     sl.registerLazySingleton<GetMealDetailsRepository>(
-        () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
+            () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
 
     sl.registerLazySingleton(
-        () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
+            () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
 
-    sl.registerFactory(() => RetrofitServices(createDioObject()));
-    
-    //Add your recipe sl
+    sl.registerLazySingleton<RetrofitServices>(() => RetrofitServices(sl<Dio>()));
 
     sl.registerLazySingleton<FirebaseFirestore>(
-        () => FirebaseFirestore.instance);
+            () => FirebaseFirestore.instance);
     sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
     sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
     sl.registerLazySingleton<AddYourRecipeDataSourceAbstract>(
-      () => AddYourRecipeDataSourceImpl(
+          () => AddYourRecipeDataSourceImpl(
         firestore: sl<FirebaseFirestore>(),
         auth: sl<FirebaseAuth>(),
         storage: sl<FirebaseStorage>(),
       ),
     );
     sl.registerLazySingleton<AddYourRecipeRepoInterface>(
-        () => AddYourRecipeRepoImpl(addYourRecipeDataSourceAbstract: sl()));
+            () => AddYourRecipeRepoImpl(addYourRecipeDataSourceAbstract: sl()));
     sl.registerLazySingleton<AddYourRecipeUsecase>(
-        () => AddYourRecipeUsecase(addYourRecipeRepoInterface: sl()));
+            () => AddYourRecipeUsecase(addYourRecipeRepoInterface: sl()));
     sl.registerFactory<AddYourRecipeBloc>(
-        () => AddYourRecipeBloc(storeUserRecipeUseCase:sl()));
+            () => AddYourRecipeBloc(storeUserRecipeUseCase:sl()));
 
     // ai chat screen services
     sl.registerLazySingleton<Gemini>(() => Gemini.instance);
 
-    sl.registerLazySingleton<AiRemoteDataSource>(
-        () => AiRemoteDataSourceImpl(gemini: sl<Gemini>()));
-    sl.registerLazySingleton<AiChatRepo>(
-        () => AiChatRepoImpl(aiRemoteDataSource: sl<AiRemoteDataSource>()));
-    sl.registerLazySingleton<GetAiChatResponseUseCase>(
-        () => GetAiChatResponseUseCase(aiChatRepo: sl<AiChatRepo>()));
-    sl.registerLazySingleton<PixabayApi>(() => PixabayApi(createDioObject()));
-    sl.registerLazySingleton<ImageRemoteDataSource>(
-        () => ImageRemoteDataSourceImpl(pixabayApi: sl<PixabayApi>()));
-    sl.registerLazySingleton<GetImageRepo>(() =>
-        GetImageRepoImpl(imageRemoteDataSource: sl<ImageRemoteDataSource>()));
-    sl.registerLazySingleton<GetImageUseCase>(
-        () => GetImageUseCase(getImageRepo: sl<GetImageRepo>()));
-    sl.registerLazySingleton(() => Dio());
+    sl.registerLazySingleton<AiRemoteDataSource>(() => AiRemoteDataSourceImpl(gemini: sl<Gemini>()));
+    sl.registerLazySingleton<AiChatRepo>(() => AiChatRepoImpl(aiRemoteDataSource: sl<AiRemoteDataSource>()));
+    sl.registerLazySingleton<GetAiChatResponseUseCase>(() => GetAiChatResponseUseCase(aiChatRepo: sl<AiChatRepo>()));
+    sl.registerLazySingleton<PixabayApi>(() => PixabayApi(sl<Dio>()));
+    sl.registerLazySingleton<ImageRemoteDataSource>(() => ImageRemoteDataSourceImpl(pixabayApi: sl<PixabayApi>()));
+    sl.registerLazySingleton<GetImageRepo>(() => GetImageRepoImpl(imageRemoteDataSource: sl<ImageRemoteDataSource>()));
+    sl.registerLazySingleton<GetImageUseCase>(() => GetImageUseCase(getImageRepo: sl<GetImageRepo>()));
+    //sl.registerLazySingleton(() => Dio());
+    sl.registerLazySingleton<RecipeRemoteDataSource>(() => RecipeRemoteDataSourceImpl(sl()));
 
-    sl.registerLazySingleton<RecipeRemoteDataSource>(
-        () => RecipeRemoteDataSourceImpl(sl()));
-
-    sl.registerLazySingleton<RecipeRepository>(
-        () => RecipeRepositoryImpl(sl()));
+    sl.registerLazySingleton<RecipeRepository>(() => RecipeRepositoryImpl(sl()));
     sl.registerLazySingleton(() => SearchUseCase(sl()));
-
-    sl.registerFactory<MealDetailsBloc>(
-        () => MealDetailsBloc(getMealDetailsUseCase: sl()));
+    sl.registerFactory<MealDetailsBloc>(() => MealDetailsBloc(getMealDetailsUseCase: sl()));
   }
 }
 
