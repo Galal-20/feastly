@@ -38,7 +38,6 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
     _tabController = TabController(length: 3, vsync: this);
     _scrollController = ScrollController();
 
-
     _scrollController.addListener(_handleScroll);
   }
 
@@ -125,14 +124,17 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
     return Scaffold(
       body: BlocConsumer<MealDetailsBloc, MealDetailsState>(
         listener: (context, state) {
-          if(state is MealDetailsLoaded){
-    _youtubePlayerController = YoutubePlayerController(
-        flags: YoutubePlayerFlags(
-          autoPlay: false,
-        ),
-        initialVideoId: YoutubePlayer.convertUrlToId(state.meal.strYoutube ?? 'https://www.youtube.com/')! );
+          if (state is MealDetailsLoaded) {
+            if (state.meal.strYoutube != null) {
+              _youtubePlayerController = YoutubePlayerController(
+                  flags: YoutubePlayerFlags(
+                    autoPlay: false,
+                  ),
+                  initialVideoId: YoutubePlayer.convertUrlToId(
+                      state.meal.strYoutube ?? 'https://www.youtube.com/')!);
+            }
           }
-        } ,
+        },
         builder: (context, state) {
           if (state is MealDetailsLoading) {
             return Center(child: CircularProgressIndicator());
@@ -161,14 +163,17 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
                         IngridiantsColoumn(
                             widgetKey: _ingredientsKey, meal: state.meal),
                         DirectionColumn(
+                          meal: state.meal,
                           widgetKey: _directionKey,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: YoutubePlayer(
-                            controller: _youtubePlayerController,
-                          ),
-                        )
+                        state.meal.strYoutube != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: YoutubePlayer(
+                                  controller: _youtubePlayerController,
+                                ),
+                              )
+                            : SizedBox(),
                       ],
                     )
                   ],

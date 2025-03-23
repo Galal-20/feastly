@@ -9,7 +9,8 @@ class IngridiantsColoumn extends StatelessWidget {
 
   const IngridiantsColoumn({
     super.key,
-    required this.widgetKey, required this.meal,
+    required this.widgetKey,
+    required this.meal,
   });
 
   @override
@@ -37,7 +38,7 @@ class IngridiantsColoumn extends StatelessWidget {
             padding: EdgeInsets.all(4),
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 9,
+            itemCount: meal.ingredients.length,
             itemBuilder: (context, index) {
               return ListTile(
                 title: Row(
@@ -47,7 +48,7 @@ class IngridiantsColoumn extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      meal.ingredients[index + 1],
+                      meal.ingredients[index],
                       style: Theme.of(context)
                           .textTheme
                           .labelLarge!
@@ -55,7 +56,7 @@ class IngridiantsColoumn extends StatelessWidget {
                     ),
                   ],
                 ),
-                trailing: Text(meal.measures[index + 1],
+                trailing: Text(meal.measures[index],
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!

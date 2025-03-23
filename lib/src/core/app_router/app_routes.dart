@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/sign_up/sign_up_screen.dart';
@@ -37,9 +40,14 @@ abstract class AppRoutes {
         path: '$kFoodDetailsScreen/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'];
+          final AiResultModel? aiResultModel = state.extra as AiResultModel?;
+          log('message: ${aiResultModel!.foodTitle}');
           return BlocProvider(
-            create: (context) =>
-                sl<MealDetailsBloc>()..add(GetMealDetailsEvent(id: id!)),
+            create: (context) => sl<MealDetailsBloc>()
+              ..add(GetMealDetailsEvent(
+                id: id!,
+                aiResultModel: aiResultModel,
+              )),
             child: FoodDetailsScreen(),
           );
         },
@@ -95,8 +103,6 @@ abstract class AppRoutes {
           child: VerificationScreen(),
         ),
       ),
-
-
     ],
   );
 }
