@@ -5,18 +5,16 @@ import 'package:flutter/material.dart';
 class StepsFields extends StatelessWidget {
   const StepsFields({
     super.key,
-    required this.step1Controller,
-    required this.step2Controller,
+    required this.stepsController,
   });
-  final TextEditingController step1Controller;
-  final TextEditingController step2Controller;
+  final TextEditingController stepsController;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextFieldClass.buildTextFormField(
-          labelText: AppStrings.step1,
+          labelText: AppStrings.steps,
           hintText: 'e.g. Mix egg and flour.......',
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -28,26 +26,10 @@ class StepsFields extends StatelessWidget {
             debugPrint('Summary entered: $value');
           },
           prefixIcon: const Icon(Icons.description),
-          maxLines: 2,
-          controller: step1Controller,
+          maxLines: 3,
+          controller: stepsController,
         ),
-        const SizedBox(height: 20),
-        TextFieldClass.buildTextFormField(
-          labelText: AppStrings.step2,
-          hintText: 'e.g. Add 2 cups of water...',
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter second step';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            debugPrint('Summary entered: $value');
-          },
-          prefixIcon: const Icon(Icons.description),
-          maxLines: 2,
-          controller: step2Controller,
-        ),
+
         const SizedBox(height: 20),
       ],
     );

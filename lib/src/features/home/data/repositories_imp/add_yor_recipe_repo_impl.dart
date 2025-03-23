@@ -32,8 +32,7 @@ class AddYourRecipeRepoImpl implements AddYourRecipeRepoInterface {
       piece3: addYourRecipeEnitiy.piece3,
       ingredinat4: addYourRecipeEnitiy.ingredinat4,
       piece4: addYourRecipeEnitiy.piece4,
-      step1: addYourRecipeEnitiy.step1,
-      step2: addYourRecipeEnitiy.step2,
+      steps: addYourRecipeEnitiy.steps,
     );
 
     await addYourRecipeDataSourceAbstract.storeUserRecipe(
