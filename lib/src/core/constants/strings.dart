@@ -19,15 +19,22 @@ class AppStrings {
   static const String onBoardingStatusKey = "onBoardingStatus";
   static const String userLoggedInKey = "loggedIn";
 
+  // ai chat screen
+  static const String aiAppBarTitle = 'AI Chat';
+  static const String aiChatScreenTextFieldHint =
+      "Enter your ingrediantes and your goal ";
+  //---------------------------------------------------------------------
+
   static const String titleOnboarding = "like in a Restaurant but at home";
-  static const String bodyOnBoarding = ", consectetur adipiscing elit, sed do eiusmod "
+  static const String bodyOnBoarding =
+      ", consectetur adipiscing elit, sed do eiusmod "
       "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
       "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea qui officia deserunt mollit anim id est laborum.";
   static const String feastly = "Feastly";
   static const String ingredients = "ingredients";
   static const String addYourRecipe = "Add Your Recipe";
 
-  static  const String labelTextEmail = "Email";
+  static const String labelTextEmail = "Email";
   static const String hintEmailText = "Enter your email";
   static const String errorEmailText = "Please enter your email";
   static const String errorEmailValid = "Enter a valid email";
@@ -35,7 +42,7 @@ class AppStrings {
   static const String hintPassText = "Enter your password";
   static const String errorPassText = "Please enter your password";
   static const String errorPassValid = "Password is too weak";
-  static  const String loginCheckBoxText = "Remember me and keep me login";
+  static const String loginCheckBoxText = "Remember me and keep me login";
   static const String login = "Login";
   static const String or = "or login with";
   static const String registerNow = "don't have an account ? register now ";
@@ -50,12 +57,15 @@ class AppStrings {
   static const String errorPhone = "Enter a valid phone number";
   static const String password = "password";
   static const String hintPassword = "Enter your password";
-  static const String errorPassword = "Password must contain at least 6 characters, an "
+  static const String errorPassword =
+      "Password must contain at least 6 characters, an "
       "uppercase, a number, and a symbol";
-  static const String signUpCheckBoxText = "By creating an account you agree to terms "
+  static const String signUpCheckBoxText =
+      "By creating an account you agree to terms "
       "and "
       "conditions";
-  static const String condition = "By creating an account you agree to terms and "
+  static const String condition =
+      "By creating an account you agree to terms and "
       "conditions";
   static const String dontHaveMessage = "Don't have an account?";
   static const String signUp = "Sign Up";
@@ -63,12 +73,15 @@ class AppStrings {
   static const String orLoginNow = "Or login Now";
   static const String loginNow = "Do you have account? Login now";
   static const String resendEmail = "Resend Email again";
-  static const String textMessageResend = "We have send an email for verification, if "
+  static const String textMessageResend =
+      "We have send an email for verification, if "
       "you haven't "
       "received an email, please click on resend email again.";
-  static const String verificationSuc = "Verification successful! Redirecting...";
+  static const String verificationSuc =
+      "Verification successful! Redirecting...";
   static const String waitFor = "Wait 60s...";
-  static const String hintChatEditText = "enter your ingredients and your goal ";
+  static const String hintChatEditText =
+      "enter your ingredients and your goal ";
   static const String trendingMeal = "Trending Recipes";
   static const String recommendedMeal = "Recommended for you";
   static const String userMeal = "Your own meals";
@@ -81,7 +94,7 @@ class AppStrings {
   static const String profileUpdatedSuccess = "Profile updated successfully";
 
   static const String nutrition = "Nutrition";
-  static  const String mealType = "Meal Type";
+  static const String mealType = "Meal Type";
   static const String mealName = "Meal Name";
   static const String noOfIngredients = "Number of Ingredients";
   static const String time = "Time (minutes)";
@@ -97,6 +110,5 @@ class AppStrings {
   static const String signOut = "Sign Out";
   static const String isVerifiedKey = "isVerified";
   static const String rememberMeKey = "rememberMe";
-
+  static const String minutes = "min";
 }
-

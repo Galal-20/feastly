@@ -3,5 +3,4 @@ class Assets {
   Assets._();
 
   static const String animationsAnimation = 'assets/animations/animation.json';
-
 }

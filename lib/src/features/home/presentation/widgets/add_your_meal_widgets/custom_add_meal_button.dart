@@ -1,13 +1,15 @@
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/core/constants/strings.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/strings.dart';
 
 class CustomAddMealButton extends StatelessWidget {
   const CustomAddMealButton({
     super.key,
-    required this.onPressed,
+    required this.onPressed, required this.child,
   });
   final void Function() onPressed;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -21,9 +23,10 @@ class CustomAddMealButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         AppStrings.addYourRecipe,
-        style: Theme.of(context).textTheme.displayMedium!.copyWith(
-          color: AppColors.tWhite
-        ),
+        style: Theme.of(context)
+            .textTheme
+            .displayMedium!
+            .copyWith(color: AppColors.tWhite),
       ),
     );
   }

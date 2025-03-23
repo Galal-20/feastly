@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -11,8 +10,5 @@ class AppColors {
   static const tBlack = Colors.black;
   static const tGrey = Color(0xFFD9D9D9);
   static const tG = Color(0xFF9586AC);
+  static const tFailRed = Color(0xFFe6573b);
 }
-
-
-
-

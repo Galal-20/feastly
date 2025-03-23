@@ -5,7 +5,8 @@ class FirebaseAuthDataSource {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  FirebaseAuthDataSource({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
+  FirebaseAuthDataSource(
+      {FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignIn})
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn();
 
@@ -61,7 +62,7 @@ class FirebaseAuthDataSource {
       }
 
       final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+          await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -69,7 +70,7 @@ class FirebaseAuthDataSource {
       );
 
       final userCredential =
-      await _firebaseAuth.signInWithCredential(credential);
+          await _firebaseAuth.signInWithCredential(credential);
 
       return userCredential.user;
     } catch (e) {
@@ -87,4 +88,3 @@ class FirebaseAuthDataSource {
     return _firebaseAuth.currentUser;
   }
 }
-

@@ -25,10 +25,10 @@ class RecipesWidget extends StatelessWidget {
               itemCount: 5,
               itemBuilder: (context, index) {
                 return RecipeCard(
-                  imagePath: 'assets/images/dish1.png',
                   name: 'Pizza',
                   noOfIngredients: '10',
-                  time: '14min',
+                  time: '14',
+                  child: Image.asset('assets/images/dish1.png'),
                 );
               },
             ),

@@ -7,9 +7,10 @@ import 'package:go_router/go_router.dart';
 
 class BuildAppFloatingButtons extends StatelessWidget {
   const BuildAppFloatingButtons({
-    super.key, required this.animation, required this.controller,
-    
-  }) ;
+    super.key,
+    required this.animation,
+    required this.controller,
+  });
 
   final Animation<double> animation;
   final AnimationController controller;
@@ -42,7 +43,9 @@ class BuildAppFloatingButtons extends StatelessWidget {
               Icons.chat,
               color: AppColors.tWhite,
             ),
-            onPressed: () {},
+            onPressed: () {
+              GoRouter.of(context).push(AppRoutes.kAiChatView);
+            },
           ),
           CustomFloatingButton(
             heroTag: "more",
