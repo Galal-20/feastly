@@ -1,5 +1,6 @@
 import 'package:feastly/bloc_observer.dart';
 import 'package:feastly/src/core/DI/service_locator.dart';
+import 'package:feastly/src/core/Internet_connection/bloc/InternetBloc.dart';
 import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
@@ -24,6 +25,7 @@ void main() async {
       providers: [
         BlocProvider(create: (context)=>AddYourRecipeBloc(storeUserRecipeUseCase: sl())),
         BlocProvider(create: (context) => NavBloc()),
+        BlocProvider(create: (context) => InternetBloc()),
       ],
       child: const MyApp(),
     ),

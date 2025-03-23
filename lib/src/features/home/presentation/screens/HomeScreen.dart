@@ -5,6 +5,8 @@ import 'package:feastly/src/features/home/presentation/widgets/build_app_floatin
 import 'package:feastly/src/features/home/presentation/widgets/build_user_recipes_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/Internet_connection/bloc/InternetBloc.dart';
+import '../../../../core/Internet_connection/bloc/InternetState.dart';
 import '../../../../core/constants/strings.dart';
 import '../widgets/RecommededForYouWidget.dart';
 
@@ -41,27 +43,49 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                BuildUserRecipesListView(recipesType: AppStrings.yourRecipes),
-                RecipesWidget(recipesType: AppStrings.trendingMeal),
-                SizedBox(
-                  height: 10,
-                ),
-                RecommendedForYouWidget(),
-              ],
+    return BlocListener<InternetBloc, InternetState>(
+      listener: (context, state){
+        if(state is InternetDisconnectedState){
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("No internet connection. Please check your network."),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 3),
+            )
+          );
+        }else if (state is InternetConnectedState){
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Internet connection restored."),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3),
+            )
+          );
+          context.read<AddYourRecipeBloc>().add(FetchRecipeEvent());
+        }
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  BuildUserRecipesListView(recipesType: AppStrings.yourRecipes),
+                  RecipesWidget(recipesType: AppStrings.trendingMeal),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  RecommendedForYouWidget(),
+                ],
+              ),
             ),
-          ),
-          BuildAppFloatingButtons(
-            animation: animation,
-            controller: controller,
-          ),
-        ],
+            BuildAppFloatingButtons(
+              animation: animation,
+              controller: controller,
+            ),
+          ],
+        ),
       ),
     );
   }

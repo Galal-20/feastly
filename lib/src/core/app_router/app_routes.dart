@@ -96,38 +96,42 @@ abstract class AppRoutes {
         ),
       ),
 
-      // GoRoute(
-      //   path: kLoginView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customSlideUpTransition(state, const LoginView()),
-      // ),
-      // GoRoute(
-      //   path: kRegisterView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customSlideUpTransition(state, const RegisterView()),
-      // ),
-      // GoRoute(
-      //   path: kAiResultView,
-      //   pageBuilder: (context, state) => AppAnimations.customSlideUpTransition(
-      //       state,
-      //       AiResultView(
-      //         weatherEntity: state.extra as WeatherEntity,
-      //       )),
-      // ),
-      // GoRoute(
-      //   path: kHomeView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customGrowTransition(state, const HomeView()),
-      // ),
-      // GoRoute(
-      //   path: kErrorView,
-      //   pageBuilder: (context, state) => AppAnimations.customGrowTransition(
-      //       state,
-      //       CustomErrorScreen(
-      //         errMsg: (state.extra as ErrorScreenArgs).errMsg,
-      //         onPressed: (state.extra as ErrorScreenArgs).onPressed,
-      //       )),
-      // ),
+
     ],
   );
 }
+
+
+
+// GoRoute(
+//   path: kLoginView,
+//   pageBuilder: (context, state) =>
+//       AppAnimations.customSlideUpTransition(state, const LoginView()),
+// ),
+// GoRoute(
+//   path: kRegisterView,
+//   pageBuilder: (context, state) =>
+//       AppAnimations.customSlideUpTransition(state, const RegisterView()),
+// ),
+// GoRoute(
+//   path: kAiResultView,
+//   pageBuilder: (context, state) => AppAnimations.customSlideUpTransition(
+//       state,
+//       AiResultView(
+//         weatherEntity: state.extra as WeatherEntity,
+//       )),
+// ),
+// GoRoute(
+//   path: kHomeView,
+//   pageBuilder: (context, state) =>
+//       AppAnimations.customGrowTransition(state, const HomeView()),
+// ),
+// GoRoute(
+//   path: kErrorView,
+//   pageBuilder: (context, state) => AppAnimations.customGrowTransition(
+//       state,
+//       CustomErrorScreen(
+//         errMsg: (state.extra as ErrorScreenArgs).errMsg,
+//         onPressed: (state.extra as ErrorScreenArgs).onPressed,
+//       )),
+// ),

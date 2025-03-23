@@ -27,5 +27,4 @@ class VerificationEmailSent extends AuthState {
 
   VerificationEmailSent({required this.message});
 }
-
 class EmailVerified extends AuthState {}
