@@ -209,8 +209,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ),
                                           );
                                         }
-
-
                                       }
                                     },
                               style: ElevatedButton.styleFrom(

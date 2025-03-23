@@ -24,6 +24,7 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
     on<InternetDisconnected>((event, emit) {
       emit(InternetDisconnectedState());
      // LocalNotificationService.flutterLocalNotificationsPlugin.cancelAll();
+
     });
   }
 
