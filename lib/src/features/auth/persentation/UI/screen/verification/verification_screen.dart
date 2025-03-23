@@ -9,8 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:feastly/src/core/constants/strings.dart';
-import '../../../../../Internet_connection/bloc/InternetBloc.dart';
-import '../../../../../Internet_connection/bloc/InternetState.dart';
+import '../../../../../../core/Internet_connection/bloc/InternetBloc.dart';
+import '../../../../../../core/Internet_connection/bloc/InternetState.dart';
 import '../../widget/background_from_widget.dart';
 
 class VerificationScreen extends StatefulWidget {
