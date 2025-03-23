@@ -1,6 +1,7 @@
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/sign_up/sign_up_screen.dart';
+import 'package:feastly/src/features/auth/persentation/UI/screen/verification/verification_screen.dart';
 import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_bloc.dart';
 import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_event.dart';
 import 'package:feastly/src/features/foodDetails/presentation/screens/food_details_screen.dart';
@@ -20,6 +21,7 @@ abstract class AppRoutes {
   static const kOnBoardingView = '/OnBoardingView';
   static const kLoginView = '/LoginView';
   static const kRegisterView = '/RegisterView';
+  static const kVerificationView = '/VerificationView';
   static const kProfileView = '/ProfileView';
   static const kHomeScreen = '/HomeScreen';
   static const kHomePage = '/HomePage';
@@ -82,6 +84,15 @@ abstract class AppRoutes {
               AuthBloc(authRepository: sl())..add(AutoLoginRequested()), // Now
           // registered properly
           child: RegisterScreen(),
+        ),
+      ),
+      GoRoute(
+        path: kVerificationView,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              AuthBloc(authRepository: sl())..add(AutoLoginRequested()), // Now
+          // registered properly
+          child: VerificationScreen(),
         ),
       ),
 
