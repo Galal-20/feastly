@@ -1,4 +1,5 @@
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/features/Internet_connection/bloc/InternetState.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_state.dart';
@@ -9,6 +10,7 @@ import '../../../../../../core/components/text_form_field.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/strings.dart';
 import '../../../../../../core/utils/validations.dart';
+import '../../../../../Internet_connection/bloc/InternetBloc.dart';
 import '../../widget/background_from_widget.dart';
 import '../../widget/footer_signUp_widget.dart';
 import '../../widget/google_button_widget.dart';
@@ -50,8 +52,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SnackBar(content: Text(state.message)),
                     );
                     if (state.message.contains('verification')) {
-                      // Navigator.push(context, MaterialPageRoute(builder:
-                      //     (context) => VerificationScreen()));
                       GoRouter.of(context).go(AppRoutes.kVerificationView);
                     }
                   }
@@ -180,14 +180,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ? null
                                   : () {
                                       if (_formKey.currentState!.validate()) {
-                                        BlocProvider.of<AuthBloc>(context).add(
-                                          SignUpRequest(
-                                            fullName: fullNameController,
-                                            email: emailController,
-                                            phone: phoneController,
-                                            password: passwordController,
-                                          ),
-                                        );
+                                        final internetState = context.read<InternetBloc>().state;
+                                        if (internetState is
+                                        InternetConnectedState){
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  "Back to the internet"),
+                                              backgroundColor: Colors.green,
+                                            ),
+                                          );
+                                          BlocProvider.of<AuthBloc>(context).add(
+                                            SignUpRequest(
+                                              fullName: fullNameController,
+                                              email: emailController,
+                                              phone: phoneController,
+                                              password: passwordController,
+                                            ),
+                                          );
+                                        }else{
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  "No internet connection. Please check your network."),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
+                                        }
+
+
                                       }
                                     },
                               style: ElevatedButton.styleFrom(

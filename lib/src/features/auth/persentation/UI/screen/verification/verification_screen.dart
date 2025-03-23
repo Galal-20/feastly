@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:feastly/src/core/constants/strings.dart';
+import '../../../../../Internet_connection/bloc/InternetBloc.dart';
+import '../../../../../Internet_connection/bloc/InternetState.dart';
 import '../../widget/background_from_widget.dart';
 
 class VerificationScreen extends StatefulWidget {
@@ -21,7 +23,6 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   bool isCooldown = false;
   Timer? _timer;
-  bool verified = false;
 
   @override
   void initState() {
@@ -57,10 +58,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   Future<void> _handleVerificationSuccess() async {
     _timer?.cancel();
-    // Save login state
-    // Save verification state in SharedPreferences
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isVerified', true);
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(AppStrings.verificationSuc),
@@ -68,10 +68,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
         duration: Duration(seconds: 3),
       ),
     );
+
     await Future.delayed(const Duration(seconds: 3));
     navigateToHome();
-    // Navigate to home screen
-    //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   void navigateToHome() {
@@ -82,72 +81,84 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: AppColors.splashColor,
-      body: Stack(
-        children: [
-          background_form(),
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) {
-              if (state is VerificationEmailSent) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.green,
-                    duration: const Duration(seconds: 3),
-                  ),
-                );
-              } else if (state is AuthError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                    duration: const Duration(seconds: 3),
-                  ),
-                );
-              } else if (state is EmailVerified) {
-                _handleVerificationSuccess();
-                //_checkEmailVerification();
-              }
-            },
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.email_rounded,
-                      size: screenWidth * 0.3, color: Colors.white),
-                  SizedBox(height: screenHeight * 0.03),
-                  Text(
-                    AppStrings.textMessageResend,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenWidth * 0.05,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                  ElevatedButton(
-                    onPressed: isCooldown ? null : _resendEmail,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.2,
-                        vertical: screenHeight * 0.015,
-                      ),
-                    ),
-                    child: Text(
-                      AppStrings.resendEmail,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: screenWidth * 0.045,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+
+    return BlocListener<InternetBloc, InternetState>(
+      listener: (context, state) {
+        if (state is InternetDisconnectedState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("No internet connection. Please check your network."),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 3),
             ),
+          );
+        }
+      },
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is VerificationEmailSent) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.green,
+                duration: const Duration(seconds: 3),
+              ),
+            );
+          } else if (state is EmailVerified) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(AppStrings.verificationSuc),
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 3),
+              ),
+            );
+            _handleVerificationSuccess();
+          }
+        },
+        child: Scaffold(
+          backgroundColor: AppColors.splashColor,
+          body: Stack(
+            children: [
+              background_form(),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.email_rounded,
+                        size: screenWidth * 0.3, color: Colors.white),
+                    SizedBox(height: screenHeight * 0.03),
+                    Text(
+                      AppStrings.textMessageResend,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.05,
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.02),
+                    ElevatedButton(
+                      onPressed: isCooldown ? null : _resendEmail,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.2,
+                          vertical: screenHeight * 0.015,
+                        ),
+                      ),
+                      child: Text(
+                        AppStrings.resendEmail,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: screenWidth * 0.045,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
