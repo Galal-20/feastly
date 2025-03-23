@@ -98,7 +98,7 @@ class AppStrings {
   static const String mealName = "Meal Name";
   static const String noOfIngredients = "Number of Ingredients";
   static const String time = "Time (minutes)";
-  static const String step1 = "Step 1";
+  static const String steps = "Steps";
   static const String step2 = "Step 2";
   static const String pieces = "Pieces";
   static const String protein = "Protein";

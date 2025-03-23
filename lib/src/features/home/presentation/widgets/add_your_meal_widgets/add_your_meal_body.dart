@@ -30,8 +30,7 @@ class _AddYourMealBodyState extends State<AddYourMealBody> {
   final piece3Controller = TextEditingController();
   final ingredient4Controller = TextEditingController();
   final piece4Controller = TextEditingController();
-  final step1Controller = TextEditingController();
-  final step2Controller = TextEditingController();
+  final stepsController = TextEditingController();
 
   @override
   void dispose() {
@@ -53,8 +52,7 @@ class _AddYourMealBodyState extends State<AddYourMealBody> {
     piece3Controller.dispose();
     ingredient4Controller.dispose();
     piece4Controller.dispose();
-    step1Controller.dispose();
-    step2Controller.dispose();
+    stepsController.dispose();
     super.dispose();
   }
 
@@ -80,7 +78,6 @@ class _AddYourMealBodyState extends State<AddYourMealBody> {
         piece3Controller: piece3Controller,
         ingredient4Controller: ingredient4Controller,
         piece4Controller: piece4Controller,
-        step1Controller: step1Controller,
-        step2Controller: step2Controller);
+        stepsController: stepsController);
   }
 }

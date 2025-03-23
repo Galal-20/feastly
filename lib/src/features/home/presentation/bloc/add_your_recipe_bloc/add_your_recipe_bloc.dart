@@ -89,8 +89,7 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
             piece3: recipeData['piece3'],
             ingredinat4: recipeData['ingredinat4'],
             piece4: recipeData['piece4'],
-            step1: recipeData['step1'],
-            step2: recipeData['step2'],
+            steps: recipeData['steps'],
           );
         }).toList();
 

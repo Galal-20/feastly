@@ -54,30 +54,30 @@ class ServiceLocator {
         GetMealDetailsRemoteDataSourceWithRetrofit(retrofitServices: sl()));
 
     sl.registerLazySingleton<GetMealDetailsRepository>(
-        () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
+            () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
 
     sl.registerLazySingleton(
-        () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
+            () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
 
     sl.registerLazySingleton<RetrofitServices>(() => RetrofitServices(sl<Dio>()));
 
     sl.registerLazySingleton<FirebaseFirestore>(
-        () => FirebaseFirestore.instance);
+            () => FirebaseFirestore.instance);
     sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
     sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
     sl.registerLazySingleton<AddYourRecipeDataSourceAbstract>(
-      () => AddYourRecipeDataSourceImpl(
+          () => AddYourRecipeDataSourceImpl(
         firestore: sl<FirebaseFirestore>(),
         auth: sl<FirebaseAuth>(),
         storage: sl<FirebaseStorage>(),
       ),
     );
     sl.registerLazySingleton<AddYourRecipeRepoInterface>(
-        () => AddYourRecipeRepoImpl(addYourRecipeDataSourceAbstract: sl()));
+            () => AddYourRecipeRepoImpl(addYourRecipeDataSourceAbstract: sl()));
     sl.registerLazySingleton<AddYourRecipeUsecase>(
-        () => AddYourRecipeUsecase(addYourRecipeRepoInterface: sl()));
+            () => AddYourRecipeUsecase(addYourRecipeRepoInterface: sl()));
     sl.registerFactory<AddYourRecipeBloc>(
-        () => AddYourRecipeBloc(storeUserRecipeUseCase:sl()));
+            () => AddYourRecipeBloc(storeUserRecipeUseCase:sl()));
 
     // ai chat screen services
     sl.registerLazySingleton<Gemini>(() => Gemini.instance);
