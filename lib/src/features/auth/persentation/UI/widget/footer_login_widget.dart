@@ -1,8 +1,8 @@
+import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/strings.dart';
-import '../screen/sign_up/sign_up_screen.dart';
-
 
 class FooterLogin extends StatelessWidget {
   const FooterLogin({
@@ -20,8 +20,9 @@ class FooterLogin extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RegisterScreen()));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => RegisterScreen()));
+            GoRouter.of(context).go(AppRoutes.kRegisterView);
           },
           child: Text(
             AppStrings.signUp,
@@ -32,4 +33,3 @@ class FooterLogin extends StatelessWidget {
     );
   }
 }
-
