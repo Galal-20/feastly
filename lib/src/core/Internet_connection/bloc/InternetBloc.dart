@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import '../../notification/notification_service.dart';
 import 'InternetEvent.dart';
 import 'InternetState.dart';
 
@@ -18,12 +19,12 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
 
     on<InternetConnected>((event, emit) {
       emit(InternetConnectedState());
-      //LocalNotificationService.scheduleDailyNotifications();
+      LocalNotificationService.scheduleDailyNotifications();
     });
 
     on<InternetDisconnected>((event, emit) {
       emit(InternetDisconnectedState());
-     // LocalNotificationService.flutterLocalNotificationsPlugin.cancelAll();
+     LocalNotificationService.flutterLocalNotificationsPlugin.cancelAll();
     });
   }
 

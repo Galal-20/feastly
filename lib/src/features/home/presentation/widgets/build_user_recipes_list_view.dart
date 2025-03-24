@@ -22,7 +22,7 @@ class BuildUserRecipesListView extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           SizedBox(
-            height: 160, 
+            height: 160,
             child: BlocBuilder<AddYourRecipeBloc, AddYourRecipeState>(
               builder: (context, state) {
                 if (state is RecipeLoading) {
@@ -30,7 +30,7 @@ class BuildUserRecipesListView extends StatelessWidget {
                       child: CircularProgressIndicator(
                           color: AppColors.splashColor));
                 } else if (state is RecipeEmpty) {
-                  return  Center(
+                  return Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

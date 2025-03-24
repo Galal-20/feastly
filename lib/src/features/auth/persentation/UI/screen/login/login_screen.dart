@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../../core/Internet_connection/bloc/InternetBloc.dart';
+import '../../../../../../core/Internet_connection/bloc/InternetState.dart';
 import '../../../../../../core/components/button.dart';
 import '../../../../../../core/components/text_form_field.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/constants/strings.dart';
 import '../../../../../../core/utils/validations.dart';
-import '../../../../../Internet_connection/bloc/InternetBloc.dart';
-import '../../../../../Internet_connection/bloc/InternetState.dart';
 import '../../widget/background_from_widget.dart';
 import '../../widget/footer_login_widget.dart';
 import '../../widget/google_button_widget.dart';
@@ -99,6 +99,12 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       }*/
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _formKey.currentState?.dispose();
   }
 
   @override
