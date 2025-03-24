@@ -3,6 +3,8 @@ import 'package:feastly/src/core/DI/service_locator.dart';
 import 'package:feastly/src/core/Internet_connection/bloc/InternetBloc.dart';
 import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
+import 'package:feastly/src/core/notification/WorkManagerService.dart';
+import 'package:feastly/src/core/notification/notification_service.dart';
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:feastly/src/core/constants/strings.dart';
@@ -20,10 +22,17 @@ void main() async {
   ServiceLocator.init();
   Bloc.observer = MyBlocObserver();
 
+  await Future.wait([
+    WorkManagerService().init(),
+    LocalNotificationService.init(),
+  ]);
+
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>AddYourRecipeBloc(storeUserRecipeUseCase: sl())),
+        BlocProvider(
+            create: (context) =>
+                AddYourRecipeBloc(storeUserRecipeUseCase: sl())),
         BlocProvider(create: (context) => NavBloc()),
         BlocProvider(create: (context) => InternetBloc()),
       ],

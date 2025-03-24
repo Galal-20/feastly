@@ -22,6 +22,9 @@ abstract class RetrofitServices {
 
   @GET("filter.php")
   Future<MealResponse> searchByCountry(@Query("a") String country);
+
+  @GET("random.php")
+  Future<MealResponse> getRandomMeal();
 }
 
 
@@ -77,3 +80,4 @@ class DioClient {
   ));
   return dio;
 }*/
+/* RetrofitServices get apiService => RetrofitServices(dio);*/
