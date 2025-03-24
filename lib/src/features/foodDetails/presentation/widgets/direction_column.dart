@@ -1,11 +1,11 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
-import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:flutter/material.dart';
 
 class DirectionColumn extends StatelessWidget {
   final Key widgetKey;
-  final MealEntity meal;
+  final AiResultModel meal;
   const DirectionColumn(
       {super.key, required this.widgetKey, required this.meal});
 
@@ -18,7 +18,7 @@ class DirectionColumn extends StatelessWidget {
           padding: EdgeInsets.only(left: SizeConfig.height * 0.012),
           child: Text(
             key: widgetKey,
-            'Total steps ${meal.strInstructions!.split('.').length - 1}',
+            'Total steps ${meal.directions.length}',
             style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 color: AppColors.splashColor, fontWeight: FontWeight.bold),
           ),
@@ -30,11 +30,11 @@ class DirectionColumn extends StatelessWidget {
             padding: EdgeInsets.all(4),
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: meal.strInstructions!.split('.').length - 1,
+            itemCount: meal.directions.length ,
             itemBuilder: (context, index) {
               return ListTile(
                 subtitle: Text(
-                  meal.strInstructions!.split('.').elementAt(index),
+                  meal.directions[index],
                 ),
                 subtitleTextStyle: Theme.of(context)
                     .textTheme
