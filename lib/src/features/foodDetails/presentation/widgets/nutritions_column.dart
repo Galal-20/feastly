@@ -42,9 +42,9 @@ class NutritionsColumn extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.height * 0.01),
         Padding(
-          padding: const EdgeInsets.only(left: 25),
+          padding:  EdgeInsets.only(left: SizeConfig.height * 0.1),
           child: Row(
-            spacing: 50,
+            spacing: SizeConfig.height * 0.05,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               NutritionWidget(
@@ -52,8 +52,8 @@ class NutritionsColumn extends StatelessWidget {
                 unit: 'fat',
               ),
               NutritionWidget(
-                num: meal.nutritionalInformation.vitamins,
-                unit: 'vitamins',
+                num: meal.nutritionalInformation.vitamins.substring(0,1),
+                unit: 'vitamin',
               ),
             ],
           ),
