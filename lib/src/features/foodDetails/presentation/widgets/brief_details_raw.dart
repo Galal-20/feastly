@@ -28,7 +28,7 @@ class BriefDetailsRaw extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Text(
-            '$time.',
+            '$time mins.',
             style: Theme.of(context)
                 .textTheme
                 .labelLarge!
@@ -36,7 +36,7 @@ class BriefDetailsRaw extends StatelessWidget {
           ),
           SizedBox(width: 10),
           Text(
-            '$servings.',
+            '$servings servings',
             style: Theme.of(context)
                 .textTheme
                 .labelLarge!

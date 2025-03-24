@@ -20,7 +20,7 @@ class CustomAiFoodContainer extends StatelessWidget {
       child: InkWell(
         onTap: () {
           GoRouter.of(context)
-              .push('${AppRoutes.kFoodDetailsScreen}/0', extra: aiChatEntity);
+              .push(AppRoutes.kFoodDetailsScreen, extra: aiChatEntity);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

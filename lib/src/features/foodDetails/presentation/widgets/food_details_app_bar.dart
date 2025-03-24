@@ -16,14 +16,13 @@ class FoodDetailsAppBar extends StatelessWidget {
       actions: [
         IconButton(
             icon: Icon(
-          Icons.favorite_rounded,
-          color: isFav ? Colors.red : Colors.grey,
-          size: 40,
-        ),
-        onPressed: (){
-          isFav = !isFav;
-        }
-        ),
+              Icons.favorite_rounded,
+              color: isFav ? Colors.red : Colors.grey,
+              size: 40,
+            ),
+            onPressed: () {
+              isFav = !isFav;
+            }),
       ],
       //actionsPadding: EdgeInsets.all(10),
       backgroundColor: Colors.white,
@@ -47,7 +46,7 @@ class FoodDetailsAppBar extends StatelessWidget {
               .copyWith(color: AppColors.splashColor),
         ),
         background: Image.network(
-          meal.imageUrl,
+          meal.imageNetworkUrl,
           fit: BoxFit.fill,
         ),
       ),
