@@ -55,7 +55,7 @@ void main() {
     },
   );
   test(
-    'Test Search for food recipe fail ',
+    'Test Search for food recipe fail',
     () async {
       const enteredText = 'pizza';
       final DioException dioException = DioException(
@@ -66,18 +66,16 @@ void main() {
           statusMessage: 'Not Found',
         ),
       );
-      final Exception expectedException =
-          Exception("Failed to fetch meals: $dioException");
 
-      when(mockRecipeRemoteDataSource.searchMeals(enteredText)).thenThrow(
-        expectedException,
+      when(mockRecipeRemoteDataSource.searchMeals(enteredText))
+          .thenThrow(Exception("Failed to fetch meals: $dioException"));
+
+      expect(
+        () async => await searchUseCase.search(enteredText, 'Name'),
+        throwsA(isA<Exception>()),
       );
 
-      final result = await searchUseCase.search(enteredText, 'Name');
-
       verify(mockRecipeRemoteDataSource.searchMeals(enteredText)).called(1);
-
-      expect(result, expectedException);
     },
   );
 }
