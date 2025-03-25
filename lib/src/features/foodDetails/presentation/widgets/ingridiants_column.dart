@@ -15,6 +15,12 @@ class IngridiantsColoumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    for (int i = 0; i < meal.ingredients.length; i++) {
+      if (meal.ingredients[i].name.contains("("))  {
+        meal.ingredients[i].name = meal.ingredients[i].name
+            .substring(0, meal.ingredients[i].name.indexOf("("));
+      }
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

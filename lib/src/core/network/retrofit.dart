@@ -27,8 +27,6 @@ abstract class RetrofitServices {
   Future<MealResponse> getRandomMeal();
 }
 
-
-
 class DioClient {
   static final DioClient _instance = DioClient._internal();
   late final Dio dio;
@@ -74,6 +72,7 @@ class DioClient {
 //       ));
 //   }
 // }
+
 
 // create Dio Object
 // Increases connect timeout for better handling

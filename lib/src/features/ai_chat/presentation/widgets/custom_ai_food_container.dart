@@ -15,12 +15,11 @@ class CustomAiFoodContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeConfig.height * 0.4,
       width: SizeConfig.width * 0.7,
       child: InkWell(
         onTap: () {
           GoRouter.of(context)
-              .push('${AppRoutes.kFoodDetailsScreen}/0', extra: aiChatEntity);
+              .push(AppRoutes.kFoodDetailsScreen, extra: aiChatEntity);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
