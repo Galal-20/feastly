@@ -35,7 +35,8 @@ abstract class AppRoutes {
       GoRoute(
         path: kFoodDetailsScreen,
         builder: (context, state) {
-          final aiResultModel = state.extra as AiResultModel;
+          final extra = state.extra as Map<String, dynamic>; 
+          final aiResultModel = extra['aiResultModel'] as AiResultModel; 
           return FoodDetailsScreen(aiResultModel: aiResultModel);
         },
       ),

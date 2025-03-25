@@ -129,7 +129,8 @@ class BuildAddYourMealBody extends StatelessWidget {
                 piece4Controller: piece4Controller,
               ),
               const SizedBox(height: 20),
-              StepsFields(stepsController: stepsController),
+              StepsFields(
+                  stepsController: stepsController),
               const SizedBox(height: 20),
               CustomAddMealButton(
                 child: state is StoreLoading

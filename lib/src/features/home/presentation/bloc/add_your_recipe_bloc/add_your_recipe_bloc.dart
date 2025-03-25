@@ -52,7 +52,7 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
       try {
         final user = FirebaseAuth.instance.currentUser;
         if (user == null) {
-          emit( RecipeFetchError(message:  'User not authenticated'));
+          emit(RecipeFetchError(message: 'User not authenticated'));
           return;
         }
 
@@ -90,12 +90,26 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
             ingredinat4: recipeData['ingredinat4'],
             piece4: recipeData['piece4'],
             steps: recipeData['steps'],
+            docID: doc.id,
           );
         }).toList();
 
         emit(RecipeFetched(recipes: recipes));
       } catch (e) {
-        emit(RecipeFetchError(message:  'Failed to fetch recipes: $e'));
+        emit(RecipeFetchError(message: 'Failed to fetch recipes: $e'));
+      }
+    });
+
+    on<FetchSingleRecipeByIDEvent>((event, emit) async {
+      emit(RecipeLoading());
+      try {
+        final recipe =
+            await storeUserRecipeUseCase.getMealById(mealID: event.mealID);
+        debugPrint("recccipeeeee in Bolc is $recipe");
+        emit(SingleRecipeByIDFetched(recipe: recipe));
+      } catch (e) {
+        debugPrint('Error fetching single recipe inBolccc: $e');
+        emit(RecipeFetchError(message: 'Failed to fetch recipe in Bloooc: $e'));
       }
     });
   }
