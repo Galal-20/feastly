@@ -40,14 +40,31 @@ class FoodDetailsAppBar extends StatelessWidget {
         title: Text(
           meal.foodTitle,
           // textAlign: TextAlign.left,
-          style: Theme.of(context)
-              .textTheme
-              .displayLarge!
-              .copyWith(color: AppColors.splashColor),
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                color: AppColors.splashColor,
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        background: Image.network(
-          meal.imageNetworkUrl,
-          fit: BoxFit.fill,
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.network(
+              meal.imageNetworkUrl,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.white.withValues(alpha: 0.6),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
