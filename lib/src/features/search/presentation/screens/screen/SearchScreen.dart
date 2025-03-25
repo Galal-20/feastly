@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/DI/service_locator.dart';
+import '../../../../../core/app_router/app_routes.dart';
 import '../../../domain/entities/entity.dart';
 import '../../bloc/SearchBloc.dart';
 import '../../bloc/SearchEvent.dart';
@@ -68,12 +70,17 @@ class _SearchScreenState extends State<SearchScreen> {
                           itemCount: recipes.length,
                           itemBuilder: (context, index) {
                             final recipe = recipes[index];
-                            return recipeCard(
-                              recipe.strMeal ?? "",
-                              recipe.strCategory ?? "",
-                              recipe.strArea ?? "",
-                              false, // Handle Fav
-                              recipe.strMealThumb ?? "",
+                            return GestureDetector(
+                              onTap: (){
+                                context.push("${AppRoutes.kFoodDetailsScreen}/${recipe.idMeal}");
+                              },
+                              child: recipeCard(
+                                recipe.strMeal ?? "",
+                                recipe.strCategory ?? "",
+                                recipe.strArea ?? "",
+                                false, // Handle Fav
+                                recipe.strMealThumb ?? "",
+                              ),
                             );
                           },
                         ),
