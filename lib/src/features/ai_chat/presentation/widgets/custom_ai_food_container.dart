@@ -15,7 +15,6 @@ class CustomAiFoodContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeConfig.height * 0.4,
       width: SizeConfig.width * 0.7,
       child: InkWell(
         onTap: () {
