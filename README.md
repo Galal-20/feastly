@@ -44,7 +44,7 @@ Feastly is an AI-powered **meal recommendation app** designed to help users disc
 ### Installation
 1. Clone the repository
 ```bash
-git clone https://github.com/your-repo/Feastly.git
+git clone https://github.com/Galal-20/feastly.git
 ```
 2. Install dependencies
 ```bash
