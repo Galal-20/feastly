@@ -60,7 +60,6 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   youtube_player_flutter: ^9.1.1
   internet_connection_checker_plus: ^2.7.1
-
   permission_handler: ^11.4.0
   timezone: ^0.10.0
   flutter_timezone: ^4.1.0
