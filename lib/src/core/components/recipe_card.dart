@@ -32,7 +32,7 @@ class RecipeCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
               child: SizedBox(
                 height: 90,
-                width: double.infinity,
+                width: 205,
                 child: child,
               ),
             ),
