@@ -54,7 +54,6 @@ class IngridiantsColoumn extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      meal.ingredients[index],
                       meal.ingredients[index].name,
                       style: Theme.of(context)
                           .textTheme
@@ -63,7 +62,6 @@ class IngridiantsColoumn extends StatelessWidget {
                     ),
                   ],
                 ),
-                trailing: Text(meal.measures[index],
                 trailing: Text(meal.ingredients[index].quantity,
                     style: Theme.of(context)
                         .textTheme
