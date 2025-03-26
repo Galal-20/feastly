@@ -1,23 +1,28 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
-import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
+// ignore: must_be_immutable
 class FoodDetailsAppBar extends StatelessWidget {
-  final MealEntity meal;
-  const FoodDetailsAppBar({super.key, required this.meal});
+  final AiResultModel meal;
+  bool isFav = false;
+  FoodDetailsAppBar({super.key, required this.meal});
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       actions: [
-        Icon(
-          Icons.favorite_rounded,
-          color: Colors.red,
-          size: 40,
-        )
+        IconButton(
+            icon: Icon(
+              Icons.favorite_rounded,
+              color: isFav ? Colors.red : Colors.grey,
+              size: 40,
+            ),
+            onPressed: () {
+              isFav = !isFav;
+            }),
       ],
       //actionsPadding: EdgeInsets.all(10),
       backgroundColor: Colors.white,
@@ -36,16 +41,33 @@ class FoodDetailsAppBar extends StatelessWidget {
             right: SizeConfig.height * 0.1
         ),
         title: Text(
-         meal.strMeal,
+          meal.foodTitle,
           // textAlign: TextAlign.left,
-          style: Theme.of(context)
-              .textTheme
-              .displayLarge!
-              .copyWith(color: AppColors.splashColor),
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                color: AppColors.splashColor,
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        background: Image.network(
-          meal.strMealThumb ?? "https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg",
-          fit: BoxFit.fill,
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.network(
+              meal.imageNetworkUrl,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.white.withValues(alpha: 0.6),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

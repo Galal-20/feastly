@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
-import 'package:feastly/src/features/ai_chat/domain/entities/ai_chat_entity.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
 abstract class AiRemoteDataSource {
-  Future<AiChatEntity> getAiChatResponse(String message);
+  Future<AiResultModel> getAiChatResponse(String message);
 }
 
 class AiRemoteDataSourceImpl implements AiRemoteDataSource {
@@ -13,7 +12,7 @@ class AiRemoteDataSourceImpl implements AiRemoteDataSource {
 
   AiRemoteDataSourceImpl({required this.gemini});
   @override
-  Future<AiChatEntity> getAiChatResponse(String message) async {
+  Future<AiResultModel> getAiChatResponse(String message) async {
     String mealAssistantPrompt = '''
 You are a meal recommendation assistant. Your task is to provide detailed information about a food item based on the user's input. The user will provide either the name of the food or a list of ingredients. You must respond in JSON format with the following structure:
 
@@ -38,9 +37,9 @@ You are a meal recommendation assistant. Your task is to provide detailed inform
     }
   ],
   "directions": [
-    "Step 1: ...",
-    "Step 2: ...",
-    "Step 3: ..."
+    "...",
+    "...",
+    "..."
   ]
 }
 
@@ -59,7 +58,7 @@ Now, process the following user input: [$message],and remove comments and don't 
     return processResponse(result!);
   }
 
-  AiChatEntity processResponse(Candidates response) {
+  AiResultModel processResponse(Candidates response) {
     var proccessedResponse =
         response.output!.replaceFirst('json', '').replaceAll('```', '').trim();
 

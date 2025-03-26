@@ -1,4 +1,5 @@
 import 'package:feastly/src/core/constants/colors.dart';
+import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 class NutritionWidget extends StatelessWidget {
@@ -11,21 +12,22 @@ class NutritionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
-      width: 90,
+      height: SizeConfig.height *0.1,
+      width: SizeConfig.height *0.1,
       decoration: BoxDecoration(
         border: Border.all(
-          width: 4,
+          width: SizeConfig.height *0.004,
           color: AppColors.splashColor,
         ),
         shape: BoxShape.circle,
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+        padding:  EdgeInsets.fromLTRB(0, SizeConfig.height *0.02, 0, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
+            
               num.toString(),
               style: Theme.of(context)
                   .textTheme

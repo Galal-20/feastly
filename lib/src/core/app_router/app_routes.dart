@@ -1,9 +1,8 @@
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/sign_up/sign_up_screen.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/verification/verification_screen.dart';
-import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_bloc.dart';
-import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_event.dart';
 import 'package:feastly/src/features/foodDetails/presentation/screens/food_details_screen.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
@@ -34,14 +33,10 @@ abstract class AppRoutes {
     initialLocation: AppRoutes.kSplashScreen,
     routes: [
       GoRoute(
-        path: '$kFoodDetailsScreen/:id',
+        path: kFoodDetailsScreen,
         builder: (context, state) {
-          final id = state.pathParameters['id'];
-          return BlocProvider(
-            create: (context) =>
-                sl<MealDetailsBloc>()..add(GetMealDetailsEvent(id: id!)),
-            child: FoodDetailsScreen(),
-          );
+          final aiResultModel = state.extra as AiResultModel;
+          return FoodDetailsScreen(aiResultModel: aiResultModel);
         },
       ),
       GoRoute(
@@ -95,8 +90,6 @@ abstract class AppRoutes {
           child: VerificationScreen(),
         ),
       ),
-
-
     ],
   );
 }

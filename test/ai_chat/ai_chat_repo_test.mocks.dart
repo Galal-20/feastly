@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:feastly/src/features/ai_chat/data/data_source/remote_data_source.dart'
     as _i3;
-import 'package:feastly/src/features/ai_chat/domain/entities/ai_chat_entity.dart'
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -25,8 +25,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeAiChatEntity_0 extends _i1.SmartFake implements _i2.AiChatEntity {
-  _FakeAiChatEntity_0(Object parent, Invocation parentInvocation)
+class _FakeAiResultModel_0 extends _i1.SmartFake implements _i2.AiResultModel {
+  _FakeAiResultModel_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -40,15 +40,15 @@ class MockAiRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.AiChatEntity> getAiChatResponse(String? message) =>
+  _i4.Future<_i2.AiResultModel> getAiChatResponse(String? message) =>
       (super.noSuchMethod(
             Invocation.method(#getAiChatResponse, [message]),
-            returnValue: _i4.Future<_i2.AiChatEntity>.value(
-              _FakeAiChatEntity_0(
+            returnValue: _i4.Future<_i2.AiResultModel>.value(
+              _FakeAiResultModel_0(
                 this,
                 Invocation.method(#getAiChatResponse, [message]),
               ),
             ),
           )
-          as _i4.Future<_i2.AiChatEntity>);
+          as _i4.Future<_i2.AiResultModel>);
 }

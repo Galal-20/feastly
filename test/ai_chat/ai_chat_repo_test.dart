@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:feastly/src/core/error/failures.dart';
 import 'package:feastly/src/features/ai_chat/data/data_source/remote_data_source.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ingredient.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/nutritional_information.dart';
 import 'package:feastly/src/features/ai_chat/data/repos/ai_chat_repo_impl.dart';
-import 'package:feastly/src/features/ai_chat/domain/entities/ai_chat_entity.dart';
 import 'package:feastly/src/features/ai_chat/domain/use_case/get_ai_chat_response_use_case.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,12 +28,24 @@ void main() {
     'Test Get Food Recommendation from user input',
     () async {
       const prompt = 'chicken and salad';
-      final AiChatEntity aiChatEntity = AiChatEntity(
-        foodName: 'chicken and salad',
-        imageNetworkUrl: 'https://example.com/image.jpg',
-        noOfIngredients: 10,
-        time: 50,
-      );
+      final AiResultModel aiChatEntity = AiResultModel(
+          summary: 'chicken and salad',
+          typeOfMeat: 'chicken',
+          foodTitle: 'chicken and salad',
+          imageUrl: 'https://example.com/image.jpg',
+          servings: 10,
+          cookingTime: 50,
+          directions: ['Cook the chicken', 'Add the salad', 'Serve!'],
+          ingredients: [
+            Ingredient(name: 'chicken', quantity: '1 lb'),
+          ],
+          nutritionalInformation: NutritionalInformation(
+            kcal: '500',
+            carbs: '20',
+            fats: '10',
+            protein: '30',
+            vitamins: 'vitamins',
+          ));
 
       when(mockAiRemoteDataSource.getAiChatResponse(prompt)).thenAnswer(
         (_) async => aiChatEntity,
@@ -41,7 +55,7 @@ void main() {
 
       verify(mockAiRemoteDataSource.getAiChatResponse(prompt)).called(1);
 
-      expect(result, Right<Failures, AiChatEntity>(aiChatEntity));
+      expect(result, Right<Failures, AiResultModel>(aiChatEntity));
     },
   );
   test(
@@ -63,7 +77,7 @@ void main() {
 
       verify(mockAiRemoteDataSource.getAiChatResponse(prompt)).called(1);
 
-      expect(result, Left<Failures, AiChatEntity>(geminiFailures));
+      expect(result, Left<Failures, AiResultModel>(geminiFailures));
     },
   );
 }

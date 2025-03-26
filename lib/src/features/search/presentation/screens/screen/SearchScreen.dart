@@ -8,6 +8,8 @@ import '../../../../../core/DI/service_locator.dart';
 import '../../../../../core/Internet_connection/bloc/InternetBloc.dart';
 import '../../../../../core/Internet_connection/bloc/InternetEvent.dart';
 import '../../../../../core/Internet_connection/bloc/InternetState.dart';
+
+import '../../../../../core/DI/service_locator.dart';
 import '../../../../../core/app_router/app_routes.dart';
 import '../../../domain/entities/entity.dart';
 import '../../bloc/SearchBloc.dart';
@@ -170,6 +172,55 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           );
                         },
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02,
+                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SearchAnchorWidget(
+                      onChanged: (query) {
+                        context
+                            .read<SearchBloc>()
+                            .add(SearchQueryChanged(query, selectedFilter));
+                      },
+                      onFilterSelected: (filter) {
+                        setState(() {
+                          selectedFilter = filter;
+                        });
+                      },
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    if (state is SearchLoading)
+                      Center(child: CircularProgressIndicator()),
+                    if (state is SearchError)
+                      Center(child: Text(state.message)),
+                    if (state is SearchSuccess)
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemCount: recipes.length,
+                          itemBuilder: (context, index) {
+                            final recipe = recipes[index];
+                            return GestureDetector(
+                              onTap: (){
+                                context.push("${AppRoutes.kFoodDetailsScreen}/${recipe.idMeal}");
+                              },
+                              child: recipeCard(
+                                recipe.strMeal ?? "",
+                                recipe.strCategory ?? "",
+                                recipe.strArea ?? "",
+                                false, // Handle Fav
+                                recipe.strMealThumb ?? "",
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                 ],
