@@ -3,6 +3,8 @@ import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/sign_up/sign_up_screen.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/verification/verification_screen.dart';
+import 'package:feastly/src/features/favourite/presentation/screens/favourite_screen.dart';
+import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_bloc.dart';
 import 'package:feastly/src/features/foodDetails/presentation/screens/food_details_screen.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
@@ -27,7 +29,8 @@ abstract class AppRoutes {
   static const kAiChatView = '/AiChatView';
   static const kErrorView = '/ErrorView';
   static const kAddUrRecipeView = '/AddUrRecipeView';
-  static const kFoodDetailsScreen = '/kFoodDetailsScreen';
+  static const kFoodDetailsScreen = '/FoodDetailsScreen';
+  static const kFavRecipeView = '/FavRecipeScreen';
 
   static final router = GoRouter(
     initialLocation: AppRoutes.kSplashScreen,
@@ -35,9 +38,19 @@ abstract class AppRoutes {
       GoRoute(
         path: kFoodDetailsScreen,
         builder: (context, state) {
-          final aiResultModel = state.extra as AiResultModel;
-          return FoodDetailsScreen(aiResultModel: aiResultModel);
+          final extra = state.extra as Map<String, dynamic>;
+          final aiResultModel = extra['meal'] as AiResultModel;
+    final isFav = extra['isFav'] as bool;
+          return BlocProvider(
+            create: (context) =>
+                MealDetailsBloc(sl(), getMealDetailsUseCase: sl()),
+            child: FoodDetailsScreen(aiResultModel: aiResultModel,isFave: isFav,),
+          );
         },
+      ),
+      GoRoute(
+        path: kFavRecipeView,
+        builder: (context, state) => FavouriteScreen(),
       ),
       GoRoute(
         path: kSplashScreen,

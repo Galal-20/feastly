@@ -10,9 +10,11 @@ import 'package:feastly/src/features/foodDetails/presentation/widgets/ingridiant
 import 'package:flutter/material.dart';
 
 
+// ignore: must_be_immutable
 class FoodDetailsScreen extends StatefulWidget {
   final AiResultModel aiResultModel;
-  const FoodDetailsScreen({super.key, required this.aiResultModel});
+   bool? isFave;
+   FoodDetailsScreen({super.key, required this.aiResultModel,this.isFave});
 
   @override
   State<FoodDetailsScreen> createState() => _FoodDetailsScreenState();
@@ -148,7 +150,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
             return Scaffold(
               body: CustomScrollView(
                 slivers: [
-                  FoodDetailsAppBar(meal:widget.aiResultModel ),
+                  FoodDetailsAppBar(meal:widget.aiResultModel,isFave: widget.isFave, ),
                   FoodDetailsHeader(
                       scrollToSection: _scrollToSection,
                       tabController: _tabController),

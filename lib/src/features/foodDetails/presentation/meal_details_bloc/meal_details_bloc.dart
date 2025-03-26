@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
+import 'package:feastly/src/features/favourite/data/data_sources/fav_data_source.dart';
 import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
 import 'package:feastly/src/features/foodDetails/domain/use_cases/get_meal_details_use_case.dart';
 import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_event.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MealDetailsBloc extends Bloc<MealDetailsEvent, MealDetailsState> {
   final GetMealDetailsUseCase getMealDetailsUseCase;
-  MealDetailsBloc({required this.getMealDetailsUseCase})
+  bool isFave = false;
+  final FavDataSource favDataSource;
+  MealDetailsBloc(this.favDataSource, {required this.getMealDetailsUseCase})
       : super(MealDetailsInitial()) {
     on<GetMealDetailsEvent>((event, emit) async {
       emit(MealDetailsLoading());
@@ -28,6 +31,30 @@ class MealDetailsBloc extends Bloc<MealDetailsEvent, MealDetailsState> {
           },
         );
       }
+    });
+    on<AddFavoriteRecipe>((event, emit) async {
+      try {
+        await favDataSource.storeRecipeAsFavFromAi(event.recipe);
+        emit(FavoriteMealRecipeAdded());
+      } catch (e) {
+        emit(FavoriteError('Failed to add favourite recipe: $e'));
+      }
+    });
+
+    on<RemoveFavoriteRecipe>((event, emit) async {
+      try {
+        await favDataSource.removeRecipeFromFav(event.recipe);
+        emit(FavoriteMealRecipeRemoved());
+      } catch (e) {
+        emit(FavoriteError('Failed to remove favourite recipe: $e'));
+      }
+    });
+
+    on<ToggleFavIcon>((event, emit) async {
+      isFave = !isFave;
+      emit(FavIconToggled());
+
+      
     });
   }
   MealEntity _handleAiReturnLogic(AiResultModel aiResultModel) {

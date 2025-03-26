@@ -13,3 +13,10 @@ class MealDetailsError extends MealDetailsState {
   final String message;
   MealDetailsError({required this.message});
 }
+class FavoriteMealRecipeAdded extends MealDetailsState {}
+class FavoriteMealRecipeRemoved extends MealDetailsState {}
+class FavoriteError extends MealDetailsState {
+  final String message;
+  FavoriteError(this.message);
+}
+class FavIconToggled extends MealDetailsState {}
