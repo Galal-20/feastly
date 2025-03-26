@@ -2,10 +2,17 @@ import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/meal_entity.dart';
+
 class DirectionColumn extends StatelessWidget {
   final Key widgetKey;
+  final MealEntity meal; // Add MealEntity as a required parameter
 
-  const DirectionColumn({super.key, required this.widgetKey});
+  const DirectionColumn({
+    super.key,
+    required this.widgetKey,
+    required this.meal, // Initialize it in the constructor
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,37 +23,36 @@ class DirectionColumn extends StatelessWidget {
           padding: EdgeInsets.only(left: SizeConfig.height * 0.012),
           child: Text(
             key: widgetKey,
-            'Total steps 5',
+            'Total steps',
             style: Theme.of(context)
                 .textTheme
                 .displayMedium!
-                .copyWith(color: AppColors.splashColor,fontWeight: FontWeight.bold),
+                .copyWith(color: AppColors.splashColor, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
-          padding:  EdgeInsets.fromLTRB(SizeConfig.height * 0.02, 0, SizeConfig.height * 0.02, 0),
+          padding: EdgeInsets.fromLTRB(SizeConfig.height * 0.02, 0, SizeConfig.height * 0.02, 0),
           child: ListView.separated(
-                        padding: EdgeInsets.all(4),
-
+            padding: EdgeInsets.all(4),
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 5,
+            itemCount: 1,
             itemBuilder: (context, index) {
               return ListTile(
                 subtitle: Text(
-                    'Step dsffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff/'
-                    'dsadasddddsssssssssssssssssssssssssssssssssssssssssssssssssdddddsssss'),
-                subtitleTextStyle: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(color: AppColors.splashColor),
-                title: Text(
-                  'Step ${index + 1}',
+                  meal.strInstructions ?? '',
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
                       .copyWith(color: AppColors.splashColor),
                 ),
+               /* title: Text(
+                  '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .copyWith(color: AppColors.splashColor),
+                ),*/
               );
             },
             separatorBuilder: (BuildContext context, int index) {

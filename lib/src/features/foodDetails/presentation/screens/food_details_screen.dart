@@ -162,6 +162,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
                             widgetKey: _ingredientsKey, meal: state.meal),
                         DirectionColumn(
                           widgetKey: _directionKey,
+                          meal: state.meal,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(14.0),

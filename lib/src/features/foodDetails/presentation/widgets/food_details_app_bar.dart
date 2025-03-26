@@ -27,11 +27,14 @@ class FoodDetailsAppBar extends StatelessWidget {
           context.pop();
         },
       ),
-      expandedHeight: SizeConfig.height * 0.3,
+      expandedHeight: SizeConfig.height * 0.48,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.only(
-            left: SizeConfig.height * 0.04, bottom: SizeConfig.height * 0.016),
+            left: SizeConfig.height * 0.03,
+            bottom: SizeConfig.height * 0.016,
+            right: SizeConfig.height * 0.1
+        ),
         title: Text(
          meal.strMeal,
           // textAlign: TextAlign.left,

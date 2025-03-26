@@ -18,7 +18,8 @@ class FoodDetailsSummary extends StatelessWidget {
               .textTheme
               .titleSmall!
               .copyWith(color: AppColors.splashColor),
-          meal.strInstructions!),
+          "${meal.strInstructions?.substring(0, 200)}.."
+      ),
     );
   }
 }

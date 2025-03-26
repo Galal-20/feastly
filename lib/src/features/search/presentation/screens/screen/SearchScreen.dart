@@ -126,9 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SearchAnchorWidget(
                     onChanged: (query) {
                       if (isConnected) {
-                        context
-                            .read<SearchBloc>()
-                            .add(SearchQueryChanged(query, selectedFilter));
+                        context.read<SearchBloc>().add(SearchQueryChanged(query, selectedFilter));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

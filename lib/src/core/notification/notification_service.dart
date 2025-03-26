@@ -105,6 +105,10 @@ class LocalNotificationService {
       {"id": 6, "hour": 19, "minute": 00}, // 7:00 PM
       {"id": 7, "hour": 21, "minute": 00}, // 9:00 PM
       {"id": 8, "hour": 23, "minute": 00}, // 11:00 PM
+      {"id": 9, "hour": 13, "minute": 32},
+      {"id": 10, "hour": 13, "minute": 44},
+      {"id": 11, "hour": 13, "minute": 45},
+      {"id": 12, "hour": 13, "minute": 46},
 
     ];
 
