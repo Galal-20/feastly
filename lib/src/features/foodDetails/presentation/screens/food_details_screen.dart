@@ -144,36 +144,6 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
             return Center(child: CircularProgressIndicator());
           }
           if (state is MealDetailsLoaded) {
-            return CustomScrollView(
-              slivers: [
-                FoodDetailsAppBar(meal: state.meal),
-                FoodDetailsHeader(
-                    scrollToSection: _scrollToSection,
-                    tabController: _tabController),
-                SliverList(
-                    delegate: SliverChildListDelegate.fixed(
-                  [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BriefDetailsRaw(
-                            category: state.meal.strCategory!,
-                            time: state.meal.strArea!,
-                            servings: '1 Serving'),
-                        FoodDetailsSummary(
-                            summaryKey: _summaryKey, meal: state.meal),
-                        NutritionsColumn(),
-                        SizedBox(height: SizeConfig.height * 0.02),
-                        IngridiantsColoumn(
-                            widgetKey: _ingredientsKey, meal: state.meal),
-                        DirectionColumn(
-                          widgetKey: _directionKey,
-                          meal: state.meal,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: YoutubePlayer(
-                            controller: _youtubePlayerController,
           */
             return Scaffold(
               body: CustomScrollView(
