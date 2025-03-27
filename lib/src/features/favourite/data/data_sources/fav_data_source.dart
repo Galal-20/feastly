@@ -1,11 +1,12 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:feastly/src/core/firebase/firebase_fav_service.dart';
 import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class FavDataSource {
+class FavDataSource extends FirebaseFavService {
   final FirebaseFirestore _firestore;
   final FirebaseAuth _auth;
   final FirebaseStorage _storage;
@@ -18,6 +19,7 @@ class FavDataSource {
         _auth = auth,
         _storage = storage;
 
+  @override
   Future<void> storeRecipeAsFavFromAi(AiResultModel aiResultModel) async {
     try {
       final user = _auth.currentUser;
@@ -44,7 +46,8 @@ class FavDataSource {
     }
   }
 
-Stream<List<AiResultModel>> fetchFavRecipes() {
+@override
+  Stream<List<AiResultModel>> fetchFavRecipes() {
   final user = _auth.currentUser;
   if (user == null) {
     throw Exception('User not authenticated');
@@ -61,7 +64,8 @@ Stream<List<AiResultModel>> fetchFavRecipes() {
 }
 
 
- Future<void> removeRecipeFromFav(AiResultModel aiResultModel) async {
+ @override
+  Future<void> removeRecipeFromFav(AiResultModel aiResultModel) async {
   try {
     final user = _auth.currentUser;
     if (user == null) {
@@ -102,10 +106,8 @@ Stream<List<AiResultModel>> fetchFavRecipes() {
     throw Exception('Failed to remove favourite recipe: $e');
   }
 }
-
-}
-
-Future<String?> uploadImageFromUrl(
+@override
+  Future<String?> uploadImageFromUrl(
     String imageUrl, User user, FirebaseStorage storage) async {
   try {
     Dio dio = Dio();
@@ -139,6 +141,9 @@ Future<String?> uploadImageFromUrl(
   }
   return null;
 }
+
+}
+
 
 
 /*

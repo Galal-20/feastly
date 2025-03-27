@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:feastly/src/core/auth/firebase_auth_service.dart';
+import 'package:feastly/src/core/firebase/firebase_auth_service.dart';
 import 'package:feastly/src/core/network/pixabay_api.dart';
 import 'package:feastly/src/core/network/retrofit.dart';
 import 'package:feastly/src/features/favourite/data/data_sources/fav_data_source.dart';
