@@ -12,6 +12,14 @@
   <string>fetch</string>
   <string>remote-notification</string>
 </array>
+<key>NSCameraUsageDescription</key>
+<string>We need access to your camera to take photos.</string>
+
+<key>NSPhotoLibraryUsageDescription</key>
+<string>We need access to your photo library to select images.</string>
+
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>We need access to save images to your gallery.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

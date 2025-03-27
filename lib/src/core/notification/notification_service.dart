@@ -49,8 +49,6 @@ class LocalNotificationService {
         ?.createNotificationChannel(channel);
   }
 
-
-
   static Future<void> _scheduleNotification(int id, int hour, int minute,
       String title, String country, String body) async {
     const AndroidNotificationDetails android = AndroidNotificationDetails(
@@ -105,7 +103,6 @@ class LocalNotificationService {
       {"id": 6, "hour": 19, "minute": 00}, // 7:00 PM
       {"id": 7, "hour": 21, "minute": 00}, // 9:00 PM
       {"id": 8, "hour": 23, "minute": 00}, // 11:00 PM
-
     ];
 
     for (var schedule in scheduleTimes) {
