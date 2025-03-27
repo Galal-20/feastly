@@ -72,7 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             final recipe = recipes[index];
                             return GestureDetector(
                               onTap: (){
-                                context.push("${AppRoutes.kFoodDetailsScreen}/${recipe.idMeal}");
+                                context.push("${AppRoutes.kSearchedMealDetailsScreen}/${recipe.idMeal}");
                               },
                               child: recipeCard(
                                 recipe.strMeal ?? "",
