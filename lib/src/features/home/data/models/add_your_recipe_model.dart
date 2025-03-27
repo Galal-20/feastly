@@ -22,7 +22,7 @@ class AddYourRecipeModel extends AddYourRecipeEntity {
     required super.piece3,
     required super.ingredinat4,
     required super.piece4,
-    required super.steps,
+    required super.steps, super.docID,
   });
 
   Map<String, dynamic> toMap({required String imageUrl}) {
@@ -48,6 +48,7 @@ class AddYourRecipeModel extends AddYourRecipeEntity {
       'piece4': piece4,
       'steps': steps,
       'timestamp': FieldValue.serverTimestamp(),
+      'docID':docID,
     };
   }
 }

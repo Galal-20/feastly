@@ -13,6 +13,19 @@ class FoodDetailsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+
+      // actions: [
+      //   IconButton(
+      //       icon: Icon(
+      //     Icons.favorite_rounded,
+      //     color: isFav ? Colors.red : Colors.grey,
+      //     size: 40,
+      //   ),
+      //   onPressed: (){
+      //     isFav = !isFav;
+      //   }
+      //   ),
+      // ],
       actions: [
         IconButton(
             icon: Icon(

@@ -12,3 +12,8 @@ class StoreRecipeEvent extends AddYourRecipeEvent {
 }
 
 class FetchRecipeEvent extends AddYourRecipeEvent {}
+
+class FetchSingleRecipeByIDEvent extends AddYourRecipeEvent {
+  final String mealID;
+  FetchSingleRecipeByIDEvent({required this.mealID});
+}
