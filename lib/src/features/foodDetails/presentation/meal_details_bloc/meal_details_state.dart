@@ -1,12 +1,12 @@
 // Bloc States
-import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 
 abstract class MealDetailsState {}
 
 class MealDetailsInitial extends MealDetailsState {}
 class MealDetailsLoading extends MealDetailsState {}
 class MealDetailsLoaded extends MealDetailsState {
-  final MealEntity meal;
+  final AiResultModel meal;
   MealDetailsLoaded({required this.meal});
 }
 class MealDetailsError extends MealDetailsState {

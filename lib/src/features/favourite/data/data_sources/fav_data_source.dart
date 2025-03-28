@@ -21,12 +21,13 @@ class FavDataSource extends FirebaseFavService {
 
   @override
   Future<void> storeRecipeAsFavFromAi(AiResultModel aiResultModel) async {
+    final mealID =
+        '${aiResultModel.foodTitle}.${aiResultModel.time}.${aiResultModel.typeOfMeat}';
     try {
       final user = _auth.currentUser;
       if (user == null) {
         throw Exception('User not authenticated');
       }
-
       // Upload image to Firebase Storage
       String? imageUrl = await uploadImageFromUrl(
           aiResultModel.imageNetworkUrl, user, _storage);
@@ -40,108 +41,108 @@ class FavDataSource extends FirebaseFavService {
           .collection('recipes')
           .doc(user.uid)
           .collection('favourites')
-          .add(recipeData);
+          .doc(mealID)
+          .set(recipeData);
     } catch (e) {
       throw Exception('Failed to store favourite recipe: $e');
     }
   }
 
-@override
+  @override
   Stream<List<AiResultModel>> fetchFavRecipes() {
-  final user = _auth.currentUser;
-  if (user == null) {
-    throw Exception('User not authenticated');
-  }
-
-  return _firestore
-      .collection('recipes')
-      .doc(user.uid)
-      .collection('favourites')
-      .snapshots()
-      .map((querySnapshot) => querySnapshot.docs
-          .map((doc) => AiResultModel.fromJson(doc.data()))
-          .toList());
-}
-
-
- @override
-  Future<void> removeRecipeFromFav(AiResultModel aiResultModel) async {
-  try {
     final user = _auth.currentUser;
     if (user == null) {
       throw Exception('User not authenticated');
     }
 
-    final querySnapshot = await _firestore
+    return _firestore
         .collection('recipes')
         .doc(user.uid)
         .collection('favourites')
-        .where('food_title', isEqualTo: aiResultModel.foodTitle)
-        .get();
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((doc) => AiResultModel.fromJson(doc.data()))
+            .toList());
+  }
 
-    if (querySnapshot.docs.isEmpty) {
-      throw Exception('Recipe not found');
-    }
-
-    final docId = querySnapshot.docs.first.id;
-    await _firestore
-        .collection('recipes')
-        .doc(user.uid)
-        .collection('favourites')
-        .doc(docId)
-        .delete();
-
-    if (aiResultModel.imageUrl.isNotEmpty) {
-      try {
-        final storagePath = Uri.decodeFull(
-          aiResultModel.imageUrl.split('?').first.split('/o/').last,
-        );
-
-        await _storage.ref(storagePath).delete();
-      } catch (e) {
-        print('Failed to delete image from storage: $e');
+  @override
+  Future<void> removeRecipeFromFav(AiResultModel aiResultModel) async {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) {
+        throw Exception('User not authenticated');
       }
+
+      final querySnapshot = await _firestore
+          .collection('recipes')
+          .doc(user.uid)
+          .collection('favourites')
+          .where('food_title', isEqualTo: aiResultModel.foodTitle)
+          .get();
+
+      if (querySnapshot.docs.isEmpty) {
+        throw Exception('Recipe not found');
+      }
+
+      final docId = querySnapshot.docs.first.id;
+      await _firestore
+          .collection('recipes')
+          .doc(user.uid)
+          .collection('favourites')
+          .doc(docId)
+          .delete();
+
+      if (aiResultModel.imageUrl.isNotEmpty) {
+        try {
+          final storagePath = Uri.decodeFull(
+            aiResultModel.imageUrl.split('?').first.split('/o/').last,
+          );
+
+          await _storage.ref(storagePath).delete();
+        } catch (e) {
+          print('Failed to delete image from storage: $e');
+        }
+      }
+    } catch (e) {
+      throw Exception('Failed to remove favourite recipe: $e');
     }
-  } catch (e) {
-    throw Exception('Failed to remove favourite recipe: $e');
   }
-}
-@override
+
+  @override
   Future<String?> uploadImageFromUrl(
-    String imageUrl, User user, FirebaseStorage storage) async {
-  try {
-    Dio dio = Dio();
+      String imageUrl, User user, FirebaseStorage storage) async {
+    try {
+      Dio dio = Dio();
 
-    // Download the image as bytes
-    Response<Uint8List> response = await dio.get<Uint8List>(
-      imageUrl,
-      options: Options(responseType: ResponseType.bytes),
-    );
+      // Download the image as bytes
+      Response<Uint8List> response = await dio.get<Uint8List>(
+        imageUrl,
+        options: Options(responseType: ResponseType.bytes),
+      );
 
-    if (response.statusCode == 200) {
-      Uint8List imageBytes = response.data!;
+      if (response.statusCode == 200) {
+        Uint8List imageBytes = response.data!;
 
-      // Upload to Firebase Storage
-      Reference ref = storage.ref().child(
-          "'recipes/${user.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg");
+        // Upload to Firebase Storage
+        Reference ref = storage.ref().child(
+            "'recipes/${user.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg");
 
-      UploadTask uploadTask = ref.putData(imageBytes);
-      TaskSnapshot snapshot = await uploadTask;
+        UploadTask uploadTask = ref.putData(imageBytes);
+        TaskSnapshot snapshot = await uploadTask;
 
-      // Get the uploaded image URL
-      String uploadedimageUrl = await snapshot.ref.getDownloadURL();
-      print("Image uploaded successfully: $uploadedimageUrl");
+        // Get the uploaded image URL
+        String uploadedimageUrl = await snapshot.ref.getDownloadURL();
+        print("Image uploaded successfully: $uploadedimageUrl");
 
-      return uploadedimageUrl;
-    } else {
-      print("Failed to download image: ${response.statusCode}");
+        return uploadedimageUrl;
+      } else {
+        print("Failed to download image: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error uploading image: $e");
     }
-  } catch (e) {
-    print("Error uploading image: $e");
+    return null;
   }
-  return null;
-}
-
 }
 
 

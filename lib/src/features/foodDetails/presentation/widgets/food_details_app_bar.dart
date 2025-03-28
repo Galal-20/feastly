@@ -8,18 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
-import '../../../home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_state.dart';
-
 // ignore: must_be_immutable
 class FoodDetailsAppBar extends StatelessWidget {
   AiResultModel meal;
   bool? isFave;
-  FoodDetailsAppBar({super.key, required this.meal, this.isFave});
+  bool? isFromHome;
+  FoodDetailsAppBar(
+      {super.key, required this.meal, this.isFave, this.isFromHome});
 
   @override
   Widget build(BuildContext context) {
-    if(isFave != null){
+    if (isFave != null) {
       context.read<MealDetailsBloc>().isFave = isFave!;
     }
     return SliverAppBar(
@@ -34,17 +33,28 @@ class FoodDetailsAppBar extends StatelessWidget {
                       : Colors.grey,
                   size: 40,
                 ),
+                disabledColor: Colors.grey,
                 onPressed: () {
-                  if (context.read<MealDetailsBloc>().isFave) {
-                    context
-                        .read<MealDetailsBloc>()
-                        .add(RemoveFavoriteRecipe(meal));
+                  if (isFromHome == true) {
+                   
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("It's already in your Meals List",
+                          style: Theme.of(context).textTheme.displaySmall),
+                      duration: Duration(seconds: 2),
+                    ));
+                    null;
                   } else {
-                    context
-                        .read<MealDetailsBloc>()
-                        .add(AddFavoriteRecipe(meal));
+                    if (context.read<MealDetailsBloc>().isFave) {
+                      context
+                          .read<MealDetailsBloc>()
+                          .add(RemoveFavoriteRecipe(meal));
+                    } else {
+                      context
+                          .read<MealDetailsBloc>()
+                          .add(AddFavoriteRecipe(meal));
+                    }
+                    context.read<MealDetailsBloc>().add(ToggleFavIcon());
                   }
-                  context.read<MealDetailsBloc>().add(ToggleFavIcon());
                 });
           },
         ),
@@ -74,16 +84,14 @@ class FoodDetailsAppBar extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.network(
-              // placeHolderImage,
-              meal.imageNetworkUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Image.asset(
-                  "assets/images/dish1.png", // Your local placeholder image
-                  fit: BoxFit.cover,
-                );
-              }
-            ),
+                // placeHolderImage,
+                meal.imageNetworkUrl,
+                fit: BoxFit.cover, errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                "assets/images/dish1.png", // Your local placeholder image
+                fit: BoxFit.cover,
+              );
+            }),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(

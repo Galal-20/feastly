@@ -32,7 +32,7 @@ class BuildUserRecipesListView extends StatelessWidget {
                 if (state is SingleRecipeByIDFetched) {
                   context.push(
                     AppRoutes.kFoodDetailsScreen,
-                    extra: {'aiResultModel': state.recipe},
+                    extra: {'meal': state.recipe , 'isFav': false , 'isFromHome': true},
                   ).then((_) {
                     // إعادة جلب الوصفات بعد الرجوع
                     context.read<AddYourRecipeBloc>().add(FetchRecipeEvent());

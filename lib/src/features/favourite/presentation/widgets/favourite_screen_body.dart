@@ -36,6 +36,7 @@ class FavouriteScreenBody extends StatelessWidget {
                         extra: {
                           'meal': state.favRecipes[index],
                           'isFav': true,
+                          'isFromHome': false
                         },
                         
                       ),

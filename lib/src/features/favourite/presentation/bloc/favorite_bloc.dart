@@ -12,7 +12,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   final AddFavRecipeUsecase addFavRecipeUsecase;
   final RemoveFavRecipeUsecase removeFavRecipeUsecase;
   bool isFave = true;
-  List<AiResultModel> favRecipes = [];
+  List<AiResultModel> myFavRecipes = [];
 
   FavoriteBloc(this.fetchFavUsecase, this.addFavRecipeUsecase,
       this.removeFavRecipeUsecase)
@@ -23,7 +23,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       try {
         await emit.forEach<List<AiResultModel>>(
           fetchFavUsecase.call(),
-          onData: (favRecipes) => FavoriteLoaded(favRecipes),
+          onData: (favRecipes) {
+            myFavRecipes = favRecipes;
+            return FavoriteLoaded(favRecipes);
+          } ,
           onError: (error, stackTrace) =>
               FavoriteError("Failed to fetch favourite recipes: $error"),
         );
@@ -33,29 +36,36 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     });
 
     on<AddFavoriteRecipe>((event, emit) async {
+
+      for (var fav in myFavRecipes) {
+        if (fav.foodTitle == event.recipe.foodTitle) {
+          emit(FavoriteError("Recipe already in favourites"));
+          return;
+        }
+      }
+      /*
       if (state is FavoriteLoaded) {
         final currentFavorites = (state as FavoriteLoaded).favRecipes;
         emit(FavoriteLoaded([...currentFavorites, event.recipe]));
       }
-
+*/
       try {
         await addFavRecipeUsecase.call(event.recipe);
-        emit(FavoriteRecipeAdded());
       } catch (e) {
         emit(FavoriteError('Failed to add favourite recipe: $e'));
       }
     });
 
     on<RemoveFavoriteRecipe>((event, emit) async {
+      /*
       if (state is FavoriteLoaded) {
         final currentFavorites = (state as FavoriteLoaded).favRecipes;
         emit(FavoriteLoaded(
             currentFavorites.where((r) => r != event.recipe).toList()));
       }
-
+*/
       try {
         await removeFavRecipeUsecase.call(event.recipe);
-        emit(FavoriteRecipeRemoved());
       } catch (e) {
         emit(FavoriteError('Failed to remove favourite recipe: $e'));
       }

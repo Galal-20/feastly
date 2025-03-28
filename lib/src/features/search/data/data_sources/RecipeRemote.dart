@@ -53,10 +53,10 @@
 // }
 
 import 'package:dio/dio.dart';
-import '../models/model.dart';
+import 'package:feastly/src/features/foodDetails/data/models/meal.dart';
 
 abstract class RecipeRemoteDataSource {
-  Future<List<RecipeModel>> searchMeals(String query);
+  Future<List<Meal>> searchMeals(String query);
 }
 
 class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
@@ -65,7 +65,7 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
   RecipeRemoteDataSourceImpl(this.dio);
 
   @override
-  Future<List<RecipeModel>> searchMeals(String query) async {
+  Future<List<Meal>> searchMeals(String query) async {
     try {
       final response = await dio.get(
           "https://www.themealdb.com/api/json/v1/1/search.php?s=$query"
@@ -74,7 +74,7 @@ class RecipeRemoteDataSourceImpl implements RecipeRemoteDataSource {
       if (response.statusCode == 200) {
         final meals = response.data['meals'] as List?;
         return meals != null
-            ? meals.map((meal) => RecipeModel.fromJson(meal)).toList()
+            ? meals.map((meal) => Meal.fromJson(meal)).toList()
             : [];
       }
       throw DioException(

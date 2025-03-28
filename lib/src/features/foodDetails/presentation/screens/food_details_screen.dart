@@ -13,8 +13,9 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class FoodDetailsScreen extends StatefulWidget {
   final AiResultModel aiResultModel;
-   bool? isFave;
-   FoodDetailsScreen({super.key, required this.aiResultModel,this.isFave});
+   bool isFave;
+   bool isFromHome;
+   FoodDetailsScreen({super.key, required this.aiResultModel,required this.isFave,required this.isFromHome});
 
   @override
   State<FoodDetailsScreen> createState() => _FoodDetailsScreenState();
@@ -150,7 +151,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
             return Scaffold(
               body: CustomScrollView(
                 slivers: [
-                  FoodDetailsAppBar(meal:widget.aiResultModel,isFave: widget.isFave, ),
+                  FoodDetailsAppBar(meal:widget.aiResultModel,isFave: widget.isFave,isFromHome: widget.isFromHome),
                   FoodDetailsHeader(
                       scrollToSection: _scrollToSection,
                       tabController: _tabController),

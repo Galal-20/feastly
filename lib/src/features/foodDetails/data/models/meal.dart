@@ -66,7 +66,7 @@ class Meal extends MealEntity {
     );
   }
 
-  @override
+  
   Map<String, dynamic> toJson() {
     final json = _$MealToJson(this);
     for (var i = 1; i <= 20; i++) {
