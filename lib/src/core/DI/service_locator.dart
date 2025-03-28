@@ -11,9 +11,14 @@ import 'package:feastly/src/features/favourite/domain/usecases/add_fav_recipe_us
 import 'package:feastly/src/features/favourite/domain/usecases/fetch_fav_usecase.dart';
 import 'package:feastly/src/features/favourite/domain/usecases/remove_fav_recipe_usecase.dart';
 import 'package:feastly/src/features/home/data/data_sources/add_yor_recipe_data_source.dart';
+import 'package:feastly/src/features/home/data/data_sources/recommended_for_you_section/recommended_for_you_remote_data_source.dart';
+import 'package:feastly/src/features/home/data/data_sources/trending_recipes_section/trending_recipes_remote_data_source.dart';
 import 'package:feastly/src/features/home/data/repositories_imp/add_yor_recipe_repo_impl.dart';
 import 'package:feastly/src/features/home/domain/repositories/add_your_recipe_repo_interface.dart';
+import 'package:feastly/src/features/home/domain/repositories/trending_recipes_section/trending_recipes_repository.dart';
 import 'package:feastly/src/features/home/domain/usecases/add_your_recipe_usecase.dart';
+import 'package:feastly/src/features/home/domain/usecases/recommended_for_you_section/recommended_for_you_usecase.dart';
+import 'package:feastly/src/features/home/domain/usecases/trending_recipes_section/get_trending_recipes_usecase.dart';
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
 import 'package:feastly/src/features/foodDetails/data/data_source/get_meal_details_remote_data_source.dart';
 import 'package:feastly/src/features/foodDetails/data/repositories/get_meal_details_repository_impl.dart';
@@ -38,6 +43,11 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../features/auth/data/datasource/auth_data_source.dart';
+import '../../features/home/data/data_sources/recommended_for_you_section/recommended_for_you_remote_data_source_impl.dart';
+import '../../features/home/data/data_sources/trending_recipes_section/trending_recipes_remote_data_source_impl.dart';
+import '../../features/home/data/repositories_imp/recommended_for_you_section/recommended_for_you_repository_impl.dart';
+import '../../features/home/data/repositories_imp/trending_recipes_section/trending_recipes_repository_impl.dart';
+import '../../features/home/domain/repositories/recommended_for_you_section/recommended_for_you_repository.dart';
 import '../../features/profile/domain/usecases/get_profile_data_ usecase.dart';
 import '../../features/search/data/data_sources/RecipeRemote.dart';
 import '../../features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
@@ -116,6 +126,20 @@ class ServiceLocator {
     sl.registerLazySingleton<RecipeRepository>(
         () => RecipeRepositoryImpl(sl()));
     sl.registerLazySingleton(() => SearchUseCase(sl()));
+    sl.registerFactory<MealDetailsBloc>(() => MealDetailsBloc(getMealDetailsUseCase: sl()));
+
+    // home services
+    sl.registerLazySingleton<TrendingRecipesRemoteDataSource>(() => TrendingRecipesRemoteDataSourceImpl(gemini: sl<Gemini>()));
+    sl.registerLazySingleton<TrendingRecipesRepository>(() => TrendingRecipesRepositoryImpl(trendingRecipesRemoteDataSource: sl<TrendingRecipesRemoteDataSource>()));
+    sl.registerLazySingleton<GetTrendingRecipesUseCase>(() => GetTrendingRecipesUseCase(trendingRecipesRepository: sl<TrendingRecipesRepository>(),getImageUseCase :   sl<GetImageUseCase>()));
+
+    // recommended for you services
+    sl.registerLazySingleton<RecommendedForYouRemoteDataSource>(() => RecommendedForYouRemoteDataSourceImpl(gemini: sl<Gemini>()));
+    sl.registerLazySingleton<RecommendedForYouRepository>(() => RecommendedForYouRepositoryImpl(recommendedForYouRemoteDataSource: sl<RecommendedForYouRemoteDataSource>()));
+    sl.registerLazySingleton<GetRecommendedMealsUseCase>(() => GetRecommendedMealsUseCase(recommendedForYouRepository: sl<RecommendedForYouRepository>(),getImageUseCase :  sl<GetImageUseCase>()));
+    sl.registerFactory<SearchedMealDetailsBloc>(() => SearchedMealDetailsBloc(getSearchedMealDetailsUseCase: sl()));
+  }
+}
     sl.registerFactory<MealDetailsBloc>(() =>
         MealDetailsBloc(getMealDetailsUseCase: sl(), sl<FavDataSource>()));
 

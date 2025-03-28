@@ -7,6 +7,7 @@ import 'package:feastly/src/features/foodDetails/presentation/widgets/food_detai
 import 'package:feastly/src/features/foodDetails/presentation/widgets/food_details_summary.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/nutritions_column.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/ingridiants_column.dart';
+import 'package:feastly/src/features/home/data/models/trending_recipes_model/trending_meals_response.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
