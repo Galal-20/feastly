@@ -3,6 +3,7 @@ import 'package:feastly/src/features/home/domain/usecases/recommended_for_you_se
 import 'package:feastly/src/features/home/presentation/bloc/recommended_for_you_bloc/recommended_for_you_bloc.dart';
 import 'package:feastly/src/features/home/presentation/bloc/recommended_for_you_bloc/recommended_for_you_event.dart';
 import 'package:feastly/src/features/home/presentation/bloc/recommended_for_you_bloc/recommended_for_you_state.dart';
+import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -25,7 +26,8 @@ class RecommendedForYouWidget extends StatelessWidget {
         create: (context) {
           final bloc = RecommendedForYouBloc(
               sl<GetRecommendedMealsUseCase>(), sl<GetImageUseCase>())
-            ..add(HomeRecommendedForYouEvent());
+            ..add(HomeRecommendedForYouEvent(
+                isLoaded: context.read<NavBloc>().isRecommendedLoaded));
           return bloc;
         },
         child: BlocConsumer<RecommendedForYouBloc, RecommendedForYouState>(
@@ -39,9 +41,9 @@ class RecommendedForYouWidget extends StatelessWidget {
                 'isFav': false
               },
             ).then((_) {
-              context
-                  .read<RecommendedForYouBloc>()
-                  .add(HomeRecommendedForYouEvent());
+              context.read<RecommendedForYouBloc>().add(
+                  HomeRecommendedForYouEvent(
+                      isLoaded: context.read<NavBloc>().isRecommendedLoaded));
             });
           }
         }, builder: (context, state) {
@@ -53,8 +55,16 @@ class RecommendedForYouWidget extends StatelessWidget {
             return CustomAiErrorWidget(errMsg: state.message);
           }
           if (state is RecommendedForYouSuccess) {
+            if (state.recommendedForYouEntity == null) {
+              state.recommendedForYouEntity =
+                  context.read<NavBloc>().storedNavBlocRecommendedRecipesList;
+            } else {
+              context.read<NavBloc>().storedNavBlocRecommendedRecipesList =
+                  state.recommendedForYouEntity!;
+              context.read<NavBloc>().isRecommendedLoaded = true;
+            }
             var recommendedMealsList =
-                state.recommendedForYouEntity.recommendedMeals;
+                state.recommendedForYouEntity!.recommendedMeals;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -90,7 +100,7 @@ class RecommendedForYouWidget extends StatelessWidget {
               ),
             );
           }
-          return Placeholder();
+          return SizedBox();
         }));
   }
 }

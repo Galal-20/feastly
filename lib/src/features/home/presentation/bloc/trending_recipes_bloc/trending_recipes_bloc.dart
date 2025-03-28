@@ -13,34 +13,35 @@ class TrendingRecipesBloc
   final GetTrendingRecipesUseCase getTrendingRecipesUseCase;
   final GetImageUseCase getImageUseCase;
 
-  TrendingRecipesBloc(this.getTrendingRecipesUseCase,this.getImageUseCase)
+  TrendingRecipesBloc(this.getTrendingRecipesUseCase, this.getImageUseCase)
       : super(TrendingRecipesInitial()) {
     on<HomeTrendingRecipesEvent>(_getTrendingRecipes);
     on<MapMealForDetailsEvent>(_mapMealForDetails);
   }
 
+  Future<void> _getTrendingRecipes(HomeTrendingRecipesEvent event,
+      Emitter<TrendingRecipesState> emit) async {
+    if (event.isLoaded) {
+      emit(TrendingRecipesSuccess(trendingRecipesEntity: null));
+    } else {
+      emit(TrendingRecipesLoading());
 
-  Future<void> _getTrendingRecipes(
-      HomeTrendingRecipesEvent event, Emitter<TrendingRecipesState> emit) async {
-    emit(TrendingRecipesLoading());
+      final result = await getTrendingRecipesUseCase.call();
+      result.fold(
+        (error) {
+          log(error.message);
+          emit(TrendingRecipesError(message: error.message));
+        },
+        (response) {
+          emit(TrendingRecipesSuccess(trendingRecipesEntity: response));
+        },
+      );
+    }
+  }
 
-    final result = await getTrendingRecipesUseCase.call();
-    result.fold(
-          (error) {
-        log(error.message);
-        emit(TrendingRecipesError(message: error.message));
-      },
-          (response) {
-        emit(TrendingRecipesSuccess(trendingRecipesEntity: response));
-      },
-    );
-
-
-}
   void _mapMealForDetails(
       MapMealForDetailsEvent event, Emitter<TrendingRecipesState> emit) {
     final mappedMeal = MealsMapper.mapTrendingMeal(event.meal);
     emit(TrendingRecipesMapped(mappedMeal: mappedMeal));
   }
-
 }

@@ -40,7 +40,7 @@ class AiResultModel extends AiChatEntity {
         servings: json['servings'] as int,
         summary: json['summary'] as String,
         imageUrl: json['image_url'] as String,
-        youtubeUrl: json['youtube_url'] as String? ?? 'www.youtube.com',
+        youtubeUrl: json['youtube_url'],
         nutritionalInformation: NutritionalInformation.fromJson(
             json['nutritional_information'] as Map<String, dynamic>),
         ingredients: (json['ingredients'] as List<dynamic>)

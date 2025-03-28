@@ -7,15 +7,15 @@ abstract class RecommendedForYouState {}
 class RecommendedForYouInitial extends RecommendedForYouState {}
 
 class RecommendedForYouLoading extends RecommendedForYouState {}
+
 class RecommendedForYouMapped extends RecommendedForYouState {
   final AiResultModel mappedMeal;
 
   RecommendedForYouMapped({required this.mappedMeal});
 }
 
-
 class RecommendedForYouSuccess extends RecommendedForYouState {
-  final RecommendedForYouEntity recommendedForYouEntity;
+  RecommendedForYouEntity? recommendedForYouEntity;
   RecommendedForYouSuccess({required this.recommendedForYouEntity});
 }
 

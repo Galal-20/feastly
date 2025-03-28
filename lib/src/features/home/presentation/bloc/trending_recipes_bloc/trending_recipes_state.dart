@@ -9,7 +9,7 @@ class TrendingRecipesInitial extends TrendingRecipesState {}
 class TrendingRecipesLoading extends TrendingRecipesState {}
 
 class TrendingRecipesSuccess extends TrendingRecipesState {
-  final TrendingRecipesEntity trendingRecipesEntity;
+  TrendingRecipesEntity? trendingRecipesEntity;
   TrendingRecipesSuccess({required this.trendingRecipesEntity});
 }
 

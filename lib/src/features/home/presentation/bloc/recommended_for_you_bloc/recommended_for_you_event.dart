@@ -1,12 +1,17 @@
 import '../../../data/models/recommended_for_you_model/recommended_meal_model.dart';
 
-abstract class RecommendedForYouEvent{}
+abstract class RecommendedForYouEvent {}
 
-class HomeRecommendedForYouEvent extends RecommendedForYouEvent {}
-class MapMealForDetailsEvent  extends RecommendedForYouEvent {
+class HomeRecommendedForYouEvent extends RecommendedForYouEvent {
+  bool isLoaded;
+
+  HomeRecommendedForYouEvent({this.isLoaded = false});
+}
+
+class MapMealForDetailsEvent extends RecommendedForYouEvent {
   final RecommendedMeal meal;
 
-  MapMealForDetailsEvent ({required this.meal});
+  MapMealForDetailsEvent({required this.meal});
 }
 
 class ToggleFavoriteEvent extends RecommendedForYouEvent {

@@ -2,9 +2,12 @@ import 'package:feastly/src/features/home/data/models/trending_recipes_model/tre
 
 abstract class TrendingRecipesEvent {}
 
-class HomeTrendingRecipesEvent extends TrendingRecipesEvent {}
+class HomeTrendingRecipesEvent extends TrendingRecipesEvent {
+  bool isLoaded;
+  HomeTrendingRecipesEvent({this.isLoaded = false});
+}
 
-class MapMealForDetailsEvent  extends TrendingRecipesEvent {
+class MapMealForDetailsEvent extends TrendingRecipesEvent {
   final TrendingMeal meal;
 
   MapMealForDetailsEvent({required this.meal});

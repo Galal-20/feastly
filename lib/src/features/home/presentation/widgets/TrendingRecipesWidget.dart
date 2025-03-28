@@ -2,6 +2,7 @@ import 'package:feastly/src/features/ai_chat/presentation/widgets/custom_ai_erro
 import 'package:feastly/src/features/home/domain/usecases/trending_recipes_section/get_trending_recipes_usecase.dart';
 import 'package:feastly/src/features/home/presentation/bloc/trending_recipes_bloc/trending_recipes_bloc.dart';
 import 'package:feastly/src/features/home/presentation/bloc/trending_recipes_bloc/trending_recipes_state.dart';
+import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -17,7 +18,6 @@ import '../bloc/trending_recipes_bloc/trending_recipes_event.dart';
 class RecipesWidget extends StatelessWidget {
   const RecipesWidget({super.key, required this.recipesType});
   final String recipesType;
-
   @override
   Widget build(BuildContext context) {
     Gemini.init(apiKey: googleApiKey);
@@ -26,7 +26,8 @@ class RecipesWidget extends StatelessWidget {
         create: (context) {
           final bloc = TrendingRecipesBloc(
               sl<GetTrendingRecipesUseCase>(), sl<GetImageUseCase>());
-          bloc.add(HomeTrendingRecipesEvent());
+          bloc.add(HomeTrendingRecipesEvent(
+              isLoaded: context.read<NavBloc>().isTrendingLoaded));
           return bloc;
         },
         child: BlocConsumer<TrendingRecipesBloc, TrendingRecipesState>(
@@ -40,9 +41,8 @@ class RecipesWidget extends StatelessWidget {
                 'isFav': false
               },
             ).then((_) {
-              context
-                  .read<TrendingRecipesBloc>()
-                  .add(HomeTrendingRecipesEvent());
+              context.read<TrendingRecipesBloc>().add(HomeTrendingRecipesEvent(
+                  isLoaded: context.read<NavBloc>().isTrendingLoaded));
             });
           }
         }, builder: (context, state) {
@@ -54,7 +54,16 @@ class RecipesWidget extends StatelessWidget {
             return CustomAiErrorWidget(errMsg: state.message);
           }
           if (state is TrendingRecipesSuccess) {
-            var trendingRecipesList = state.trendingRecipesEntity.trendingMeals;
+            if (state.trendingRecipesEntity == null) {
+              state.trendingRecipesEntity =
+                  context.read<NavBloc>().storedNavBlocTrendingRecipesList;
+            } else {
+              context.read<NavBloc>().storedNavBlocTrendingRecipesList =
+                  state.trendingRecipesEntity!;
+              context.read<NavBloc>().isTrendingLoaded = true;
+            }
+            var trendingRecipesList =
+                state.trendingRecipesEntity!.trendingMeals;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -106,7 +115,7 @@ class RecipesWidget extends StatelessWidget {
               ),
             );
           }
-          return Placeholder();
+          return SizedBox();
         }));
   }
 }

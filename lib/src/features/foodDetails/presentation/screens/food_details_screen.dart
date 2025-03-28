@@ -133,8 +133,8 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
           flags: YoutubePlayerFlags(
             autoPlay: false,
           ),
-          initialVideoId: YoutubePlayer.convertUrlToId(
-              widget.aiResultModel.youtubeUrl ?? 'https://www.youtube.com/')!);
+          initialVideoId:
+              YoutubePlayer.convertUrlToId(widget.aiResultModel.youtubeUrl!)!);
     }
 
     return Scaffold(
