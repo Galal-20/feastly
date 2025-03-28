@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:feastly/src/core/firebase/firebase_auth_service.dart';
+import 'package:feastly/src/core/cache/cache.dart';
 import 'package:feastly/src/core/network/pixabay_api.dart';
 import 'package:feastly/src/core/network/retrofit.dart';
 import 'package:feastly/src/features/favourite/data/data_sources/fav_data_source.dart';
@@ -30,7 +31,7 @@ import 'package:feastly/src/features/ai_chat/domain/use_case/get_image_use_case.
 import 'package:feastly/src/features/profile/data/data_sources/profile_data_source.dart';
 import 'package:feastly/src/features/profile/data/repositories_imp/profile_repo_impl.dart';
 import 'package:feastly/src/features/profile/domain/repositories/profile_repo.dart';
-import 'package:feastly/src/features/profile/domain/usecases/update_name.dart';
+import 'package:feastly/src/features/profile/domain/usecases/update_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -47,14 +48,19 @@ import '../../features/search/domain/usecases/uaseCase.dart';
 final sl = GetIt.instance;
 
 class ServiceLocator {
-  static void init() {
+  static Future<void> init() async {
+    final cacheHelper = CacheHelper();
+    await cacheHelper.init();
+    sl.registerSingleton<CacheHelper>(cacheHelper);
     sl.registerLazySingleton<Dio>(() => DioClient().dio);
     sl.registerLazySingleton(() => GoogleSignIn());
     sl.registerLazySingleton(() => FirebaseHelper());
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
     sl.registerLazySingleton<AuthDataSource>(
         () => AuthRepository(firebaseAuthService: sl()));
-    sl.registerLazySingleton(() => ProfileDataSource(authRepository: sl()));
+    sl.registerLazySingleton(() => ProfileDataSource(firebaseAuth: sl()));
+    sl.registerLazySingleton(
+        () => ProfileDataSource(firebaseAuth: sl()));
     sl.registerLazySingleton<ProfileRepo>(
         () => ProfileRepoImpl(profileDataSource: sl()));
     sl.registerLazySingleton(() => ProfileUpdateNameUseCase(repository: sl()));
@@ -62,21 +68,16 @@ class ServiceLocator {
     // Meal Details
     sl.registerLazySingleton<GetMealDetailsRemoteDataSource>(() =>
         GetMealDetailsRemoteDataSourceWithRetrofit(retrofitServices: sl()));
-
-
     sl.registerLazySingleton<GetMealDetailsRepository>(
         () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
-   
-
     sl.registerLazySingleton(
         () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
-
 
     sl.registerLazySingleton<RetrofitServices>(
         () => RetrofitServices(sl<Dio>()));
 
     sl.registerLazySingleton<FirebaseFirestore>(
-            () => FirebaseFirestore.instance);
+        () => FirebaseFirestore.instance);
     sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
     sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
     sl.registerLazySingleton<AddYourRecipeDataSourceAbstract>(
@@ -129,6 +130,7 @@ class ServiceLocator {
     sl.registerLazySingleton(() => FetchFavUsecase(sl()));
     sl.registerLazySingleton(() => RemoveFavRecipeUsecase(sl()));
     sl.registerLazySingleton(() => AddFavRecipeUsecase(sl()));
+    sl.registerFactory<MealDetailsBloc>(
+        () => MealDetailsBloc(getMealDetailsUseCase: sl(),sl()));
   }
 }
-

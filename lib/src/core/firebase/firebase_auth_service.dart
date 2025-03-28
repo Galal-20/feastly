@@ -1,3 +1,7 @@
+import 'package:feastly/src/core/DI/service_locator.dart';
+import 'package:feastly/src/core/cache/cache.dart';
+import 'package:feastly/src/core/network/firebase/database/add_data.dart';
+import 'package:feastly/src/features/profile/data/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -23,6 +27,18 @@ class FirebaseHelper {
           .createUserWithEmailAndPassword(email: email, password: password);
       await userCredential.user?.updateDisplayName(fullName);
       await userCredential.user?.reload();
+      await FirestoreService.addDataWithCustomId(
+        collection: "users",
+        docId: _firebaseAuth.currentUser!.uid,
+        data: {
+          "name": fullName,
+          "email": email,
+          "phone": phone,
+        },
+      );
+      await sl<CacheHelper>().saveUserModel(
+        UserModel(name: fullName, phone: phone, email: email, image: null),
+      );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
@@ -48,6 +64,12 @@ class FirebaseHelper {
     try {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
+      var userModel = await FirestoreService.getDataWithCustomId(
+          collection: "users", docId: _firebaseAuth.currentUser!.uid);
+      await sl<CacheHelper>().saveUserModel(
+        UserModel(name: userModel!.name, phone: userModel.phone, email: email, image: userModel!.image),
+      );
+
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
