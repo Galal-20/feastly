@@ -9,7 +9,13 @@ class RecommendedCard extends StatelessWidget {
   final String name;
   final String noOfIngredients;
   final String time;
+  final bool isFavorite;
+  final VoidCallback? onFavoriteTap;
 
+  RecommendedCard({
+    super.key,
+    this.isFavorite = false,
+    this.onFavoriteTap,
   const RecommendedCard({super.key, 
     required this.imagePath,
     required this.name,
@@ -20,12 +26,13 @@ class RecommendedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColors.tWhite,
       elevation: 3,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: 303,
-          height: 203,
+          height: 250,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -39,14 +46,43 @@ class RecommendedCard extends StatelessWidget {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(imagePath)),
+                        child: Container(
+                          height: 150,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Image.network(
+                            imagePath,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Center(
+                                  child: Text('Failed to load image'));
+                            },
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                  child: CircularProgressIndicator(
+                                      color: AppColors.splashColor));
+                            },
+                          ),
+                        )),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset('assets/svg/heart.svg',
-                          colorFilter:
-                              ColorFilter.mode(Colors.white, BlendMode.srcIn)),
+                      child: InkWell(
+                        onTap: onFavoriteTap,
+                        child: SvgPicture.asset('assets/svg/heart.svg',
+                          colorFilter: ColorFilter.mode(
+                            isFavorite ? Colors.red : Colors.white,
+                            BlendMode.srcIn,
+                          ),),
+                      )
+                      ,
                     )
                   ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
