@@ -1,29 +1,41 @@
+import 'dart:io';
+
+import 'package:dartz/dartz.dart';
+import 'package:feastly/src/core/error/failures.dart';
 import 'package:feastly/src/features/profile/data/data_sources/profile_data_source.dart';
+import 'package:feastly/src/features/profile/data/models/user.dart';
+import 'package:feastly/src/features/profile/domain/entities/user_entity.dart';
 import 'package:feastly/src/features/profile/domain/repositories/profile_repo.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class ProfileRepoImpl extends ProfileRepo {
+class ProfileRepoImpl implements ProfileRepo {
   final ProfileDataSource profileDataSource;
-
   ProfileRepoImpl({required this.profileDataSource});
-
   @override
-  Future<User> getUserProfile() async {
+  Future<Either<Failures, Unit>> updateProfileDetails(
+      {required UserEntity user, File? file}) async {
     try {
-      final user = await profileDataSource.getUserProfile();
-
-      return user;
+       await profileDataSource.updateProfile(
+        userModel: UserModel(
+          name: user.name,
+          phone: user.phone,
+          email: user.email,
+          image: user.image,
+        ),
+        file: file,
+      );
+      return Right(unit);
     } catch (e) {
-      throw Exception(e);
+      return Left(ServerFailure(message: e.toString()));
     }
   }
-
+  
   @override
-  Future<void> updateName(String fullName) async {
+  Future<Either<Failures, UserEntity>> getUserProfile() async {
     try {
-      await profileDataSource.updateProfile(fullName: fullName);
+      final user = await profileDataSource.getUserProfile();
+      return right(user);
     } catch (e) {
-      throw Exception(e);
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 }

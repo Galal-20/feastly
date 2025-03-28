@@ -5,15 +5,25 @@ part 'meal.g.dart';
 
 @JsonSerializable()
 class Meal extends MealEntity {
+  @override
   final String idMeal;
+  @override
   final String strMeal;
+  @override
   final String? strCategory;
+  @override
   final String? strArea;
+  @override
   final String? strInstructions;
+  @override
   final String? strMealThumb;
+  @override
   final String? strTags;
+  @override
   final String? strYoutube;
+  @override
   final List<String> ingredients;
+  @override
   final List<String> measures;
 
   Meal({
@@ -66,7 +76,7 @@ class Meal extends MealEntity {
     );
   }
 
-  @override
+  
   Map<String, dynamic> toJson() {
     final json = _$MealToJson(this);
     for (var i = 1; i <= 20; i++) {

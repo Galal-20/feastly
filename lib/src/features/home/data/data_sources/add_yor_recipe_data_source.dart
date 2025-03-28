@@ -43,7 +43,7 @@ class AddYourRecipeDataSourceImpl implements AddYourRecipeDataSourceAbstract {
           debugPrint("store reffff is $storageRef");
           TaskSnapshot uploadTask = await storageRef.putFile(addYourRecipeModel.mealImage as File);
           debugPrint("uplllooooddd taskkk is $uploadTask");
-          TaskSnapshot snapshot = await uploadTask;
+          TaskSnapshot snapshot = uploadTask;
           debugPrint("snapppppshottt taskkk is $snapshot");
 
           imageUrl = await snapshot.ref.getDownloadURL();
@@ -86,10 +86,10 @@ class AddYourRecipeDataSourceImpl implements AddYourRecipeDataSourceAbstract {
         throw Exception('Recipe not found with ID: $mealID');
       }
 
-      final data =await doc.data()!;
+      final data =doc.data()!;
       debugPrint("doccccccccc daaaattttaaa are $data");
 
-      final List<Ingredient> ingredientsList =await [
+      final List<Ingredient> ingredientsList =[
         if (data['ingredinat1']?.isNotEmpty ?? false)
           Ingredient(name: data['ingredinat1'] ?? '', quantity: data['piece1'] ?? ''),
         if (data['ingredinat2']?.isNotEmpty ?? false)

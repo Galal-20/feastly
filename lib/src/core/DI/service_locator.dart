@@ -1,8 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:feastly/src/core/auth/firebase_auth_service.dart';
+import 'package:feastly/src/core/firebase/firebase_auth_service.dart';
+import 'package:feastly/src/core/cache/cache.dart';
 import 'package:feastly/src/core/network/pixabay_api.dart';
 import 'package:feastly/src/core/network/retrofit.dart';
+import 'package:feastly/src/features/favourite/data/data_sources/fav_data_source.dart';
+import 'package:feastly/src/features/favourite/data/repositories_imp/repo_Impl.dart';
+import 'package:feastly/src/features/favourite/domain/repositories/repo.dart';
+import 'package:feastly/src/features/favourite/domain/usecases/add_fav_recipe_usecase.dart';
+import 'package:feastly/src/features/favourite/domain/usecases/fetch_fav_usecase.dart';
+import 'package:feastly/src/features/favourite/domain/usecases/remove_fav_recipe_usecase.dart';
 import 'package:feastly/src/features/home/data/data_sources/add_yor_recipe_data_source.dart';
 import 'package:feastly/src/features/home/data/data_sources/recommended_for_you_section/recommended_for_you_remote_data_source.dart';
 import 'package:feastly/src/features/home/data/data_sources/trending_recipes_section/trending_recipes_remote_data_source.dart';
@@ -29,7 +36,7 @@ import 'package:feastly/src/features/ai_chat/domain/use_case/get_image_use_case.
 import 'package:feastly/src/features/profile/data/data_sources/profile_data_source.dart';
 import 'package:feastly/src/features/profile/data/repositories_imp/profile_repo_impl.dart';
 import 'package:feastly/src/features/profile/domain/repositories/profile_repo.dart';
-import 'package:feastly/src/features/profile/domain/usecases/update_name.dart';
+import 'package:feastly/src/features/profile/domain/usecases/update_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -46,75 +53,78 @@ import '../../features/search/data/data_sources/RecipeRemote.dart';
 import '../../features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
 import '../../features/search/domain/repositories/RecipeRepository.dart';
 import '../../features/search/domain/usecases/uaseCase.dart';
-import '../../features/searchedMealDetails/data/data_source/get_searched_meal_details_remote_data_source.dart';
-import '../../features/searchedMealDetails/data/repositories/get_searched_meal_details_repository_impl.dart';
-import '../../features/searchedMealDetails/domain/repositories/get_searched_meal_details_repository.dart';
-import '../../features/searchedMealDetails/domain/use_cases/get_searched_meal_details_use_case.dart';
-import '../../features/searchedMealDetails/presentation/meal_details_bloc/searched_meal_details_bloc.dart';
+
 
 final sl = GetIt.instance;
 
 class ServiceLocator {
-  static void init() {
+  static Future<void> init() async {
+    final cacheHelper = CacheHelper();
+    await cacheHelper.init();
+    sl.registerSingleton<CacheHelper>(cacheHelper);
     sl.registerLazySingleton<Dio>(() => DioClient().dio);
     sl.registerLazySingleton(() => GoogleSignIn());
     sl.registerLazySingleton(() => FirebaseHelper());
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
-    sl.registerLazySingleton<AuthDataSource>(() => AuthRepository(firebaseAuthService: sl()));
-    sl.registerLazySingleton(() => ProfileDataSource(authRepository: sl()));sl.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(profileDataSource: sl()));
+    sl.registerLazySingleton<AuthDataSource>(
+        () => AuthRepository(firebaseAuthService: sl()));
+    sl.registerLazySingleton(
+        () => ProfileDataSource(firebaseAuth: sl()));
+    sl.registerLazySingleton<ProfileRepo>(
+        () => ProfileRepoImpl(profileDataSource: sl()));
     sl.registerLazySingleton(() => ProfileUpdateNameUseCase(repository: sl()));
     sl.registerLazySingleton(() => GetProfileDataUseCase(repository: sl()));
     // Meal Details
     sl.registerLazySingleton<GetMealDetailsRemoteDataSource>(() =>
         GetMealDetailsRemoteDataSourceWithRetrofit(retrofitServices: sl()));
-    sl.registerLazySingleton<GetSearchedMealDetailsRemoteDataSource>(() =>
-        GetSearchedMealDetailsRemoteDataSourceWithRetrofit(retrofitServices: sl()));
-
     sl.registerLazySingleton<GetMealDetailsRepository>(
-            () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
-    sl.registerLazySingleton<GetSearchedMealDetailsRepository>(
-            () => GetSearchedMealDetailsRepositoryImpl(remoteDataSource: sl()));
-
+        () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
     sl.registerLazySingleton(
-            () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
+        () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
 
-    sl.registerLazySingleton(
-            () => GetSearchedMealDetailsUseCase(getSearchedMealDetailsRepository: sl()));
-
-    sl.registerLazySingleton<RetrofitServices>(() => RetrofitServices(sl<Dio>()));
+    sl.registerLazySingleton<RetrofitServices>(
+        () => RetrofitServices(sl<Dio>()));
 
     sl.registerLazySingleton<FirebaseFirestore>(
-            () => FirebaseFirestore.instance);
+        () => FirebaseFirestore.instance);
     sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
     sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
     sl.registerLazySingleton<AddYourRecipeDataSourceAbstract>(
-          () => AddYourRecipeDataSourceImpl(
+      () => AddYourRecipeDataSourceImpl(
         firestore: sl<FirebaseFirestore>(),
         auth: sl<FirebaseAuth>(),
         storage: sl<FirebaseStorage>(),
       ),
     );
     sl.registerLazySingleton<AddYourRecipeRepoInterface>(
-            () => AddYourRecipeRepoImpl(addYourRecipeDataSourceAbstract: sl()));
+        () => AddYourRecipeRepoImpl(addYourRecipeDataSourceAbstract: sl()));
     sl.registerLazySingleton<AddYourRecipeUsecase>(
-            () => AddYourRecipeUsecase(addYourRecipeRepoInterface: sl()));
+        () => AddYourRecipeUsecase(addYourRecipeRepoInterface: sl()));
     sl.registerFactory<AddYourRecipeBloc>(
-            () => AddYourRecipeBloc(storeUserRecipeUseCase:sl()));
+        () => AddYourRecipeBloc(storeUserRecipeUseCase: sl()));
 
     // ai chat screen services
     sl.registerLazySingleton<Gemini>(() => Gemini.instance);
 
-    sl.registerLazySingleton<AiRemoteDataSource>(() => AiRemoteDataSourceImpl(gemini: sl<Gemini>()));
-    sl.registerLazySingleton<AiChatRepo>(() => AiChatRepoImpl(aiRemoteDataSource: sl<AiRemoteDataSource>()));
-    sl.registerLazySingleton<GetAiChatResponseUseCase>(() => GetAiChatResponseUseCase(aiChatRepo: sl<AiChatRepo>()));
+    sl.registerLazySingleton<AiRemoteDataSource>(
+        () => AiRemoteDataSourceImpl(gemini: sl<Gemini>()));
+    sl.registerLazySingleton<AiChatRepo>(
+        () => AiChatRepoImpl(aiRemoteDataSource: sl<AiRemoteDataSource>()));
+    sl.registerLazySingleton<GetAiChatResponseUseCase>(
+        () => GetAiChatResponseUseCase(aiChatRepo: sl<AiChatRepo>()));
     sl.registerLazySingleton<PixabayApi>(() => PixabayApi(sl<Dio>()));
-    sl.registerLazySingleton<ImageRemoteDataSource>(() => ImageRemoteDataSourceImpl(pixabayApi: sl<PixabayApi>()));
-    sl.registerLazySingleton<GetImageRepo>(() => GetImageRepoImpl(imageRemoteDataSource: sl<ImageRemoteDataSource>()));
-    sl.registerLazySingleton<GetImageUseCase>(() => GetImageUseCase(getImageRepo: sl<GetImageRepo>()));
+    sl.registerLazySingleton<ImageRemoteDataSource>(
+        () => ImageRemoteDataSourceImpl(pixabayApi: sl<PixabayApi>()));
+    sl.registerLazySingleton<GetImageRepo>(() =>
+        GetImageRepoImpl(imageRemoteDataSource: sl<ImageRemoteDataSource>()));
+    sl.registerLazySingleton<GetImageUseCase>(
+        () => GetImageUseCase(getImageRepo: sl<GetImageRepo>()));
     //sl.registerLazySingleton(() => Dio());
-    sl.registerLazySingleton<RecipeRemoteDataSource>(() => RecipeRemoteDataSourceImpl(sl()));
+    sl.registerLazySingleton<RecipeRemoteDataSource>(
+        () => RecipeRemoteDataSourceImpl(sl()));
 
-    sl.registerLazySingleton<RecipeRepository>(() => RecipeRepositoryImpl(sl()));
+    sl.registerLazySingleton<RecipeRepository>(
+        () => RecipeRepositoryImpl(sl()));
     sl.registerLazySingleton(() => SearchUseCase(sl()));
     sl.registerFactory<MealDetailsBloc>(() => MealDetailsBloc(getMealDetailsUseCase: sl()));
 
@@ -130,4 +140,19 @@ class ServiceLocator {
     sl.registerFactory<SearchedMealDetailsBloc>(() => SearchedMealDetailsBloc(getSearchedMealDetailsUseCase: sl()));
   }
 }
+    sl.registerFactory<MealDetailsBloc>(() =>
+        MealDetailsBloc(getMealDetailsUseCase: sl(), sl<FavDataSource>()));
 
+    sl.registerLazySingleton<FavDataSource>(() => FavDataSource(
+          firestore: sl<FirebaseFirestore>(),
+          auth: sl<FirebaseAuth>(),
+          storage: sl<FirebaseStorage>(),
+        ));
+           sl.registerLazySingleton<FavouriteRepository>(
+        () => FavoriteRepoImpl( sl()));
+    sl.registerLazySingleton(() => FetchFavUsecase(sl()));
+    sl.registerLazySingleton(() => RemoveFavRecipeUsecase(sl()));
+    sl.registerLazySingleton(() => AddFavRecipeUsecase(sl()));
+
+  }
+}

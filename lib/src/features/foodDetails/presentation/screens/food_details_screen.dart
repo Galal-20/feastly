@@ -9,11 +9,15 @@ import 'package:feastly/src/features/foodDetails/presentation/widgets/nutritions
 import 'package:feastly/src/features/foodDetails/presentation/widgets/ingridiants_column.dart';
 import 'package:feastly/src/features/home/data/models/trending_recipes_model/trending_meals_response.dart';
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 
+// ignore: must_be_immutable
 class FoodDetailsScreen extends StatefulWidget {
   final AiResultModel aiResultModel;
-  const FoodDetailsScreen({super.key, required this.aiResultModel});
+   bool isFave;
+   bool isFromHome;
+   FoodDetailsScreen({super.key, required this.aiResultModel,required this.isFave,required this.isFromHome});
 
   @override
   State<FoodDetailsScreen> createState() => _FoodDetailsScreenState();
@@ -23,7 +27,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
     with SingleTickerProviderStateMixin {
       
      
- // late YoutubePlayerController _youtubePlayerController;
+  late YoutubePlayerController _youtubePlayerController;
   final GlobalKey _summaryKey = GlobalKey();
   final GlobalKey _ingredientsKey = GlobalKey();
   final GlobalKey _directionKey = GlobalKey();
@@ -123,33 +127,20 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    /*
-    return Scaffold(
-      body: BlocBuilder<MealDetailsBloc, MealDetailsState>(
-        
-        listener: (context, state) {
-          if (state is MealDetailsLoaded) {
-            if (state.meal.strYoutube != null) {
+
+            if (widget.aiResultModel.youtubeUrl != null) {
               _youtubePlayerController = YoutubePlayerController(
                   flags: YoutubePlayerFlags(
                     autoPlay: false,
                   ),
                   initialVideoId: YoutubePlayer.convertUrlToId(
-                      state.meal.strYoutube ?? 'https://www.youtube.com/')!);
+                      widget.aiResultModel.youtubeUrl ?? 'https://www.youtube.com/')!);
             }
-          }
-        },
-        
-        builder: (context, state) {
-          if (state is MealDetailsLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (state is MealDetailsLoaded) {
-          */
+
             return Scaffold(
               body: CustomScrollView(
                 slivers: [
-                  FoodDetailsAppBar(meal:widget.aiResultModel ),
+                  FoodDetailsAppBar(meal:widget.aiResultModel,isFave: widget.isFave,isFromHome: widget.isFromHome),
                   FoodDetailsHeader(
                       scrollToSection: _scrollToSection,
                       tabController: _tabController),
@@ -173,8 +164,9 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
                              meal:widget.aiResultModel,
                             widgetKey: _directionKey,
                           ),
-                          /*
-                          state.meal.strYoutube != null
+                          SizedBox(height: SizeConfig.height * 0.02),
+
+                          widget.aiResultModel.youtubeUrl != null
                               ? Padding(
                                   padding: const EdgeInsets.all(14.0),
                                   child: YoutubePlayer(
@@ -182,7 +174,6 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
                                   ),
                                 )
                               : SizedBox(),
-                              */
                         ],
                       )
                     ],

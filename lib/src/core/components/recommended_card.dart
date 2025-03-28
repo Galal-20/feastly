@@ -16,6 +16,7 @@ class RecommendedCard extends StatelessWidget {
     super.key,
     this.isFavorite = false,
     this.onFavoriteTap,
+  const RecommendedCard({super.key, 
     required this.imagePath,
     required this.name,
     required this.noOfIngredients,

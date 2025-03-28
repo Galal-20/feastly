@@ -8,3 +8,13 @@ class GetMealDetailsEvent extends MealDetailsEvent {
   final AiResultModel? aiResultModel;
   GetMealDetailsEvent({required this.id, this.aiResultModel});
 }
+class AddFavoriteRecipe extends MealDetailsEvent {
+  final AiResultModel recipe;
+  AddFavoriteRecipe(this.recipe);
+}
+ 
+class RemoveFavoriteRecipe extends MealDetailsEvent {
+  final AiResultModel recipe;
+  RemoveFavoriteRecipe(this.recipe);
+}
+class ToggleFavIcon extends MealDetailsEvent {}

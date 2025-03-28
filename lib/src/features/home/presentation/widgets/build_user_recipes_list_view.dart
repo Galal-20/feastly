@@ -5,7 +5,6 @@ import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_event.dart';
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -32,7 +31,7 @@ class BuildUserRecipesListView extends StatelessWidget {
                 if (state is SingleRecipeByIDFetched) {
                   context.push(
                     AppRoutes.kFoodDetailsScreen,
-                    extra: {'aiResultModel': state.recipe},
+                    extra: {'meal': state.recipe , 'isFav': false , 'isFromHome': true},
                   ).then((_) {
                     // إعادة جلب الوصفات بعد الرجوع
                     context.read<AddYourRecipeBloc>().add(FetchRecipeEvent());
