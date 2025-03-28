@@ -27,12 +27,10 @@ abstract class AuthDataSource {
 
 
 
-
-
 class AuthRepository implements AuthDataSource {
-  final FirebaseAuthDataSource _firebaseAuthService;
+  final FirebaseHelper _firebaseAuthService;
 
-  AuthRepository({required FirebaseAuthDataSource firebaseAuthService})
+  AuthRepository({required FirebaseHelper firebaseAuthService})
       : _firebaseAuthService = firebaseAuthService;
 
   @override

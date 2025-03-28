@@ -13,7 +13,10 @@ import 'package:feastly/src/features/home/presentation/screens/add_your_recipe_s
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/ai_chat/presentation/views/ai_chat_screen.dart';
 import '../../features/auth/persentation/UI/screen/login/login_screen.dart';
+import '../../features/searchedMealDetails/presentation/meal_details_bloc/searched_meal_details_bloc.dart';
+import '../../features/searchedMealDetails/presentation/meal_details_bloc/searched_meal_details_event.dart';
 import '../../features/homePage/presentation/screens/HomePage.dart';
+import '../../features/searchedMealDetails/presentation/screens/searched_meal_details_screen.dart';
 import '../DI/service_locator.dart';
 import '../utils/app_animations.dart';
 
@@ -32,9 +35,21 @@ abstract class AppRoutes {
   static const kFoodDetailsScreen = '/FoodDetailsScreen';
   static const kFavRecipeView = '/FavRecipeScreen';
 
+  static const kFoodDetailsScreen = '/kFoodDetailsScreen';
+  static const kSearchedMealDetailsScreen = '/kSearchedMealDetailsScreen';
   static final router = GoRouter(
     initialLocation: AppRoutes.kSplashScreen,
     routes: [
+  GoRoute(
+  path: '$kSearchedMealDetailsScreen/:id',
+    builder: (context, state) {
+      final id = state.pathParameters['id'];
+      return BlocProvider(
+        create: (context) =>
+        sl<SearchedMealDetailsBloc>()..add(GetSearchedMealDetailsEvent(id: id!)),
+        child: SearchedMealDetailsScreen(),
+      );
+    },),
       GoRoute(
         path: kFoodDetailsScreen,
         builder: (context, state) {

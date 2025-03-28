@@ -8,9 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
+import '../../../home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_state.dart';
+
 // ignore: must_be_immutable
 class FoodDetailsAppBar extends StatelessWidget {
-  final AiResultModel meal;
+  AiResultModel meal;
   bool? isFave;
   FoodDetailsAppBar({super.key, required this.meal, this.isFave});
 
@@ -62,14 +65,38 @@ class FoodDetailsAppBar extends StatelessWidget {
         title: Text(
           meal.foodTitle,
           // textAlign: TextAlign.left,
-          style: Theme.of(context)
-              .textTheme
-              .displayLarge!
-              .copyWith(color: AppColors.splashColor),
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                color: AppColors.splashColor,
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        background: Image.network(
-          meal.imageNetworkUrl,
-          fit: BoxFit.fill,
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.network(
+              // placeHolderImage,
+              meal.imageNetworkUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  "assets/images/dish1.png", // Your local placeholder image
+                  fit: BoxFit.cover,
+                );
+              }
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.white.withValues(alpha: 0.6),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

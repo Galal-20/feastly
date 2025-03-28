@@ -19,12 +19,12 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
 
     on<InternetConnected>((event, emit) {
       emit(InternetConnectedState());
-      LocalNotificationService.scheduleDailyNotifications();
+      // LocalNotificationService.scheduleDailyNotifications();
     });
 
     on<InternetDisconnected>((event, emit) {
       emit(InternetDisconnectedState());
-     LocalNotificationService.flutterLocalNotificationsPlugin.cancelAll();
+    //  LocalNotificationService.flutterLocalNotificationsPlugin.cancelAll();
     });
   }
 
