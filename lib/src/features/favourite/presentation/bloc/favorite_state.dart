@@ -12,7 +12,7 @@ final class FavoriteLoading extends FavoriteState {}
 final class FavoriteLoaded extends FavoriteState {
   final List<AiResultModel> favRecipes;
 
-  FavoriteLoaded(this.favRecipes);
+  const FavoriteLoaded(this.favRecipes);
 
   @override
   List<Object> get props => [favRecipes];
@@ -20,7 +20,7 @@ final class FavoriteLoaded extends FavoriteState {
 final class FavoriteError extends FavoriteState {
   final String message;
 
-  FavoriteError(this.message);
+  const FavoriteError(this.message);
 
   @override
   List<Object> get props => [message];

@@ -58,7 +58,6 @@ class ServiceLocator {
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
     sl.registerLazySingleton<AuthDataSource>(
         () => AuthRepository(firebaseAuthService: sl()));
-    sl.registerLazySingleton(() => ProfileDataSource(firebaseAuth: sl()));
     sl.registerLazySingleton(
         () => ProfileDataSource(firebaseAuth: sl()));
     sl.registerLazySingleton<ProfileRepo>(
@@ -130,7 +129,6 @@ class ServiceLocator {
     sl.registerLazySingleton(() => FetchFavUsecase(sl()));
     sl.registerLazySingleton(() => RemoveFavRecipeUsecase(sl()));
     sl.registerLazySingleton(() => AddFavRecipeUsecase(sl()));
-    sl.registerFactory<MealDetailsBloc>(
-        () => MealDetailsBloc(getMealDetailsUseCase: sl(),sl()));
+
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:feastly/src/core/DI/service_locator.dart';
 import 'package:feastly/src/core/cache/cache.dart';

@@ -5,15 +5,25 @@ part 'meal.g.dart';
 
 @JsonSerializable()
 class Meal extends MealEntity {
+  @override
   final String idMeal;
+  @override
   final String strMeal;
+  @override
   final String? strCategory;
+  @override
   final String? strArea;
+  @override
   final String? strInstructions;
+  @override
   final String? strMealThumb;
+  @override
   final String? strTags;
+  @override
   final String? strYoutube;
+  @override
   final List<String> ingredients;
+  @override
   final List<String> measures;
 
   Meal({

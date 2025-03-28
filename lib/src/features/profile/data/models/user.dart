@@ -1,9 +1,13 @@
 import 'package:feastly/src/features/profile/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
+  @override
   final String name;
+  @override
   final String phone;
+  @override
   final String email;
+  @override
   final String? image;
 
   UserModel({

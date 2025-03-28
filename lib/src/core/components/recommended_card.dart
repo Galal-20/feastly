@@ -10,7 +10,7 @@ class RecommendedCard extends StatelessWidget {
   final String noOfIngredients;
   final String time;
 
-  RecommendedCard({
+  const RecommendedCard({super.key, 
     required this.imagePath,
     required this.name,
     required this.noOfIngredients,

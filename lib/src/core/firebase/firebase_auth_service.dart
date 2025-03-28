@@ -67,7 +67,7 @@ class FirebaseHelper {
       var userModel = await FirestoreService.getDataWithCustomId(
           collection: "users", docId: _firebaseAuth.currentUser!.uid);
       await sl<CacheHelper>().saveUserModel(
-        UserModel(name: userModel!.name, phone: userModel.phone, email: email, image: userModel!.image),
+        UserModel(name: userModel!.name, phone: userModel.phone, email: email, image: userModel.image),
       );
 
       return userCredential.user;

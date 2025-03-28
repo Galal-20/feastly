@@ -11,7 +11,7 @@ class StorageService {
       UploadTask uploadTask = storageRef.putFile(file);
       TaskSnapshot snapshot = await uploadTask;
       String downloadUrl = await snapshot.ref.getDownloadURL();
-      log("downloadUrl ++++++++++++++"+downloadUrl);
+      log("downloadUrl ++++++++++++++$downloadUrl");
       return downloadUrl;
     } catch (e) {
       print(e);
