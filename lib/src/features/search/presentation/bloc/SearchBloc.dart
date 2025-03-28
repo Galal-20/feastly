@@ -42,8 +42,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       typeOfMeat: mealEntity.strCategory ?? "",
       cookingTime: 15,
       servings: 1,
-      summary: mealEntity.strInstructions ?? '',
+      summary: mealEntity.strInstructions?.split(RegExp(r'\.|\n'))[0] ?? "",
       imageUrl: mealEntity.strMealThumb ?? ' ',
+      youtubeUrl: mealEntity.strYoutube ?? "",
       directions: mealEntity.strInstructions?.split(RegExp(r'\.\s+|\n')) ?? [],
       nutritionalInformation: NutritionalInformation(
           protein: '50',
@@ -51,6 +52,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           fats: '10',
           vitamins: 'B',
           kcal: '200'),
+
     );
   }
   List<Ingredient> mealEntityToIngredients(MealEntity mealEntity) {
