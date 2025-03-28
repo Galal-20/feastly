@@ -43,7 +43,8 @@ void _mapMealForDetails(
       MapMealForDetailsEvent event, Emitter<RecommendedForYouState> emit) {
 
     final mappedMeal = MealsMapper.mapRecommendedMeal(event.meal);
-
+    print('this is the mealllll ${event.meal}');
+    print('mapper meal isssssssssssssssssss $mappedMeal');
     emit(RecommendedForYouMapped(mappedMeal: mappedMeal));
   }
 

@@ -8,3 +8,8 @@ class MapMealForDetailsEvent  extends RecommendedForYouEvent {
 
   MapMealForDetailsEvent ({required this.meal});
 }
+
+class ToggleFavoriteEvent extends RecommendedForYouEvent {
+  final RecommendedMeal meal;
+  ToggleFavoriteEvent({required this.meal});
+}

@@ -33,10 +33,10 @@ class RecommendedForYouWidget extends StatelessWidget {
           if (state is RecommendedForYouMapped) {
             GoRouter.of(context).push(
               AppRoutes.kFoodDetailsScreen,
-              extra: state.mappedMeal,
+              extra: {'aiResultModel': state.mappedMeal},
             ).then((_) {
-              context.read<RecommendedForYouBloc>().add(HomeRecommendedForYouEvent());
-            });
+                context.read<RecommendedForYouBloc>().add(HomeRecommendedForYouEvent());
+              });
           }
         }, builder: (context, state) {
           if (state is RecommendedForYouLoading) {

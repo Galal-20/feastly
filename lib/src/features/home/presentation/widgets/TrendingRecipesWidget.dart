@@ -34,7 +34,7 @@ class RecipesWidget extends StatelessWidget {
           if (state is TrendingRecipesMapped) {
             GoRouter.of(context).push(
               AppRoutes.kFoodDetailsScreen,
-              extra: state.mappedMeal,
+              extra: {'aiResultModel': state.mappedMeal},
             ).then((_) {
               context.read<TrendingRecipesBloc>().add(HomeTrendingRecipesEvent());
             });

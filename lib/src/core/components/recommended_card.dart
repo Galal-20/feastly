@@ -9,9 +9,13 @@ class RecommendedCard extends StatelessWidget {
   final String name;
   final String noOfIngredients;
   final String time;
+  final bool isFavorite;
+  final VoidCallback? onFavoriteTap;
 
   RecommendedCard({
     super.key,
+    this.isFavorite = false,
+    this.onFavoriteTap,
     required this.imagePath,
     required this.name,
     required this.noOfIngredients,
@@ -21,6 +25,7 @@ class RecommendedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColors.tWhite,
       elevation: 3,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -62,11 +67,16 @@ class RecommendedCard extends StatelessWidget {
                           ),
                         )),
                     Padding(
-
                       padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset('assets/svg/heart.svg',
-                          colorFilter:
-                              ColorFilter.mode(Colors.white, BlendMode.srcIn)),
+                      child: InkWell(
+                        onTap: onFavoriteTap,
+                        child: SvgPicture.asset('assets/svg/heart.svg',
+                          colorFilter: ColorFilter.mode(
+                            isFavorite ? Colors.red : Colors.white,
+                            BlendMode.srcIn,
+                          ),),
+                      )
+                      ,
                     )
                   ],
                 ),
