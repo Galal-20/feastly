@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../ai_chat/domain/use_case/get_image_use_case.dart';
 import '../../../domain/usecases/recommended_for_you_section/recommended_for_you_usecase.dart';
+import '../../mapper/model_mapper.dart';
 
 class RecommendedForYouBloc
     extends Bloc<RecommendedForYouEvent, RecommendedForYouState> {
@@ -15,6 +16,8 @@ class RecommendedForYouBloc
   RecommendedForYouBloc(this.getRecommendedMealsUseCase,this.getImageUseCase,)
       : super(RecommendedForYouInitial()) {
     on<HomeRecommendedForYouEvent>(_getRecommendedMeals);
+    on<MapMealForDetailsEvent>(_mapMealForDetails);
+
   }
 
 
@@ -29,11 +32,20 @@ class RecommendedForYouBloc
         emit(RecommendedForYouError(message: error.message));
       },
           (response) {
-            print('helloooooooooooooooooo');
-            print(response);
         emit(RecommendedForYouSuccess(recommendedForYouEntity: response));
       },
     );
 
 
-}}
+}
+
+void _mapMealForDetails(
+      MapMealForDetailsEvent event, Emitter<RecommendedForYouState> emit) {
+
+    final mappedMeal = MealsMapper.mapRecommendedMeal(event.meal);
+
+    emit(RecommendedForYouMapped(mappedMeal: mappedMeal));
+  }
+
+
+}

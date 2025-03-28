@@ -2,9 +2,10 @@
 
 
 import 'dart:convert';
-import 'package:feastly/src/features/home/data/models/trending_recipes_model/ingredient_model.dart';
-import 'package:feastly/src/features/home/data/models/trending_recipes_model/nutritional_information_model.dart';
 import 'package:feastly/src/features/home/domain/entities/trending_recipes_section/trending_meals_entity.dart';
+
+import '../../../../ai_chat/data/models/ai_result_model/ingredient.dart';
+import '../../../../ai_chat/data/models/ai_result_model/nutritional_information.dart';
 
 class TrendingMeal extends TrendingMealEntity {
   TrendingMeal({
@@ -20,25 +21,27 @@ class TrendingMeal extends TrendingMealEntity {
     required super.directions,
   });
 
-  factory TrendingMeal.fromMap(Map<String, dynamic> map) {
-    print("Raw API Response: ${jsonEncode(map)}");
+  factory TrendingMeal.fromJson(Map<String, dynamic> json) {
+    print("Raw API Response: ${jsonEncode(json)}");
 
     return TrendingMeal(
-      foodTitle: map["food_title"] as String,
-      typeOfMeat: map["type_of_meat"] as String,
-      cookingTime: map['cooking_time'] as String,
-      numberOfIngredients: map['number_of_ingredients'] as String,
-      servings: map['servings'] as String,
-      summary: map["summary"] as String,
-      imageUrl: map["image_url"] as String,
-      nutritionalInfo: NutritionalInformation.fromMap(map["nutritional_information"] ?? {}),
-      ingredients: List<Ingredient>.from(
-          map["ingredients"]?.map((x) => Ingredient.fromMap(x)) ?? []),
-      directions: List<dynamic>.from(map["directions"] ?? []),
+      foodTitle: json["food_title"] as String,
+      typeOfMeat: json["type_of_meat"] as String,
+      cookingTime: json['cooking_time'] as String,
+      numberOfIngredients: json['number_of_ingredients'] as String,
+      servings: json['servings'] as String,
+      summary: json["summary"] as String,
+      imageUrl: json["image_url"] as String,
+      nutritionalInfo: NutritionalInformation.fromJson(
+          json['nutritional_information'] as Map<String, dynamic>),
+      ingredients: (json['ingredients'] as List<dynamic>)
+          .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      directions: List<dynamic>.from(json["directions"] ?? []),
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       "food_title": foodTitle,
       "type_of_meat": typeOfMeat,
@@ -47,8 +50,8 @@ class TrendingMeal extends TrendingMealEntity {
       "servings": servings,
       "summary": summary,
       "image_url": imageUrl,
-      "nutritional_information": nutritionalInfo.toMap(),
-      "ingredients": ingredients.map((x) => x.toMap()).toList(),
+      'nutritional_information': nutritionalInfo.toJson(),
+      'ingredients': ingredients.map((e) => e.toJson()).toList(),
       "directions": directions,
     };
   }

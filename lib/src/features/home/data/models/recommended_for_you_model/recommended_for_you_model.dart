@@ -26,7 +26,7 @@ class RecommendedForYouModel extends RecommendedForYouEntity {
   static RecommendedForYouModel fromMap(Map<String, dynamic> map) {
     return RecommendedForYouModel(
       recommendedMeals: (map['recommended_meals'] as List<dynamic>?)
-          ?.map((x) => RecommendedMeal.fromMap(x))
+          ?.map((x) => RecommendedMeal.fromJson(x))
           .toList() ??
           [],
     );
@@ -35,7 +35,7 @@ class RecommendedForYouModel extends RecommendedForYouEntity {
   /// Converts the object to a Map
   Map<String, dynamic> toMap() {
     return {
-      "recommended_meals": recommendedMeals.map((x) => x.toMap()).toList(),
+      "recommended_meals": recommendedMeals.map((x) => x.toJson()).toList(),
     };
   }
 

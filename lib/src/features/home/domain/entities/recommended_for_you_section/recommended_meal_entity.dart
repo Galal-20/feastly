@@ -1,7 +1,6 @@
 
-
-import 'package:feastly/src/features/home/data/models/trending_recipes_model/ingredient_model.dart';
-import 'package:feastly/src/features/home/data/models/trending_recipes_model/nutritional_information_model.dart';
+import '../../../../ai_chat/data/models/ai_result_model/ingredient.dart';
+import '../../../../ai_chat/data/models/ai_result_model/nutritional_information.dart';
 
 class RecommendedMealEntity {
   final String foodTitle;

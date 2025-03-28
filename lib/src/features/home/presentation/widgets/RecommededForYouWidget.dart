@@ -21,24 +21,33 @@ class RecommendedForYouWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Gemini.init(apiKey: googleApiKey);
-    return BlocProvider(create: (context) {
-      final bloc = RecommendedForYouBloc(
-          sl<GetRecommendedMealsUseCase>(), sl<GetImageUseCase>());
-      bloc.add(HomeRecommendedForYouEvent());
-      return bloc;
-    }, child: BlocBuilder<RecommendedForYouBloc, RecommendedForYouState>(
-        builder: (context, state) {
+    return BlocProvider(
+        create: (context) {
+          final bloc = RecommendedForYouBloc(
+              sl<GetRecommendedMealsUseCase>(), sl<GetImageUseCase>())
+          ..add(HomeRecommendedForYouEvent());
+          return bloc;
+        },
+        child: BlocConsumer<RecommendedForYouBloc, RecommendedForYouState>(
+            listener: (context, state) {
+          if (state is RecommendedForYouMapped) {
+            GoRouter.of(context).push(
+              AppRoutes.kFoodDetailsScreen,
+              extra: state.mappedMeal,
+            ).then((_) {
+              context.read<RecommendedForYouBloc>().add(HomeRecommendedForYouEvent());
+            });
+          }
+        }, builder: (context, state) {
           if (state is RecommendedForYouLoading) {
-            return Center(child: CircularProgressIndicator(color: AppColors.splashColor));
+            return Center(
+                child: CircularProgressIndicator(color: AppColors.splashColor));
           }
           if (state is RecommendedForYouError) {
             return CustomAiErrorWidget(errMsg: state.message);
           }
           if (state is RecommendedForYouSuccess) {
             var recommendedMealsList = state.recommendedForYouEntity.recommendedMeals;
-            print('this is from heeeeeeeeeereeeeeeeeee');
-            print(recommendedMealsList);
-
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -55,14 +64,16 @@ class RecommendedForYouWidget extends StatelessWidget {
                     itemCount: recommendedMealsList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: (){
-                          GoRouter.of(context).push(AppRoutes.kFoodDetailsScreen,
-                              extra: recommendedMealsList[index]);
+                        onTap: () {
+                          context.read<RecommendedForYouBloc>().add(
+                              MapMealForDetailsEvent(
+                                  meal: recommendedMealsList[index]));
                         },
                         child: RecommendedCard(
                           imagePath: recommendedMealsList[index].imageUrl,
                           name: recommendedMealsList[index].foodTitle,
-                          noOfIngredients: recommendedMealsList[index].numberOfIngredients,
+                          noOfIngredients:
+                              recommendedMealsList[index].numberOfIngredients,
                           time: recommendedMealsList[index].cookingTime,
                         ),
                       );
@@ -74,6 +85,5 @@ class RecommendedForYouWidget extends StatelessWidget {
           }
           return Placeholder();
         }));
-
   }
 }

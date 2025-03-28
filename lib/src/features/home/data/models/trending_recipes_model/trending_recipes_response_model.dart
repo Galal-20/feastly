@@ -69,7 +69,7 @@ class TrendingRecipesResponseModel extends TrendingRecipesEntity {
   static TrendingRecipesResponseModel fromMap(Map<String, dynamic> map) {
     return TrendingRecipesResponseModel(
       trendingMeals: (map['trending_meals'] as List<dynamic>?)
-          ?.map((x) => TrendingMeal.fromMap(x))
+          ?.map((x) => TrendingMeal.fromJson(x))
           .toList() ??
           [],
     );
@@ -78,7 +78,7 @@ class TrendingRecipesResponseModel extends TrendingRecipesEntity {
   /// Converts the object to a Map
   Map<String, dynamic> toMap() {
     return {
-      "trending_meals": trendingMeals.map((x) => x.toMap()).toList(),
+      "trending_meals": trendingMeals.map((x) => x.toJson()).toList(),
     };
   }
 

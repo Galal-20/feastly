@@ -42,7 +42,7 @@ class RecommendedCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: Container(
                           height: 150,
-                          width: 300,
+                          width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
                           ),
@@ -62,6 +62,7 @@ class RecommendedCard extends StatelessWidget {
                           ),
                         )),
                     Padding(
+
                       padding: const EdgeInsets.all(8.0),
                       child: SvgPicture.asset('assets/svg/heart.svg',
                           colorFilter:
