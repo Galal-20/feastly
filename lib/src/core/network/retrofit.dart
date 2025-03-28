@@ -51,6 +51,28 @@ class DioClient {
 
 
 
+// class DioClient {
+//   static final DioClient _instance = DioClient._internal();
+//   late final Dio dio;
+
+//   factory DioClient() {
+//     return _instance;
+//   }
+
+//   DioClient._internal() {
+//     dio = Dio()
+//       ..options.connectTimeout = const Duration(seconds: 5)
+//       ..options.receiveTimeout = const Duration(seconds: 10)
+//       ..options.headers = {'Accept': 'application/json'}
+//       ..interceptors.add(LogInterceptor(
+//         request: true,
+//         requestBody: true,
+//         responseBody: true,
+//         error: true,
+//       ));
+//   }
+// }
+
 
 // create Dio Object
 // Increases connect timeout for better handling

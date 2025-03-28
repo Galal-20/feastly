@@ -63,17 +63,17 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
   }
 
   void navigateToNextPage() async {
-    if (_pageController.page == onBoardingItems.length - 1) {
+    if (currIndex < onBoardingItems.length - 1) {
+      setState(() {
+        currIndex++;
+      });
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeIn,
+      );
+    } else {
       await checkLoginStatus();
-      return;
     }
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeIn,
-    );
-    setState(() {
-      currIndex++;
-    });
   }
 
   Future<void> checkLoginStatus() async {

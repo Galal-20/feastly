@@ -46,6 +46,11 @@ import '../../features/search/data/data_sources/RecipeRemote.dart';
 import '../../features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
 import '../../features/search/domain/repositories/RecipeRepository.dart';
 import '../../features/search/domain/usecases/uaseCase.dart';
+import '../../features/searchedMealDetails/data/data_source/get_searched_meal_details_remote_data_source.dart';
+import '../../features/searchedMealDetails/data/repositories/get_searched_meal_details_repository_impl.dart';
+import '../../features/searchedMealDetails/domain/repositories/get_searched_meal_details_repository.dart';
+import '../../features/searchedMealDetails/domain/use_cases/get_searched_meal_details_use_case.dart';
+import '../../features/searchedMealDetails/presentation/meal_details_bloc/searched_meal_details_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -53,7 +58,7 @@ class ServiceLocator {
   static void init() {
     sl.registerLazySingleton<Dio>(() => DioClient().dio);
     sl.registerLazySingleton(() => GoogleSignIn());
-    sl.registerLazySingleton(() => FirebaseAuthDataSource());
+    sl.registerLazySingleton(() => FirebaseHelper());
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
     sl.registerLazySingleton<AuthDataSource>(() => AuthRepository(firebaseAuthService: sl()));
     sl.registerLazySingleton(() => ProfileDataSource(authRepository: sl()));sl.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(profileDataSource: sl()));
@@ -62,12 +67,19 @@ class ServiceLocator {
     // Meal Details
     sl.registerLazySingleton<GetMealDetailsRemoteDataSource>(() =>
         GetMealDetailsRemoteDataSourceWithRetrofit(retrofitServices: sl()));
+    sl.registerLazySingleton<GetSearchedMealDetailsRemoteDataSource>(() =>
+        GetSearchedMealDetailsRemoteDataSourceWithRetrofit(retrofitServices: sl()));
 
     sl.registerLazySingleton<GetMealDetailsRepository>(
             () => GetMealDetailsRepositoryImpl(remoteDataSource: sl()));
+    sl.registerLazySingleton<GetSearchedMealDetailsRepository>(
+            () => GetSearchedMealDetailsRepositoryImpl(remoteDataSource: sl()));
 
     sl.registerLazySingleton(
             () => GetMealDetailsUseCase(getMealDetailsRepository: sl()));
+
+    sl.registerLazySingleton(
+            () => GetSearchedMealDetailsUseCase(getSearchedMealDetailsRepository: sl()));
 
     sl.registerLazySingleton<RetrofitServices>(() => RetrofitServices(sl<Dio>()));
 
@@ -115,6 +127,7 @@ class ServiceLocator {
     sl.registerLazySingleton<RecommendedForYouRemoteDataSource>(() => RecommendedForYouRemoteDataSourceImpl(gemini: sl<Gemini>()));
     sl.registerLazySingleton<RecommendedForYouRepository>(() => RecommendedForYouRepositoryImpl(recommendedForYouRemoteDataSource: sl<RecommendedForYouRemoteDataSource>()));
     sl.registerLazySingleton<GetRecommendedMealsUseCase>(() => GetRecommendedMealsUseCase(recommendedForYouRepository: sl<RecommendedForYouRepository>(),getImageUseCase :  sl<GetImageUseCase>()));
+    sl.registerFactory<SearchedMealDetailsBloc>(() => SearchedMealDetailsBloc(getSearchedMealDetailsUseCase: sl()));
   }
 }
 
