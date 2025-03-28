@@ -11,13 +11,16 @@ import 'package:feastly/src/features/home/data/models/trending_recipes_model/tre
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-
 // ignore: must_be_immutable
 class FoodDetailsScreen extends StatefulWidget {
   final AiResultModel aiResultModel;
-   bool isFave;
-   bool isFromHome;
-   FoodDetailsScreen({super.key, required this.aiResultModel,required this.isFave,required this.isFromHome});
+  bool isFave;
+  bool isFromHome;
+  FoodDetailsScreen(
+      {super.key,
+      required this.aiResultModel,
+      required this.isFave,
+      required this.isFromHome});
 
   @override
   State<FoodDetailsScreen> createState() => _FoodDetailsScreenState();
@@ -25,8 +28,6 @@ class FoodDetailsScreen extends StatefulWidget {
 
 class _FoodDetailsScreenState extends State<FoodDetailsScreen>
     with SingleTickerProviderStateMixin {
-      
-     
   late YoutubePlayerController _youtubePlayerController;
   final GlobalKey _summaryKey = GlobalKey();
   final GlobalKey _ingredientsKey = GlobalKey();
@@ -127,63 +128,63 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.aiResultModel.youtubeUrl != null) {
+      _youtubePlayerController = YoutubePlayerController(
+          flags: YoutubePlayerFlags(
+            autoPlay: false,
+          ),
+          initialVideoId: YoutubePlayer.convertUrlToId(
+              widget.aiResultModel.youtubeUrl ?? 'https://www.youtube.com/')!);
+    }
 
-            if (widget.aiResultModel.youtubeUrl != null) {
-              _youtubePlayerController = YoutubePlayerController(
-                  flags: YoutubePlayerFlags(
-                    autoPlay: false,
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          FoodDetailsAppBar(
+              meal: widget.aiResultModel,
+              isFave: widget.isFave,
+              isFromHome: widget.isFromHome),
+          FoodDetailsHeader(
+              scrollToSection: _scrollToSection, tabController: _tabController),
+          SliverList(
+              delegate: SliverChildListDelegate.fixed(
+            [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BriefDetailsRaw(
+                      category: widget.aiResultModel.typeOfMeat,
+                      time: widget.aiResultModel.time.toString(),
+                      servings: widget.aiResultModel.servings.toString()),
+                  FoodDetailsSummary(
+                      summaryKey: _summaryKey, meal: widget.aiResultModel),
+                  NutritionsColumn(meal: widget.aiResultModel),
+                  SizedBox(height: SizeConfig.height * 0.02),
+                  IngridiantsColoumn(
+                      widgetKey: _ingredientsKey, meal: widget.aiResultModel),
+                  DirectionColumn(
+                    meal: widget.aiResultModel,
+                    widgetKey: _directionKey,
                   ),
-                  initialVideoId: YoutubePlayer.convertUrlToId(
-                      widget.aiResultModel.youtubeUrl ?? 'https://www.youtube.com/')!);
-            }
-
-            return Scaffold(
-              body: CustomScrollView(
-                slivers: [
-                  FoodDetailsAppBar(meal:widget.aiResultModel,isFave: widget.isFave,isFromHome: widget.isFromHome),
-                  FoodDetailsHeader(
-                      scrollToSection: _scrollToSection,
-                      tabController: _tabController),
-                  SliverList(
-                      delegate: SliverChildListDelegate.fixed(
-                    [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BriefDetailsRaw(
-                              category: widget.aiResultModel.typeOfMeat,
-                              time: widget.aiResultModel.time.toString(),
-                              servings: widget.aiResultModel.servings.toString()),
-                          FoodDetailsSummary(
-                              summaryKey: _summaryKey, meal:widget.aiResultModel),
-                          NutritionsColumn(meal:widget.aiResultModel),
-                          SizedBox(height: SizeConfig.height * 0.02),
-                          IngridiantsColoumn(
-                              widgetKey: _ingredientsKey, meal:widget.aiResultModel),
-                          DirectionColumn(
-                             meal:widget.aiResultModel,
-                            widgetKey: _directionKey,
+                  SizedBox(height: SizeConfig.height * 0.02),
+                  widget.aiResultModel.youtubeUrl != null
+                      ? Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: YoutubePlayer(
+                            controller: _youtubePlayerController,
                           ),
-                          SizedBox(height: SizeConfig.height * 0.02),
-
-                          widget.aiResultModel.youtubeUrl != null
-                              ? Padding(
-                                  padding: const EdgeInsets.all(14.0),
-                                  child: YoutubePlayer(
-                                    controller: _youtubePlayerController,
-                                  ),
-                                )
-                              : SizedBox(),
-                        ],
-                      )
-                    ],
-                  ))
+                        )
+                      : SizedBox(),
                 ],
-                controller: _scrollController,
-              ),
-            );
-          
-          /*
+              )
+            ],
+          ))
+        ],
+        controller: _scrollController,
+      ),
+    );
+
+    /*
           if (state is MealDetailsError) {
             return Text('An error occurred: ${state.message}');
           }
@@ -191,7 +192,5 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
           return Container();
         },
         */
-      
-    
   }
 }

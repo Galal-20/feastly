@@ -12,11 +12,10 @@ class RecommendedCard extends StatelessWidget {
   final bool isFavorite;
   final VoidCallback? onFavoriteTap;
 
-  RecommendedCard({
+  const RecommendedCard({
     super.key,
-    this.isFavorite = false,
     this.onFavoriteTap,
-  const RecommendedCard({super.key, 
+    this.isFavorite = false,
     required this.imagePath,
     required this.name,
     required this.noOfIngredients,
@@ -71,13 +70,14 @@ class RecommendedCard extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: onFavoriteTap,
-                        child: SvgPicture.asset('assets/svg/heart.svg',
+                        child: SvgPicture.asset(
+                          'assets/svg/heart.svg',
                           colorFilter: ColorFilter.mode(
                             isFavorite ? Colors.red : Colors.white,
                             BlendMode.srcIn,
-                          ),),
-                      )
-                      ,
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),

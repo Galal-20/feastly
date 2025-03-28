@@ -54,7 +54,6 @@ import '../../features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
 import '../../features/search/domain/repositories/RecipeRepository.dart';
 import '../../features/search/domain/usecases/uaseCase.dart';
 
-
 final sl = GetIt.instance;
 
 class ServiceLocator {
@@ -68,8 +67,7 @@ class ServiceLocator {
     sl.registerLazySingleton(() => AuthRepository(firebaseAuthService: sl()));
     sl.registerLazySingleton<AuthDataSource>(
         () => AuthRepository(firebaseAuthService: sl()));
-    sl.registerLazySingleton(
-        () => ProfileDataSource(firebaseAuth: sl()));
+    sl.registerLazySingleton(() => ProfileDataSource(firebaseAuth: sl()));
     sl.registerLazySingleton<ProfileRepo>(
         () => ProfileRepoImpl(profileDataSource: sl()));
     sl.registerLazySingleton(() => ProfileUpdateNameUseCase(repository: sl()));
@@ -126,33 +124,42 @@ class ServiceLocator {
     sl.registerLazySingleton<RecipeRepository>(
         () => RecipeRepositoryImpl(sl()));
     sl.registerLazySingleton(() => SearchUseCase(sl()));
-    sl.registerFactory<MealDetailsBloc>(() => MealDetailsBloc(getMealDetailsUseCase: sl()));
+    sl.registerFactory<MealDetailsBloc>(() => MealDetailsBloc(
+        sl<FavDataSource>(),
+        getMealDetailsUseCase: sl<GetMealDetailsUseCase>()));
 
     // home services
-    sl.registerLazySingleton<TrendingRecipesRemoteDataSource>(() => TrendingRecipesRemoteDataSourceImpl(gemini: sl<Gemini>()));
-    sl.registerLazySingleton<TrendingRecipesRepository>(() => TrendingRecipesRepositoryImpl(trendingRecipesRemoteDataSource: sl<TrendingRecipesRemoteDataSource>()));
-    sl.registerLazySingleton<GetTrendingRecipesUseCase>(() => GetTrendingRecipesUseCase(trendingRecipesRepository: sl<TrendingRecipesRepository>(),getImageUseCase :   sl<GetImageUseCase>()));
+    sl.registerLazySingleton<TrendingRecipesRemoteDataSource>(
+        () => TrendingRecipesRemoteDataSourceImpl(gemini: sl<Gemini>()));
+    sl.registerLazySingleton<TrendingRecipesRepository>(() =>
+        TrendingRecipesRepositoryImpl(
+            trendingRecipesRemoteDataSource:
+                sl<TrendingRecipesRemoteDataSource>()));
+    sl.registerLazySingleton<GetTrendingRecipesUseCase>(() =>
+        GetTrendingRecipesUseCase(
+            trendingRecipesRepository: sl<TrendingRecipesRepository>(),
+            getImageUseCase: sl<GetImageUseCase>()));
 
     // recommended for you services
-    sl.registerLazySingleton<RecommendedForYouRemoteDataSource>(() => RecommendedForYouRemoteDataSourceImpl(gemini: sl<Gemini>()));
-    sl.registerLazySingleton<RecommendedForYouRepository>(() => RecommendedForYouRepositoryImpl(recommendedForYouRemoteDataSource: sl<RecommendedForYouRemoteDataSource>()));
-    sl.registerLazySingleton<GetRecommendedMealsUseCase>(() => GetRecommendedMealsUseCase(recommendedForYouRepository: sl<RecommendedForYouRepository>(),getImageUseCase :  sl<GetImageUseCase>()));
-    sl.registerFactory<SearchedMealDetailsBloc>(() => SearchedMealDetailsBloc(getSearchedMealDetailsUseCase: sl()));
-  }
-}
-    sl.registerFactory<MealDetailsBloc>(() =>
-        MealDetailsBloc(getMealDetailsUseCase: sl(), sl<FavDataSource>()));
+    sl.registerLazySingleton<RecommendedForYouRemoteDataSource>(
+        () => RecommendedForYouRemoteDataSourceImpl(gemini: sl<Gemini>()));
+    sl.registerLazySingleton<RecommendedForYouRepository>(() =>
+        RecommendedForYouRepositoryImpl(
+            recommendedForYouRemoteDataSource:
+                sl<RecommendedForYouRemoteDataSource>()));
+    sl.registerLazySingleton<GetRecommendedMealsUseCase>(() =>
+        GetRecommendedMealsUseCase(
+            recommendedForYouRepository: sl<RecommendedForYouRepository>(),
+            getImageUseCase: sl<GetImageUseCase>()));
 
     sl.registerLazySingleton<FavDataSource>(() => FavDataSource(
           firestore: sl<FirebaseFirestore>(),
           auth: sl<FirebaseAuth>(),
           storage: sl<FirebaseStorage>(),
         ));
-           sl.registerLazySingleton<FavouriteRepository>(
-        () => FavoriteRepoImpl( sl()));
+    sl.registerLazySingleton<FavouriteRepository>(() => FavoriteRepoImpl(sl()));
     sl.registerLazySingleton(() => FetchFavUsecase(sl()));
     sl.registerLazySingleton(() => RemoveFavRecipeUsecase(sl()));
     sl.registerLazySingleton(() => AddFavRecipeUsecase(sl()));
-
   }
 }

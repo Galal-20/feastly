@@ -40,8 +40,8 @@ class AiResultModel extends AiChatEntity {
         servings: json['servings'] as int,
         summary: json['summary'] as String,
         imageUrl: json['image_url'] as String,
-    youtubeUrl: json['youtube_url'] as String,
-    nutritionalInformation: NutritionalInformation.fromJson(
+        youtubeUrl: json['youtube_url'] as String? ?? 'www.youtube.com',
+        nutritionalInformation: NutritionalInformation.fromJson(
             json['nutritional_information'] as Map<String, dynamic>),
         ingredients: (json['ingredients'] as List<dynamic>)
             .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
@@ -56,8 +56,8 @@ class AiResultModel extends AiChatEntity {
         'servings': servings,
         'summary': summary,
         'image_url': imageUrl,
-    'youtube_url': youtubeUrl, // Serialize it
-    'nutritional_information': nutritionalInformation.toJson(),
+        'youtube_url': youtubeUrl, // Serialize it
+        'nutritional_information': nutritionalInformation.toJson(),
         'ingredients': ingredients.map((e) => e.toJson()).toList(),
         'directions': directions,
       };

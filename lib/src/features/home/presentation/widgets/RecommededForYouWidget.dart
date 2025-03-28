@@ -25,7 +25,7 @@ class RecommendedForYouWidget extends StatelessWidget {
         create: (context) {
           final bloc = RecommendedForYouBloc(
               sl<GetRecommendedMealsUseCase>(), sl<GetImageUseCase>())
-          ..add(HomeRecommendedForYouEvent());
+            ..add(HomeRecommendedForYouEvent());
           return bloc;
         },
         child: BlocConsumer<RecommendedForYouBloc, RecommendedForYouState>(
@@ -33,10 +33,16 @@ class RecommendedForYouWidget extends StatelessWidget {
           if (state is RecommendedForYouMapped) {
             GoRouter.of(context).push(
               AppRoutes.kFoodDetailsScreen,
-              extra: {'aiResultModel': state.mappedMeal},
+              extra: {
+                'meal': state.mappedMeal,
+                'isFromHome': false,
+                'isFav': false
+              },
             ).then((_) {
-                context.read<RecommendedForYouBloc>().add(HomeRecommendedForYouEvent());
-              });
+              context
+                  .read<RecommendedForYouBloc>()
+                  .add(HomeRecommendedForYouEvent());
+            });
           }
         }, builder: (context, state) {
           if (state is RecommendedForYouLoading) {
@@ -47,7 +53,8 @@ class RecommendedForYouWidget extends StatelessWidget {
             return CustomAiErrorWidget(errMsg: state.message);
           }
           if (state is RecommendedForYouSuccess) {
-            var recommendedMealsList = state.recommendedForYouEntity.recommendedMeals;
+            var recommendedMealsList =
+                state.recommendedForYouEntity.recommendedMeals;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
