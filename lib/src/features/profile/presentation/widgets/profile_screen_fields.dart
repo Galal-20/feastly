@@ -5,12 +5,11 @@ import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/helper/shared_prefrences_helper.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
-
 import 'package:feastly/src/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:feastly/src/features/profile/presentation/widgets/show_clipper_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/DI/service_locator.dart';
 import '../../../auth/data/datasource/auth_data_source.dart';
 
@@ -32,13 +31,13 @@ class ProfileScreenFields extends StatelessWidget {
             radius: 8),
         TextFieldClass.buildTextFormField(
             enabled: false,
-            intialValue: context.read<ProfileBloc>().myUser.email,
+            intialValue: context.read<ProfileBloc>().user!.email,
             hintText: AppStrings.email,
             hintStyle: Theme.of(context).textTheme.labelLarge,
             borderColor: AppColors.splashColor,
             radius: 8),
         TextFieldClass.buildTextFormField(
-            intialValue: '01000000000',
+            controller: context.read<ProfileBloc>().phone,
             hintText: AppStrings.phone,
             hintStyle: Theme.of(context).textTheme.labelLarge,
             borderColor: AppColors.splashColor,
@@ -57,23 +56,8 @@ class ProfileScreenFields extends StatelessWidget {
         Button(
           isLoading: false,
           text: AppStrings.save,
-          onPressed: () {
-            if (context.read<ProfileBloc>().nameController.text.isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppStrings.hintFullName),
-                ),
-              );
-            } else if (context.read<ProfileBloc>().nameController.text !=
-                context.read<ProfileBloc>().myUser.displayName) {
-              context.read<ProfileBloc>().add(
-                    UpdateProfile(
-                        fullName:
-                            context.read<ProfileBloc>().nameController.text),
-                  );
-              context.read<ProfileBloc>().myUser.displayName !=
-                  context.read<ProfileBloc>().nameController.text;
-            }
+          onPressed: () async {
+            context.read<ProfileBloc>().add(UpdateProfile());
           },
           backgroundColor: AppColors.splashColor,
         ),
@@ -81,11 +65,17 @@ class ProfileScreenFields extends StatelessWidget {
           isLoading: false,
           text: AppStrings.signOut,
           onPressed: () {
-            sl<AuthRepository>().logOut();
-            SharedPreferencesHelper.remove(AppStrings.userLoggedInKey);
-            SharedPreferencesHelper.remove(AppStrings.isVerifiedKey);
-            SharedPreferencesHelper.remove(AppStrings.rememberMeKey);
-            context.go(AppRoutes.kLoginView);
+            showCustomClipperDialog(
+                context: context,
+                title: AppStrings.signOut,
+                onPressed: () {
+                  sl<AuthRepository>().logOut();
+                  SharedPreferencesHelper.remove(AppStrings.userLoggedInKey);
+                  SharedPreferencesHelper.remove(AppStrings.isVerifiedKey);
+                  SharedPreferencesHelper.remove(AppStrings.rememberMeKey);
+                  context.go(AppRoutes.kLoginView);
+                },
+                message: AppStrings.areYouWantToSignOut);
           },
           backgroundColor: AppColors.splashColor,
         )

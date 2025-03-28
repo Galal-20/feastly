@@ -1,31 +1,47 @@
+import 'dart:io';
+import 'package:feastly/src/core/DI/service_locator.dart';
+import 'package:feastly/src/core/cache/cache.dart';
+import 'package:feastly/src/core/error/exceptions.dart';
+import 'package:feastly/src/core/network/firebase/database/add_data.dart';
+import 'package:feastly/src/core/network/firebase/storage/upload_file.dart';
+import 'package:feastly/src/features/profile/data/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../auth/data/datasource/auth_data_source.dart';
-
 class ProfileDataSource {
-  final AuthRepository authRepository;
+  final FirebaseAuth firebaseAuth;
 
-  ProfileDataSource({required this.authRepository});
-
-  Future<User> getUserProfile() async {
+  ProfileDataSource({required this.firebaseAuth});
+  Future<UserModel> getUserProfile() async {
     try {
-      final User user = authRepository.getCurrentUser() as User;
-
+      final UserModel user = sl<CacheHelper>().getUserModel()!;
       return user;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
   Future<void> updateProfile({
-    required String fullName,
+    required UserModel userModel,
+    File? file,
   }) async {
-    final user = authRepository.getCurrentUser();
-    if (user != null) {
-      await user.updateDisplayName(fullName);
-      await user.reload();
-    } else {
-      throw Exception("User is null.");
+    try {
+      String? newImageUrl;
+      if (file != null) {
+        newImageUrl = await StorageService.uploadProfileImage(file: file);
+      }
+      UserModel updatedUser = userModel.copyWith(
+        image: newImageUrl ?? userModel.image,
+      );
+      await FirestoreService.addDataWithCustomId(
+        collection: "users",
+        docId: firebaseAuth.currentUser!.uid,
+        data: updatedUser.toJson(),
+      );
+      await sl<CacheHelper>().saveUserModel(updatedUser);
+    } on Exception catch (e) {
+      throw ServerException(errormessage: e.toString());
     }
   }
 }

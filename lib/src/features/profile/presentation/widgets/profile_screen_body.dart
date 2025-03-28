@@ -23,19 +23,6 @@ class ProfileScreenBody extends StatelessWidget {
                 height: SizeConfig.height * 0.03,
               ),
               ProfileScreenFields(),
-              /*
-            SizedBox(
-              height: SizeConfig.height * 0.05,
-            ),
-            Button(
-              isLoading: false,
-              text: "Save",
-              onPressed: () {},
-              backgroundColor: AppColors.splashColor,
-              style: AppTextStyles.styleMedium25(context),
-            ),
-
-             */
             ],
           ),
         ),

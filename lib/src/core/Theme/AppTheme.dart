@@ -1,5 +1,4 @@
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/size_config.dart';

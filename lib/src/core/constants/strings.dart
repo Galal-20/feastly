@@ -92,6 +92,8 @@ class AppStrings {
   static const String save = "Save";
 
   static const String profileUpdatedSuccess = "Profile updated successfully";
+  static const String imageAddedSuccess = "Image added successfully";
+  static const String profileNoChanged = "No profile changes";
 
   static const String nutrition = "Nutrition";
   static const String mealType = "Meal Type";
@@ -110,4 +112,7 @@ class AppStrings {
   static const String isVerifiedKey = "isVerified";
   static const String rememberMeKey = "rememberMe";
   static const String minutes = "min";
+  // sign out
+    static const String areYouWantToSignOut = "Are you sure you want to sign out?";
+
 }
