@@ -1,5 +1,4 @@
 import 'package:feastly/src/core/constants/colors.dart';
-import 'package:feastly/src/features/homePage/presentation/widgets/nav_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,22 +30,14 @@ class CustomBottomNavBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  NavItem(
-                      svgPath: "assets/svg/home.svg",
-                      index: 0,
-                      selectedIndex: state.selectedIndex),
-                  NavItem(
-                      svgPath: "assets/svg/heart.svg",
-                      index: 1,
-                      selectedIndex: state.selectedIndex),
-                  NavItem(
-                      svgPath: "assets/svg/search.svg",
-                      index: 2,
-                      selectedIndex: state.selectedIndex),
-                  NavItem(
-                      svgPath: "assets/svg/user.svg",
-                      index: 3,
-                      selectedIndex: state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/home.svg", 0, state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/heart.svg", 1, state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/search.svg", 2, state.selectedIndex),
+                  _buildNavItem(
+                      context, "assets/svg/user.svg", 3, state.selectedIndex),
                 ],
               ),
             ),
@@ -56,32 +47,32 @@ class CustomBottomNavBar extends StatelessWidget {
     );
   }
 
-  // Widget _buildNavItem(
-  //     BuildContext context, String svgPath, int index, int selectedIndex) {
-  //   bool isSelected = index == selectedIndex;
-  //
-  //   return GestureDetector(
-  //     onTap: () => context.read<NavBloc>().add(NavItemSelected(index)),
-  //     child: AnimatedContainer(
-  //       duration: Duration(milliseconds: 300),
-  //       width: isSelected ? 60 : 50,
-  //       height: isSelected ? 60 : 50,
-  //       decoration: BoxDecoration(
-  //         color: isSelected ? AppColors.splashColor : Colors.transparent,
-  //         shape: BoxShape.circle,
-  //         boxShadow: isSelected
-  //             ? [BoxShadow(color: Colors.black26, blurRadius: 5)]
-  //             : [],
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(12.0),
-  //         child: SvgPicture.asset(
-  //           svgPath,
-  //           colorFilter: ColorFilter.mode(
-  //               isSelected ? Colors.white : Colors.black, BlendMode.srcIn),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  Widget _buildNavItem(
+      BuildContext context, String svgPath, int index, int selectedIndex) {
+    bool isSelected = index == selectedIndex;
+
+    return GestureDetector(
+      onTap: () => context.read<NavBloc>().add(NavItemSelected(index)),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
+        width: isSelected ? 60 : 50,
+        height: isSelected ? 60 : 50,
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.splashColor : Colors.transparent,
+          shape: BoxShape.circle,
+          boxShadow: isSelected
+              ? [BoxShadow(color: Colors.black26, blurRadius: 5)]
+              : [],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: SvgPicture.asset(
+            svgPath,
+            colorFilter: ColorFilter.mode(
+                isSelected ? Colors.white : Colors.black, BlendMode.srcIn),
+          ),
+        ),
+      ),
+    );
+  }
 }

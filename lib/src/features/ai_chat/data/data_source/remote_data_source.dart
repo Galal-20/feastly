@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
