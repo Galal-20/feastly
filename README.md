@@ -9,9 +9,9 @@
 <p align="center">
   <img src="assets/readme_assets/readme 1.png" width="200" />
   <img src="assets/readme_assets/readme 2.png" width="200" />
-  <img src="assets/readme_assets/readme 3.png" width="200" />
-  <img src="assets/readme_assets/readme 4.png" width="200" />
-  <img src="assets/readme_assets/readme 5.png" width="200" />
+  <img src="assets/readme_assets/readme_3.png" width="200" />
+  <img src="assets/readme_assets/readme_4.png" width="200" />
+  <img src="assets/readme_assets/readme_5.png" width="200" />
   <img src="assets/readme_assets/readme 6.png" width="200" />
   <img src="assets/readme_assets/readme 7.png" width="200" />
   <img src="assets/readme_assets/readme 8.png" width="200" />
