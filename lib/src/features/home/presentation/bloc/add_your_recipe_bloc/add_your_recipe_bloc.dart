@@ -99,6 +99,32 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
       }
     });
 
+    on<DeleteRecipeEvent>((event, emit) async {
+      emit(RecipeLoading());
+      try {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user == null) {
+          emit(RecipeFetchError(message: 'User not authenticated'));
+          return;
+        }
+
+        await FirebaseFirestore.instance
+            .collection('recipes')
+            .doc(user.uid)
+            .collection('userRecipes')
+            .doc(event.mealID)
+            .delete();
+
+        debugPrint("Recipe deleted successfully");
+        emit(StoreSuccess());
+
+        add(FetchRecipeEvent());
+      } catch (e) {
+        debugPrint("Error deleting recipe: $e");
+        emit(RecipeFetchError(message: 'Failed to delete recipe: $e'));
+      }
+    });
+
     on<FetchSingleRecipeByIDEvent>((event, emit) async {
       emit(RecipeLoading());
       try {
@@ -114,4 +140,6 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
   }
 
   String? get imagePath => _imagePath;
+
+
 }

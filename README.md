@@ -3,21 +3,20 @@
 ## 🎥 App Showcase
 
 ### 🎦 Video Demonstration
-[🎥 Watch App Demo](https://drive.google.com/file/d/1UOOUMXV76Jy6XtScsWVUMLFG03B70rGR/view?usp=sharing)
+[🎥 Watch App Demo](https://drive.google.com/file/d/1OQ2mp-nhxF8CK0rYxUMdB7sFq-oHEiyr/view?usp=sharing)
 
 ### 📱 Screenshots
 <p align="center">
   <img src="assets/readme_assets/readme 1.png" width="200" />
   <img src="assets/readme_assets/readme 2.png" width="200" />
-  <img src="assets/readme_assets/readme 3.png" width="200" />
-  <img src="assets/readme_assets/readme 4.png" width="200" />
-  <img src="assets/readme_assets/readme 5.png" width="200" />
+  <img src="assets/readme_assets/readme_3.png" width="200" />
+  <img src="assets/readme_assets/readme_4.png" width="200" />
+  <img src="assets/readme_assets/readme_5.png" width="200" />
   <img src="assets/readme_assets/readme 6.png" width="200" />
   <img src="assets/readme_assets/readme 7.png" width="200" />
   <img src="assets/readme_assets/readme 8.png" width="200" />
   <img src="assets/readme_assets/readme 9.png" width="200" />
   <img src="assets/readme_assets/readme 10.png" width="200" />
-
 </p>
 
 ## 🚀 Project Overview
@@ -72,6 +71,14 @@ flutter run
 
 ## 👤 About the Team
 This project was built using **Flutter** by **Team 2** in the **Cellula Internship 2025**, with **8 talented developers** collaborating to create a seamless AI-driven meal experience.
+En/Galal Ahmed.
+En/Ahmed Gamal.
+En/Ahmed Tanany.
+En/Hossam Muhammed.
+En/Nourhan Bakry.
+En/Rana Osama.
+En/Daniel Adel.
+En/Mostafa Mahmoud.
 
 ---
 **Feastly - Eat Smarter with AI!**

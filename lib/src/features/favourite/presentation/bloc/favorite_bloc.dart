@@ -43,12 +43,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
           return;
         }
       }
-      /*
-      if (state is FavoriteLoaded) {
-        final currentFavorites = (state as FavoriteLoaded).favRecipes;
-        emit(FavoriteLoaded([...currentFavorites, event.recipe]));
-      }
-*/
       try {
         await addFavRecipeUsecase.call(event.recipe);
       } catch (e) {
@@ -57,13 +51,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     });
 
     on<RemoveFavoriteRecipe>((event, emit) async {
-      /*
-      if (state is FavoriteLoaded) {
-        final currentFavorites = (state as FavoriteLoaded).favRecipes;
-        emit(FavoriteLoaded(
-            currentFavorites.where((r) => r != event.recipe).toList()));
-      }
-*/
       try {
         await removeFavRecipeUsecase.call(event.recipe);
       } catch (e) {

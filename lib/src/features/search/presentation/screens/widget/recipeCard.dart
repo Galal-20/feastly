@@ -59,10 +59,10 @@ Widget recipeCard(
               ],
             ),
           ),
-          Icon(
+          /*Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border,
             color: isFavorite ? Colors.black : Colors.grey,
-          ),
+          ),*/
         ],
       ),
     ),
