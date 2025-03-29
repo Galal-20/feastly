@@ -47,7 +47,6 @@ void main() async {
 
 Future<void> requestPermissions() async {
   await [
-    Permission.camera,
     Permission.storage,
     Permission.photos,
     Permission.notification,
