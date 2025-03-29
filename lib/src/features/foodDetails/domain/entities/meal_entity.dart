@@ -1,4 +1,6 @@
-class MealEntity {
+import 'package:equatable/equatable.dart';
+
+class MealEntity extends Equatable {
   final String idMeal;
   final String strMeal;
   final String? strCategory;
@@ -10,7 +12,7 @@ class MealEntity {
   final List<String> ingredients;
   final List<String> measures;
 
-  MealEntity({
+  const MealEntity({
     required this.idMeal,
     required this.strMeal,
     required this.strCategory,
@@ -21,7 +23,19 @@ class MealEntity {
     this.strYoutube,
     required this.ingredients,
     required this.measures,
-    
   });
 
+  @override
+  List<Object?> get props => [
+        idMeal,
+        strMeal,
+        strCategory,
+        strArea,
+        strInstructions,
+        strMealThumb,
+        strTags,
+        strYoutube,
+        ingredients,
+        measures
+      ];
 }
