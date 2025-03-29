@@ -39,10 +39,7 @@ class BuildAppFloatingButtons extends StatelessWidget {
           ),
           CustomFloatingButton(
             heroTag: "aiChat",
-            child: Icon(
-              Icons.chat,
-              color: AppColors.tWhite,
-            ),
+            child: Image(image: AssetImage("assets/images/robot.png"), height: 30, width: 30,),
             onPressed: () {
               GoRouter.of(context).push(AppRoutes.kAiChatView);
             },
