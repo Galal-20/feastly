@@ -3,7 +3,7 @@
 ## 🎥 App Showcase
 
 ### 🎦 Video Demonstration
-[🎥 Watch App Demo](https://drive.google.com/file/d/1UOOUMXV76Jy6XtScsWVUMLFG03B70rGR/view?usp=sharing)
+[🎥 Watch App Demo](https://drive.google.com/file/d/1OQ2mp-nhxF8CK0rYxUMdB7sFq-oHEiyr/view?usp=sharing)
 
 ### 📱 Screenshots
 <p align="center">
