@@ -29,7 +29,6 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
   void _showSnackBar(BuildContext context, ProfileState state) {
     final messages = {
       ProfileUpdated: AppStrings.profileUpdatedSuccess,

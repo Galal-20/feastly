@@ -19,7 +19,6 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
       try {
         final picker = ImagePicker();
         final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
         if (pickedFile != null) {
           _imagePath = pickedFile.path;
           emit(ImagePicked(imagePath: _imagePath!));
