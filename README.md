@@ -3,13 +3,21 @@
 ## 🎥 App Showcase
 
 ### 🎦 Video Demonstration
-[🎥 Watch App Demo](#)
+[🎥 Watch App Demo](https://drive.google.com/file/d/1UOOUMXV76Jy6XtScsWVUMLFG03B70rGR/view?usp=sharing)
 
 ### 📱 Screenshots
 <p align="center">
-  <img src="assets/readme_assets/app_mockup_1.png" width="200" />
-  <img src="assets/readme_assets/app_mockup_2.png" width="200" />
-  <img src="assets/readme_assets/app_mockup_3.png" width="200" />
+  <img src="assets/readme_assets/readme 1.png" width="200" />
+  <img src="assets/readme_assets/readme 2.png" width="200" />
+  <img src="assets/readme_assets/readme 3.png" width="200" />
+  <img src="assets/readme_assets/readme 4.png" width="200" />
+  <img src="assets/readme_assets/readme 5.png" width="200" />
+  <img src="assets/readme_assets/readme 6.png" width="200" />
+  <img src="assets/readme_assets/readme 7.png" width="200" />
+  <img src="assets/readme_assets/readme 8.png" width="200" />
+  <img src="assets/readme_assets/readme 9.png" width="200" />
+  <img src="assets/readme_assets/readme 10.png" width="200" />
+
 </p>
 
 ## 🚀 Project Overview
