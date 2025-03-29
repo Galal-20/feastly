@@ -3,7 +3,6 @@ import 'package:feastly/src/features/foodDetails/data/models/meal.dart';
 import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
 import 'package:feastly/src/features/search/data/data_sources/RecipeRemote.dart';
 import 'package:feastly/src/features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
-import 'package:feastly/src/features/search/domain/entities/entity.dart';
 import 'package:feastly/src/features/search/domain/usecases/uaseCase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
