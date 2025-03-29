@@ -48,7 +48,7 @@ final AiResultModel recipe;
               ),
               IconButton(
                 icon: Icon(
-                  Icons.favorite,
+                  Icons.delete_forever_rounded,
                   color: Colors.red,
                   
                 ),
