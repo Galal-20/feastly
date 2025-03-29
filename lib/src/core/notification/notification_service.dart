@@ -103,6 +103,9 @@ class LocalNotificationService {
       {"id": 6, "hour": 19, "minute": 00}, // 7:00 PM
       {"id": 7, "hour": 21, "minute": 00}, // 9:00 PM
       {"id": 8, "hour": 23, "minute": 00}, // 11:00 PM
+      {"id": 9, "hour": 4, "minute": 33}, // 12:00 AM
+      {"id": 10, "hour": 4, "minute": 35}, // 2:00 AM
+      {"id": 11, "hour": 4, "minute": 36}, // 4:00 AM
     ];
 
     for (var schedule in scheduleTimes) {

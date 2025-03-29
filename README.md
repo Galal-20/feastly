@@ -65,9 +65,6 @@ flutter run
 ## 👤 About the Team
 This project was built using **Flutter** by **Team 2** in the **Cellula Internship 2025**, with **8 talented developers** collaborating to create a seamless AI-driven meal experience.
 
-## 🙏 Special Thanks
-A huge thank you to **Eng. Mohamed Ihab, Eng. Menna, and Cellula Company** for their guidance, mentorship, and support throughout this internship. Your knowledge and encouragement have been invaluable in shaping this project.
-
 ---
 **Feastly - Eat Smarter with AI!**
 
