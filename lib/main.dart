@@ -26,7 +26,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
 
   await Future.wait([
-   WorkManagerService().init(),
+   WorkManagerService().init(), // Initialize WorkManager
     LocalNotificationService.init(),
     requestPermissions(),
   ]);

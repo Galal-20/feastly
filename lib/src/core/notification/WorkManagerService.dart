@@ -8,7 +8,7 @@ class WorkManagerService {
     await Workmanager().registerPeriodicTask(
       'id1',
       'show simple notification',
-      frequency: const Duration(minutes: 24), // Run every 24 hours
+      frequency: const Duration(minutes: 24), // Run every 24 H
     );
   }
   //init work manager service
