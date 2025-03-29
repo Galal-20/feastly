@@ -5,6 +5,8 @@ import 'package:feastly/src/core/Theme/AppTheme.dart';
 import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/notification/notification_service.dart';
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
+import 'package:feastly/src/features/home/presentation/bloc/recommended_for_you_bloc/recommended_for_you_bloc.dart';
+import 'package:feastly/src/features/home/presentation/bloc/recommended_for_you_bloc/recommended_for_you_event.dart';
 import 'package:feastly/src/features/homePage/presentation/bloc/NavBloc.dart';
 import 'package:feastly/src/core/constants/strings.dart';
 import 'package:feastly/src/core/utils/size_config.dart';

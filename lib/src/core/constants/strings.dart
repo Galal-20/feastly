@@ -23,6 +23,9 @@ class AppStrings {
   static const String aiAppBarTitle = 'AI Chat';
   static const String aiChatScreenTextFieldHint =
       "Enter your ingrediantes and your goal ";
+
+  static  String alreadyIn = "It's already in your Meals List";
+
   //---------------------------------------------------------------------
 
   static const String titleOnboarding = "like in a Restaurant but at home";
@@ -114,5 +117,4 @@ class AppStrings {
   static const String minutes = "min";
   // sign out
     static const String areYouWantToSignOut = "Are you sure you want to sign out?";
-
 }
