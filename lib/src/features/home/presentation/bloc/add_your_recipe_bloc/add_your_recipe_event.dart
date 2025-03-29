@@ -17,3 +17,8 @@ class FetchSingleRecipeByIDEvent extends AddYourRecipeEvent {
   final String mealID;
   FetchSingleRecipeByIDEvent({required this.mealID});
 }
+
+class DeleteRecipeEvent extends AddYourRecipeEvent {
+  final String mealID;
+  DeleteRecipeEvent({required this.mealID});
+}

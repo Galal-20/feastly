@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/components/UserRecipeCard.dart';
+
 class BuildUserRecipesListView extends StatelessWidget {
   const BuildUserRecipesListView({super.key, required this.recipesType});
   final String recipesType;
@@ -66,13 +68,73 @@ class BuildUserRecipesListView extends StatelessWidget {
                     itemCount: state.recipes.length,
                     itemBuilder: (context, index) {
                       final recipe = state.recipes[index];
-                      return RecipeCard(
+                      return UserRecipeCard(
                         onTap: () {
                           if (recipe.docID != null) {
                             context.read<AddYourRecipeBloc>().add(
                                   FetchSingleRecipeByIDEvent(
                                       mealID: recipe.docID!),
                                 );
+                          }
+                        },
+                        onDelete: () {
+                          if (recipe.docID != null) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext dialogContext) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  title: Text("Remove ${recipe.mealName}", style: Theme.of
+                                    (context).textTheme.displaySmall),
+                                  content: Text(
+                                      "Do you want to remove this meal ?",
+                                      style: Theme.of(context).textTheme.bodyLarge),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text("Meal not removed",
+                                              style: Theme.of(context).textTheme.displaySmall),
+                                          duration: Duration(seconds: 2),
+                                        ));
+                                        Navigator.of(dialogContext).pop(); // Close the dialog
+                                      },
+                                      child: Text(
+                                          "No",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0
+                                          )
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        context.read<AddYourRecipeBloc>().add(DeleteRecipeEvent(mealID: recipe.docID!),);
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text("Meal removed",
+                                              style: Theme.of(context).textTheme.displaySmall),
+                                          duration: Duration(seconds: 2),
+                                          backgroundColor: Colors.red,
+                                        ));
+                                        Navigator.of(dialogContext).pop();
+                                      },
+                                      child: Text(
+                                          "Yes",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.0
+                                          )
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
                         },
                         name: recipe.mealName,
