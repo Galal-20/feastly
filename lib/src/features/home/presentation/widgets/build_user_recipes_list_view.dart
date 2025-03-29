@@ -35,7 +35,6 @@ class BuildUserRecipesListView extends StatelessWidget {
                     AppRoutes.kFoodDetailsScreen,
                     extra: {'meal': state.recipe , 'isFav': false , 'isFromHome': true},
                   ).then((_) {
-                    // إعادة جلب الوصفات بعد الرجوع
                     context.read<AddYourRecipeBloc>().add(FetchRecipeEvent());
                   });
                 }
