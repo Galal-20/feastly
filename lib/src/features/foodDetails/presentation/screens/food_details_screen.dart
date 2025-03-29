@@ -11,7 +11,6 @@ import 'package:feastly/src/features/home/data/models/trending_recipes_model/tre
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-// ignore: must_be_immutable
 class FoodDetailsScreen extends StatefulWidget {
   final AiResultModel aiResultModel;
   bool isFave;

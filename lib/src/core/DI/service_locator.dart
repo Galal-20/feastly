@@ -48,6 +48,7 @@ import '../../features/home/data/data_sources/trending_recipes_section/trending_
 import '../../features/home/data/repositories_imp/recommended_for_you_section/recommended_for_you_repository_impl.dart';
 import '../../features/home/data/repositories_imp/trending_recipes_section/trending_recipes_repository_impl.dart';
 import '../../features/home/domain/repositories/recommended_for_you_section/recommended_for_you_repository.dart';
+import '../../features/home/presentation/bloc/recommended_for_you_bloc/recommended_for_you_bloc.dart';
 import '../../features/profile/domain/usecases/get_profile_data_ usecase.dart';
 import '../../features/search/data/data_sources/RecipeRemote.dart';
 import '../../features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
@@ -83,6 +84,12 @@ class ServiceLocator {
     sl.registerLazySingleton<RetrofitServices>(
         () => RetrofitServices(sl<Dio>()));
 
+    sl.registerFactory(
+          () => RecommendedForYouBloc(
+        sl<GetRecommendedMealsUseCase>(),
+        sl<GetImageUseCase>(),
+      ),
+    );
     sl.registerLazySingleton<FirebaseFirestore>(
         () => FirebaseFirestore.instance);
     sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);

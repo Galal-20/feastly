@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-// ignore: must_be_immutable
 class FoodDetailsAppBar extends StatelessWidget {
   AiResultModel meal;
   bool? isFave;
@@ -36,15 +35,84 @@ class FoodDetailsAppBar extends StatelessWidget {
                 disabledColor: Colors.grey,
                 onPressed: () {
                   if (isFromHome == true) {
-                   
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("It's already in your Meals List",
+                      content: Text(
+                        "It's already in your Meals List",
                           style: Theme.of(context).textTheme.displaySmall),
                       duration: Duration(seconds: 2),
                     ));
-                    null;
                   } else {
                     if (context.read<MealDetailsBloc>().isFave) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext dialogContext) {
+                          return AlertDialog(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            title: Text("Remove Favorite", style: Theme.of(context).textTheme.displaySmall),
+                            content: Text(
+                                "Do you want to remove this meal from favorites?",
+                                style: Theme.of(context).textTheme.bodyLarge),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text("Meal not removed from Favorites",
+                                        style: Theme.of(context).textTheme.displaySmall),
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                  Navigator.of(dialogContext).pop(); // Close the dialog
+                                },
+                                child: Text(
+                                    "No",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0
+                                    )
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  context.read<MealDetailsBloc>().add(RemoveFavoriteRecipe(meal));
+                                  context.read<MealDetailsBloc>().add(ToggleFavIcon());
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text("Meal removed from Favorites",
+                                        style: Theme.of(context).textTheme.displaySmall),
+                                    duration: Duration(seconds: 2),
+                                    backgroundColor: Colors.red,
+
+                                  ));
+                                  Navigator.of(dialogContext).pop();
+                                },
+                                child: Text(
+                                    "Yes",
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0
+                                    )
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      context.read<MealDetailsBloc>().add(AddFavoriteRecipe(meal));
+                      context.read<MealDetailsBloc>().add(ToggleFavIcon());
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Meal added to Favorites",
+                            style: Theme.of(context).textTheme.displaySmall),
+                        duration: Duration(seconds: 2),
+                        backgroundColor: Colors.green,
+                      ));
+                    }
+                  }
+                    /*if (context.read<MealDetailsBloc>().isFave) {
                       context
                           .read<MealDetailsBloc>()
                           .add(RemoveFavoriteRecipe(meal));
@@ -54,7 +122,7 @@ class FoodDetailsAppBar extends StatelessWidget {
                           .add(AddFavoriteRecipe(meal));
                     }
                     context.read<MealDetailsBloc>().add(ToggleFavIcon());
-                  }
+                  }*/
                 });
           },
         ),

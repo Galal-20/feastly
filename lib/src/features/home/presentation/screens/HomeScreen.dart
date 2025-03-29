@@ -8,6 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/Internet_connection/bloc/InternetBloc.dart';
 import '../../../../core/Internet_connection/bloc/InternetState.dart';
 import '../../../../core/constants/strings.dart';
+import '../bloc/recommended_for_you_bloc/recommended_for_you_bloc.dart';
+import '../bloc/recommended_for_you_bloc/recommended_for_you_event.dart';
+import '../bloc/trending_recipes_bloc/trending_recipes_bloc.dart';
+import '../bloc/trending_recipes_bloc/trending_recipes_event.dart';
 import '../widgets/RecommededForYouWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -62,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             )
           );
           context.read<AddYourRecipeBloc>().add(FetchRecipeEvent());
+          context.read<RecommendedForYouBloc>().add(HomeRecommendedForYouEvent());
         }
       },
       child: Scaffold(

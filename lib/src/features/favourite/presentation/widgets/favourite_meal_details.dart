@@ -57,9 +57,9 @@ final AiResultModel recipe;
                   iconSize: SizeConfig.width * 0.08,
                 ),
                 onPressed: () {
-
-                  context.read<FavoriteBloc>().add(
-                      RemoveFavoriteRecipe(recipe));
+                  _showRemoveFavoriteDialog(context);
+                  /*context.read<FavoriteBloc>().add(
+                      RemoveFavoriteRecipe(recipe));*/
                 },
               )
             ],
@@ -90,4 +90,61 @@ final AiResultModel recipe;
       ),
     );
   }
+
+void _showRemoveFavoriteDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext dialogContext) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        title: Text("Remove Favorite", style: Theme.of(context).textTheme.displaySmall),
+        content: Text(
+            "Are you sure you want to remove this meal from favorites?",
+            style: Theme.of(context).textTheme.bodyLarge),
+        actions: [
+          TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Meal not removed from Favorites",
+                    style: Theme.of(context).textTheme.displaySmall),
+                duration: Duration(seconds: 2),
+              ));
+              Navigator.of(dialogContext).pop();
+            },
+            child: Text(
+                "No",
+                style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0
+            )),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<FavoriteBloc>().add(RemoveFavoriteRecipe(recipe));
+              Navigator.of(dialogContext).pop();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Meal removed from Favorites",
+                    style: Theme.of(context).textTheme.displaySmall),
+                duration: Duration(seconds: 2),
+                backgroundColor: Colors.red,
+              ));
+            },
+            child: Text(
+                "Yes",
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0
+                )
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
 }
