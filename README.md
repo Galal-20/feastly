@@ -72,6 +72,14 @@ flutter run
 
 ## 👤 About the Team
 This project was built using **Flutter** by **Team 2** in the **Cellula Internship 2025**, with **8 talented developers** collaborating to create a seamless AI-driven meal experience.
+En/Galal Ahmed.
+En/Ahmed Gamal.
+En/Ahmed Tanany.
+En/Hossam Muhammed.
+En/Nourhan Bakry.
+En/Rana Osama.
+En/Daniel Adel.
+En/Mostafa Mahmoud.
 
 ---
 **Feastly - Eat Smarter with AI!**
