@@ -22,15 +22,11 @@ class CustomMealImage extends StatelessWidget {
             return CircleAvatar(
               backgroundColor: AppColors.splashColor,
               radius: 65,
-              backgroundImage:
-                  imagePath != null ? FileImage(File(imagePath)) : null,
+              backgroundImage: (imagePath != null && File(imagePath).existsSync())
+                  ? FileImage(File(imagePath))
+                  : null,
               child: imagePath == null
-                  ? Image.asset(
-                      'assets/images/chef_hat.png',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.contain,
-                    )
+                  ? Image.asset('assets/images/chef_hat.png', width: 100, height: 100, fit: BoxFit.contain,)
                   : null,
             );
           },

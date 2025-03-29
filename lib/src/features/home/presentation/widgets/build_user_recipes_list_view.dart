@@ -1,9 +1,12 @@
+import 'package:feastly/src/core/app_router/app_routes.dart';
 import 'package:feastly/src/core/components/recipe_card.dart';
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_bloc.dart';
+import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_event.dart';
 import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc/add_your_recipe_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class BuildUserRecipesListView extends StatelessWidget {
   const BuildUserRecipesListView({super.key, required this.recipesType});
@@ -22,15 +25,26 @@ class BuildUserRecipesListView extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           SizedBox(
-            height: 160, 
-            child: BlocBuilder<AddYourRecipeBloc, AddYourRecipeState>(
+            height: 160,
+            child: BlocConsumer<AddYourRecipeBloc, AddYourRecipeState>(
+              listener: (context, state) {
+                if (state is SingleRecipeByIDFetched) {
+                  context.push(
+                    AppRoutes.kFoodDetailsScreen,
+                    extra: {'meal': state.recipe , 'isFav': false , 'isFromHome': true},
+                  ).then((_) {
+                    // إعادة جلب الوصفات بعد الرجوع
+                    context.read<AddYourRecipeBloc>().add(FetchRecipeEvent());
+                  });
+                }
+              },
               builder: (context, state) {
                 if (state is RecipeLoading) {
                   return const Center(
                       child: CircularProgressIndicator(
                           color: AppColors.splashColor));
                 } else if (state is RecipeEmpty) {
-                  return  Center(
+                  return Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -53,6 +67,14 @@ class BuildUserRecipesListView extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final recipe = state.recipes[index];
                       return RecipeCard(
+                        onTap: () {
+                          if (recipe.docID != null) {
+                            context.read<AddYourRecipeBloc>().add(
+                                  FetchSingleRecipeByIDEvent(
+                                      mealID: recipe.docID!),
+                                );
+                          }
+                        },
                         name: recipe.mealName,
                         noOfIngredients: recipe.ingrediantsNo,
                         time: recipe.cookingTime,
@@ -76,7 +98,8 @@ class BuildUserRecipesListView extends StatelessWidget {
                 } else if (state is RecipeFetchError) {
                   return Center(child: Text(state.message));
                 }
-                return const SizedBox.shrink();
+                return const Center(
+                    child: Text('Something went wrong, please try again'));
               },
             ),
           ),

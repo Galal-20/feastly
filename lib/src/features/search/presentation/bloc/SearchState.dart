@@ -17,7 +17,8 @@
 //
 //   SearchError(this.message);
 // }
-import '../../domain/entities/entity.dart';
+
+import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
 
 abstract class SearchState {}
 
@@ -26,7 +27,7 @@ class SearchInitial extends SearchState {}
 class SearchLoading extends SearchState {}
 
 class SearchSuccess extends SearchState {
-  final List<RecipeEntity> recipes;
+  final List<MealEntity> recipes;
 
   SearchSuccess(this.recipes);
 }

@@ -1,8 +1,10 @@
+import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/DI/service_locator.dart';
-import '../../../domain/entities/entity.dart';
+import '../../../../../core/app_router/app_routes.dart';
 import '../../bloc/SearchBloc.dart';
 import '../../bloc/SearchEvent.dart';
 import '../../bloc/SearchState.dart';
@@ -27,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
         create: (context) => SearchBloc(sl()),
         child: BlocBuilder<SearchBloc, SearchState>(
           builder: (context, state) {
-            List<RecipeEntity> recipes = [];
+            List<MealEntity> recipes = [];
 
             if (state is SearchSuccess) {
               recipes = state.recipes;
@@ -68,12 +70,24 @@ class _SearchScreenState extends State<SearchScreen> {
                           itemCount: recipes.length,
                           itemBuilder: (context, index) {
                             final recipe = recipes[index];
-                            return recipeCard(
-                              recipe.strMeal ?? "",
-                              recipe.strCategory ?? "",
-                              recipe.strArea ?? "",
-                              false, // Handle Fav
-                              recipe.strMealThumb ?? "",
+                            return GestureDetector(
+                              onTap: () {
+                                GoRouter.of(context).push(
+                                  AppRoutes.kFoodDetailsScreen,
+                                  extra: {
+                                    'meal': context.read<SearchBloc>().mealEntityToAiResultModel(recipe),
+                                    'isFav': false,
+                                    'isFromHome': false
+                                  },
+                                );
+                              },
+                              child: recipeCard(
+                                recipe.strMeal ,
+                                recipe.strCategory ?? "",
+                                recipe.strArea ?? "",
+                                false, // Handle Fav
+                                recipe.strMealThumb ?? "",
+                              ),
                             );
                           },
                         ),

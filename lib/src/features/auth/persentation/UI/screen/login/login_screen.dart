@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../../core/Internet_connection/bloc/InternetBloc.dart';
+import '../../../../../../core/Internet_connection/bloc/InternetState.dart';
 import '../../../../../../core/components/button.dart';
 import '../../../../../../core/components/text_form_field.dart';
 import '../../../../../../core/constants/colors.dart';
@@ -16,7 +18,6 @@ import '../../widget/background_from_widget.dart';
 import '../../widget/footer_login_widget.dart';
 import '../../widget/google_button_widget.dart';
 import '../../widget/logo_app_widget.dart';
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -62,155 +63,230 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // Handle login button press
-  void _onLoginPressed() {
+  Future<void> _onLoginPressed() async {
     if (_formKey.currentState!.validate()) {
-      BlocProvider.of<AuthBloc>(context).add(
-        LoginRequest(email: _email, password: _password),
-      );
+      final internetState = context.read<InternetBloc>().state;
+
+      if (internetState is InternetConnectedState) {
+        BlocProvider.of<AuthBloc>(context).add(
+          LoginRequest(email: _email, password: _password),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("No internet connection. Please check your network."),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+
+      /*if (isConnected) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Back to the internet"),
+            backgroundColor: Colors.green,
+          ),
+        );
+        BlocProvider.of<AuthBloc>(context).add(
+          LoginRequest(email: _email, password: _password),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("No internet connection. Please check your network."),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }*/
     }
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _formKey.currentState?.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) async {
-        if (state is AuthLoading) {
-          CircularProgressIndicator();
-        } else if (state is Authenticated) {
-          GoRouter.of(context).go(AppRoutes.kHomePage);
-          if (_rememberMe) {
-            // After make Home Screen
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
-          } else {
-            // After make Home Screen
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) async {
+            if (state is AuthLoading) {
+              CircularProgressIndicator();
+            } else if (state is Authenticated) {
+              GoRouter.of(context).go(AppRoutes.kHomePage);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          },
+        ),
+        BlocListener<InternetBloc, InternetState>(
+          listener: (context, state) {
+            if (state is InternetDisconnectedState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("No internet connection."),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Back to the internet"),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            }
+          },
+        ),
+      ],
+
+      /*child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) async {
+          if (state is AuthLoading) {
+            CircularProgressIndicator();
+          } else if (state is Authenticated) {
+            GoRouter.of(context).go(AppRoutes.kHomePage);
+            if (_rememberMe) {
+              // After make Home Screen
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            } else {
+              // After make Home Screen
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            }
+          } else if (state is AuthError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
           }
-        } else if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
-        }
-      },
-      child: Scaffold(
-        backgroundColor: AppColors.splashColor,
-        body: Stack(
-          children: [
-            background_form(),
-            SafeArea(
-              child: Center(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 40),
-                      logo_app(),
-                      const SizedBox(height: 40),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            TextFieldClass.buildTextFormField(
-                              borderColor: AppColors.tWhite,
-                              labelText: AppStrings.labelTextEmail,
-                              hintText: AppStrings.hintEmailText,
-                              radius: 20,
-                              textStyle: const TextStyle(color: Colors.white),
-                              hintStyle: const TextStyle(color: Colors.white),
-                              prefixIcon:
-                                  const Icon(Icons.email, color: Colors.white),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return AppStrings.errorEmailText;
-                                } else if (!Validation.isValidateEmail(value)) {
-                                  return AppStrings.errorEmailValid;
-                                }
-                                return null;
-                              },
-                              onChanged: (value) =>
-                                  setState(() => _email = value),
-                            ),
-                            const SizedBox(height: 20),
-                            TextFieldClass.buildTextFormField(
-                              borderColor: AppColors.tWhite,
-                              labelText: AppStrings.labelTextPass,
-                              hintText: AppStrings.hintPassText,
-                              radius: 20,
-                              textStyle: TextStyle(color: Colors.white),
-                              hintStyle: const TextStyle(color: Colors.white),
-                              prefixIcon:
-                                  const Icon(Icons.lock, color: Colors.white),
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _isPasswordHidden = !_isPasswordHidden;
-                                  });
+        },*/
+        child: Scaffold(
+          backgroundColor: AppColors.splashColor,
+          body: Stack(
+            children: [
+              background_form(),
+              SafeArea(
+                child: Center(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 40),
+                        logo_app(),
+                        const SizedBox(height: 40),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextFieldClass.buildTextFormField(
+                                borderColor: AppColors.tWhite,
+                                labelText: AppStrings.labelTextEmail,
+                                hintText: AppStrings.hintEmailText,
+                                radius: 20,
+                                textStyle: const TextStyle(color: Colors.white),
+                                hintStyle: const TextStyle(color: Colors.white),
+                                prefixIcon:
+                                    const Icon(Icons.email, color: Colors.white),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return AppStrings.errorEmailText;
+                                  } else if (!Validation.isValidateEmail(value)) {
+                                    return AppStrings.errorEmailValid;
+                                  }
+                                  return null;
                                 },
-                                icon: Icon(_isPasswordHidden
-                                    ? Icons.visibility_off
-                                    : Icons.visibility),
+                                onChanged: (value) =>
+                                    setState(() => _email = value),
                               ),
-                              obscureText: _isPasswordHidden,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return AppStrings.errorPassText;
-                                } else if (!Validation.isValidatePassword(
-                                    value)) {
-                                  return AppStrings.errorPassValid;
-                                }
-                                return null;
-                              },
-                              onChanged: (value) => _password = value,
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: _rememberMe,
-                                  onChanged: (value) async {
-                                    setState(() => _rememberMe = value!);
-                                    await _saveLoginState();
+                              const SizedBox(height: 20),
+                              TextFieldClass.buildTextFormField(
+                                borderColor: AppColors.tWhite,
+                                labelText: AppStrings.labelTextPass,
+                                hintText: AppStrings.hintPassText,
+                                radius: 20,
+                                textStyle: TextStyle(color: Colors.white),
+                                hintStyle: const TextStyle(color: Colors.white),
+                                prefixIcon:
+                                    const Icon(Icons.lock, color: Colors.white),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _isPasswordHidden = !_isPasswordHidden;
+                                    });
                                   },
-                                  activeColor: Colors.white,
-                                  checkColor: Colors.black,
+                                  icon: Icon(_isPasswordHidden
+                                      ? Icons.visibility_off
+                                      : Icons.visibility),
                                 ),
-                                Text(AppStrings.loginCheckBoxText,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            Button(
-                              isLoading: _isLoading,
-                              formKey: _formKey,
-                              email: _email,
-                              password: _password,
-                              text: AppStrings.login,
-                              onPressed: _onLoginPressed,
-                              backgroundColor: AppColors.tWhite,
-                              style: TextStyle(
-                                  color: AppColors.splashColor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 20),
-                          ],
+                                obscureText: _isPasswordHidden,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return AppStrings.errorPassText;
+                                  } else if (!Validation.isValidatePassword(
+                                      value)) {
+                                    return AppStrings.errorPassValid;
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) => _password = value,
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: _rememberMe,
+                                    onChanged: (value) async {
+                                      setState(() => _rememberMe = value!);
+                                      await _saveLoginState();
+                                    },
+                                    activeColor: Colors.white,
+                                    checkColor: Colors.black,
+                                  ),
+                                  Text(AppStrings.loginCheckBoxText,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Button(
+                                isLoading: _isLoading,
+                                formKey: _formKey,
+                                email: _email,
+                                password: _password,
+                                text: AppStrings.login,
+                                onPressed: _onLoginPressed,
+                                backgroundColor: AppColors.tWhite,
+                                style: TextStyle(
+                                    color: AppColors.splashColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 20),
+                            ],
+                          ),
                         ),
-                      ),
-                      GoogleButton(),
-                      const SizedBox(height: 20),
-                      FooterLogin(),
-                    ],
+                        GoogleButton(),
+                        const SizedBox(height: 20),
+                        FooterLogin(),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+
     );
   }
 }

@@ -179,7 +179,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (user != null && user.emailVerified) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool(AppStrings.isVerifiedKey, true);
-
         emit(EmailVerified());
       }
     } catch (e) {

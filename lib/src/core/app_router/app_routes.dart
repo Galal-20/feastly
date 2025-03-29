@@ -1,9 +1,10 @@
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_bloc.dart';
 import 'package:feastly/src/features/auth/auth_bloc/auth_event.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/sign_up/sign_up_screen.dart';
 import 'package:feastly/src/features/auth/persentation/UI/screen/verification/verification_screen.dart';
+import 'package:feastly/src/features/favourite/presentation/screens/favourite_screen.dart';
 import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_bloc.dart';
-import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_event.dart';
 import 'package:feastly/src/features/foodDetails/presentation/screens/food_details_screen.dart';
 import 'package:feastly/src/features/onBoarding/presentation/views/on_boarding_view.dart';
 import 'package:feastly/src/features/splash/presentation/views/splash_screen_view.dart';
@@ -28,21 +29,30 @@ abstract class AppRoutes {
   static const kAiChatView = '/AiChatView';
   static const kErrorView = '/ErrorView';
   static const kAddUrRecipeView = '/AddUrRecipeView';
-  static const kFoodDetailsScreen = '/kFoodDetailsScreen';
+  static const kFoodDetailsScreen = '/FoodDetailsScreen';
+  static const kFavRecipeView = '/FavRecipeScreen';
 
+  static const kSearchedMealDetailsScreen = '/kSearchedMealDetailsScreen';
   static final router = GoRouter(
     initialLocation: AppRoutes.kSplashScreen,
     routes: [
       GoRoute(
-        path: '$kFoodDetailsScreen/:id',
+        path: kFoodDetailsScreen,
         builder: (context, state) {
-          final id = state.pathParameters['id'];
+          final extra = state.extra as Map<String, dynamic>;
+          final aiResultModel = extra['meal'] as AiResultModel;
+          final isFromHome = extra['isFromHome'] as bool;
+    final isFav = extra['isFav'] as bool;
           return BlocProvider(
             create: (context) =>
-                sl<MealDetailsBloc>()..add(GetMealDetailsEvent(id: id!)),
-            child: FoodDetailsScreen(),
+                MealDetailsBloc(sl(), getMealDetailsUseCase: sl()),
+            child: FoodDetailsScreen(aiResultModel: aiResultModel,isFave: isFav, isFromHome: isFromHome),
           );
         },
+      ),
+      GoRoute(
+        path: kFavRecipeView,
+        builder: (context, state) => FavouriteScreen(),
       ),
       GoRoute(
         path: kSplashScreen,
@@ -95,39 +105,41 @@ abstract class AppRoutes {
           child: VerificationScreen(),
         ),
       ),
-
-      // GoRoute(
-      //   path: kLoginView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customSlideUpTransition(state, const LoginView()),
-      // ),
-      // GoRoute(
-      //   path: kRegisterView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customSlideUpTransition(state, const RegisterView()),
-      // ),
-      // GoRoute(
-      //   path: kAiResultView,
-      //   pageBuilder: (context, state) => AppAnimations.customSlideUpTransition(
-      //       state,
-      //       AiResultView(
-      //         weatherEntity: state.extra as WeatherEntity,
-      //       )),
-      // ),
-      // GoRoute(
-      //   path: kHomeView,
-      //   pageBuilder: (context, state) =>
-      //       AppAnimations.customGrowTransition(state, const HomeView()),
-      // ),
-      // GoRoute(
-      //   path: kErrorView,
-      //   pageBuilder: (context, state) => AppAnimations.customGrowTransition(
-      //       state,
-      //       CustomErrorScreen(
-      //         errMsg: (state.extra as ErrorScreenArgs).errMsg,
-      //         onPressed: (state.extra as ErrorScreenArgs).onPressed,
-      //       )),
-      // ),
     ],
   );
 }
+
+
+
+// GoRoute(
+//   path: kLoginView,
+//   pageBuilder: (context, state) =>
+//       AppAnimations.customSlideUpTransition(state, const LoginView()),
+// ),
+// GoRoute(
+//   path: kRegisterView,
+//   pageBuilder: (context, state) =>
+//       AppAnimations.customSlideUpTransition(state, const RegisterView()),
+// ),
+// GoRoute(
+//   path: kAiResultView,
+//   pageBuilder: (context, state) => AppAnimations.customSlideUpTransition(
+//       state,
+//       AiResultView(
+//         weatherEntity: state.extra as WeatherEntity,
+//       )),
+// ),
+// GoRoute(
+//   path: kHomeView,
+//   pageBuilder: (context, state) =>
+//       AppAnimations.customGrowTransition(state, const HomeView()),
+// ),
+// GoRoute(
+//   path: kErrorView,
+//   pageBuilder: (context, state) => AppAnimations.customGrowTransition(
+//       state,
+//       CustomErrorScreen(
+//         errMsg: (state.extra as ErrorScreenArgs).errMsg,
+//         onPressed: (state.extra as ErrorScreenArgs).onPressed,
+//       )),
+// ),

@@ -7,12 +7,8 @@ sealed class ProfileEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class UpdateProfile extends ProfileEvent {
-  final String fullName;
-
-  const UpdateProfile({
-    required this.fullName,
-  });
-}
+class UpdateProfile extends ProfileEvent {}
 
 class ProfileData extends ProfileEvent {}
+
+class PickProfileImage extends ProfileEvent {}

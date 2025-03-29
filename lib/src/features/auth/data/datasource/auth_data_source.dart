@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../core/auth/firebase_auth_service.dart';
+import '../../../../core/firebase/firebase_auth_service.dart';
 
 abstract class AuthDataSource {
   Future<User?> signUp({
@@ -27,12 +27,10 @@ abstract class AuthDataSource {
 
 
 
-
-
 class AuthRepository implements AuthDataSource {
-  final FirebaseAuthDataSource _firebaseAuthService;
+  final FirebaseHelper _firebaseAuthService;
 
-  AuthRepository({required FirebaseAuthDataSource firebaseAuthService})
+  AuthRepository({required FirebaseHelper firebaseAuthService})
       : _firebaseAuthService = firebaseAuthService;
 
   @override

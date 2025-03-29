@@ -10,6 +10,7 @@ class AiResultModel extends AiChatEntity {
   int servings;
   String summary;
   String imageUrl;
+  String? youtubeUrl;
   NutritionalInformation nutritionalInformation;
   List<Ingredient> ingredients;
   List<dynamic> directions;
@@ -21,6 +22,7 @@ class AiResultModel extends AiChatEntity {
     required this.servings,
     required this.summary,
     required this.imageUrl,
+    this.youtubeUrl,
     required this.nutritionalInformation,
     required this.ingredients,
     required this.directions,
@@ -38,6 +40,7 @@ class AiResultModel extends AiChatEntity {
         servings: json['servings'] as int,
         summary: json['summary'] as String,
         imageUrl: json['image_url'] as String,
+        youtubeUrl: json['youtube_url'],
         nutritionalInformation: NutritionalInformation.fromJson(
             json['nutritional_information'] as Map<String, dynamic>),
         ingredients: (json['ingredients'] as List<dynamic>)
@@ -53,6 +56,7 @@ class AiResultModel extends AiChatEntity {
         'servings': servings,
         'summary': summary,
         'image_url': imageUrl,
+        'youtube_url': youtubeUrl, // Serialize it
         'nutritional_information': nutritionalInformation.toJson(),
         'ingredients': ingredients.map((e) => e.toJson()).toList(),
         'directions': directions,
@@ -65,6 +69,7 @@ class AiResultModel extends AiChatEntity {
     int? servings,
     String? summary,
     String? imageUrl,
+    String? youtubeUrl, // Include in copyWith
     NutritionalInformation? nutritionalInformation,
     List<Ingredient>? ingredients,
     List<String>? directions,
@@ -76,6 +81,7 @@ class AiResultModel extends AiChatEntity {
       servings: servings ?? this.servings,
       summary: summary ?? this.summary,
       imageUrl: imageUrl ?? this.imageUrl,
+      youtubeUrl: youtubeUrl ?? this.youtubeUrl, // Handle it
       nutritionalInformation:
           nutritionalInformation ?? this.nutritionalInformation,
       ingredients: ingredients ?? this.ingredients,

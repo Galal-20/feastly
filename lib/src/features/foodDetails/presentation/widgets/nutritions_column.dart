@@ -1,10 +1,12 @@
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:feastly/src/core/utils/size_config.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/nutrition_widget.dart';
 import 'package:flutter/material.dart';
 
 class NutritionsColumn extends StatelessWidget {
-  const NutritionsColumn({super.key});
+  final AiResultModel meal;
+  const NutritionsColumn({super.key, required this.meal});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +17,8 @@ class NutritionsColumn extends StatelessWidget {
           padding: EdgeInsets.only(left: SizeConfig.height * 0.012),
           child: Text(
             'Nutritions',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium!
-                .copyWith(color: AppColors.splashColor,fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                color: AppColors.splashColor, fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(height: SizeConfig.height * 0.01),
@@ -27,33 +27,33 @@ class NutritionsColumn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             NutritionWidget(
-              num: 200,
+              num: meal.nutritionalInformation.kcal,
               unit: 'kcal',
             ),
             NutritionWidget(
-              num: 50,
+              num: meal.nutritionalInformation.protein,
               unit: 'protien',
             ),
             NutritionWidget(
-              num: 20,
+              num: meal.nutritionalInformation.carbs,
               unit: 'carb',
             ),
           ],
         ),
         SizedBox(height: SizeConfig.height * 0.01),
         Padding(
-          padding: const EdgeInsets.only(left: 25),
+          padding:  EdgeInsets.only(left: SizeConfig.height * 0.1),
           child: Row(
-            spacing: 50,
+            spacing: SizeConfig.height * 0.05,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               NutritionWidget(
-                num: 10,
+                num: meal.nutritionalInformation.fats,
                 unit: 'fat',
               ),
               NutritionWidget(
-                num: 5,
-                unit: 'sugar',
+                num: meal.nutritionalInformation.vitamins.substring(0,1),
+                unit: 'vitamin',
               ),
             ],
           ),

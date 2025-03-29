@@ -18,10 +18,11 @@ class AddYourRecipeEntity {
   final String piece3;
   final String ingredinat4;
   final String piece4;
-  final String step1;
-  final String step2;
+  final String steps;
+  final String? docID;
 
   AddYourRecipeEntity({
+     this.docID,
     required this.mealImage,
     required this.mealType,
     required this.mealName,
@@ -41,7 +42,6 @@ class AddYourRecipeEntity {
     required this.piece3,
     required this.ingredinat4,
     required this.piece4,
-    required this.step1,
-    required this.step2,
+    required this.steps,
   });
 }

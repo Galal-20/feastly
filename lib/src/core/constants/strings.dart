@@ -23,6 +23,9 @@ class AppStrings {
   static const String aiAppBarTitle = 'AI Chat';
   static const String aiChatScreenTextFieldHint =
       "Enter your ingrediantes and your goal ";
+
+  static  String alreadyIn = "It's already in your Meals List";
+
   //---------------------------------------------------------------------
 
   static const String titleOnboarding = "like in a Restaurant but at home";
@@ -92,14 +95,15 @@ class AppStrings {
   static const String save = "Save";
 
   static const String profileUpdatedSuccess = "Profile updated successfully";
+  static const String imageAddedSuccess = "Image added successfully";
+  static const String profileNoChanged = "No profile changes";
 
   static const String nutrition = "Nutrition";
   static const String mealType = "Meal Type";
   static const String mealName = "Meal Name";
   static const String noOfIngredients = "Number of Ingredients";
   static const String time = "Time (minutes)";
-  static const String step1 = "Step 1";
-  static const String step2 = "Step 2";
+  static const String steps = "Steps";
   static const String pieces = "Pieces";
   static const String protein = "Protein";
   static const String carb = "Carb";
@@ -111,4 +115,6 @@ class AppStrings {
   static const String isVerifiedKey = "isVerified";
   static const String rememberMeKey = "rememberMe";
   static const String minutes = "min";
+  // sign out
+    static const String areYouWantToSignOut = "Are you sure you want to sign out?";
 }

@@ -20,7 +20,9 @@
 //   }
 // }
 
-import '../entities/entity.dart';
+
+import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
+
 import '../repositories/RecipeRepository.dart';
 
 class SearchUseCase {
@@ -28,7 +30,7 @@ class SearchUseCase {
 
   SearchUseCase(this.repository);
 
-  Future<List<RecipeEntity>> search(String query, String filter) async {
-    return repository.searchMeals(query);
+  Future<List<MealEntity>> search(String query, String filter) async {
+    return await repository.searchMeals(query);
   }
 }

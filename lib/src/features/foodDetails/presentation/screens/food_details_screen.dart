@@ -1,6 +1,5 @@
 import 'package:feastly/src/core/utils/size_config.dart';
-import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_bloc.dart';
-import 'package:feastly/src/features/foodDetails/presentation/meal_details_bloc/meal_details_state.dart';
+import 'package:feastly/src/features/ai_chat/data/models/ai_result_model/ai_result_model.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/brief_details_raw.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/direction_column.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/food_details_app_bar.dart';
@@ -8,12 +7,19 @@ import 'package:feastly/src/features/foodDetails/presentation/widgets/food_detai
 import 'package:feastly/src/features/foodDetails/presentation/widgets/food_details_summary.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/nutritions_column.dart';
 import 'package:feastly/src/features/foodDetails/presentation/widgets/ingridiants_column.dart';
+import 'package:feastly/src/features/home/data/models/trending_recipes_model/trending_meals_response.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class FoodDetailsScreen extends StatefulWidget {
-  const FoodDetailsScreen({super.key});
+  final AiResultModel aiResultModel;
+  bool isFave;
+  bool isFromHome;
+  FoodDetailsScreen(
+      {super.key,
+      required this.aiResultModel,
+      required this.isFave,
+      required this.isFromHome});
 
   @override
   State<FoodDetailsScreen> createState() => _FoodDetailsScreenState();
@@ -37,7 +43,6 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
 
     _tabController = TabController(length: 3, vsync: this);
     _scrollController = ScrollController();
-
 
     _scrollController.addListener(_handleScroll);
   }
@@ -122,67 +127,69 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.aiResultModel.youtubeUrl != null) {
+      _youtubePlayerController = YoutubePlayerController(
+          flags: YoutubePlayerFlags(
+            autoPlay: false,
+          ),
+          initialVideoId:
+              YoutubePlayer.convertUrlToId(widget.aiResultModel.youtubeUrl!)!);
+    }
+
     return Scaffold(
-      body: BlocConsumer<MealDetailsBloc, MealDetailsState>(
-        listener: (context, state) {
-          if(state is MealDetailsLoaded){
-    _youtubePlayerController = YoutubePlayerController(
-        flags: YoutubePlayerFlags(
-          autoPlay: false,
-        ),
-        initialVideoId: YoutubePlayer.convertUrlToId(state.meal.strYoutube ?? 'https://www.youtube.com/')! );
-          }
-        } ,
-        builder: (context, state) {
-          if (state is MealDetailsLoading) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (state is MealDetailsLoaded) {
-            return CustomScrollView(
-              slivers: [
-                FoodDetailsAppBar(meal: state.meal),
-                FoodDetailsHeader(
-                    scrollToSection: _scrollToSection,
-                    tabController: _tabController),
-                SliverList(
-                    delegate: SliverChildListDelegate.fixed(
-                  [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BriefDetailsRaw(
-                            category: state.meal.strCategory!,
-                            time: state.meal.strArea!,
-                            servings: '1 Serving'),
-                        FoodDetailsSummary(
-                            summaryKey: _summaryKey, meal: state.meal),
-                        NutritionsColumn(),
-                        SizedBox(height: SizeConfig.height * 0.02),
-                        IngridiantsColoumn(
-                            widgetKey: _ingredientsKey, meal: state.meal),
-                        DirectionColumn(
-                          widgetKey: _directionKey,
-                        ),
-                        Padding(
+      body: CustomScrollView(
+        slivers: [
+          FoodDetailsAppBar(
+              meal: widget.aiResultModel,
+              isFave: widget.isFave,
+              isFromHome: widget.isFromHome),
+          FoodDetailsHeader(
+              scrollToSection: _scrollToSection, tabController: _tabController),
+          SliverList(
+              delegate: SliverChildListDelegate.fixed(
+            [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BriefDetailsRaw(
+                      category: widget.aiResultModel.typeOfMeat,
+                      time: widget.aiResultModel.time.toString(),
+                      servings: widget.aiResultModel.servings.toString()),
+                  FoodDetailsSummary(
+                      summaryKey: _summaryKey, meal: widget.aiResultModel),
+                  NutritionsColumn(meal: widget.aiResultModel),
+                  SizedBox(height: SizeConfig.height * 0.02),
+                  IngridiantsColoumn(
+                      widgetKey: _ingredientsKey, meal: widget.aiResultModel),
+                  DirectionColumn(
+                    meal: widget.aiResultModel,
+                    widgetKey: _directionKey,
+                  ),
+                  SizedBox(height: SizeConfig.height * 0.02),
+                  widget.aiResultModel.youtubeUrl != null
+                      ? Padding(
                           padding: const EdgeInsets.all(14.0),
                           child: YoutubePlayer(
                             controller: _youtubePlayerController,
                           ),
                         )
-                      ],
-                    )
-                  ],
-                ))
-              ],
-              controller: _scrollController,
-            );
-          }
+                      : SizedBox(),
+                ],
+              )
+            ],
+          ))
+        ],
+        controller: _scrollController,
+      ),
+    );
+
+    /*
           if (state is MealDetailsError) {
             return Text('An error occurred: ${state.message}');
           }
+          
           return Container();
         },
-      ),
-    );
+        */
   }
 }

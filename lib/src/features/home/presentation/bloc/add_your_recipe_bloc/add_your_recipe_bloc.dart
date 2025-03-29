@@ -18,8 +18,7 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
       emit(ImageLoading());
       try {
         final picker = ImagePicker();
-        final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
+        final pickedFile = await picker.pickImage(source: ImageSource.gallery);
         if (pickedFile != null) {
           _imagePath = pickedFile.path;
           emit(ImagePicked(imagePath: _imagePath!));
@@ -52,7 +51,7 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
       try {
         final user = FirebaseAuth.instance.currentUser;
         if (user == null) {
-          emit( RecipeFetchError(message:  'User not authenticated'));
+          emit(RecipeFetchError(message: 'User not authenticated'));
           return;
         }
 
@@ -89,14 +88,27 @@ class AddYourRecipeBloc extends Bloc<AddYourRecipeEvent, AddYourRecipeState> {
             piece3: recipeData['piece3'],
             ingredinat4: recipeData['ingredinat4'],
             piece4: recipeData['piece4'],
-            step1: recipeData['step1'],
-            step2: recipeData['step2'],
+            steps: recipeData['steps'],
+            docID: doc.id,
           );
         }).toList();
 
         emit(RecipeFetched(recipes: recipes));
       } catch (e) {
-        emit(RecipeFetchError(message:  'Failed to fetch recipes: $e'));
+        emit(RecipeFetchError(message: 'Failed to fetch recipes: $e'));
+      }
+    });
+
+    on<FetchSingleRecipeByIDEvent>((event, emit) async {
+      emit(RecipeLoading());
+      try {
+        final recipe =
+            await storeUserRecipeUseCase.getMealById(mealID: event.mealID);
+        debugPrint("recccipeeeee in Bolc is $recipe");
+        emit(SingleRecipeByIDFetched(recipe: recipe));
+      } catch (e) {
+        debugPrint('Error fetching single recipe inBolccc: $e');
+        emit(RecipeFetchError(message: 'Failed to fetch recipe in Bloooc: $e'));
       }
     });
   }

@@ -5,9 +5,9 @@ abstract class Exceptions {
 }
 
 class ServerException extends Exceptions {
-  ServerException({required String errormessage}) : super(errormessage: errormessage);
+  ServerException({required super.errormessage});
 }
 
 class NetworkException extends Exceptions {
-  NetworkException({required String errormessage}) : super(errormessage: errormessage);
+  NetworkException({required super.errormessage});
 }

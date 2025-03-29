@@ -38,8 +38,7 @@ class BuildAddYourMealBody extends StatelessWidget {
     required this.piece3Controller,
     required this.ingredient4Controller,
     required this.piece4Controller,
-    required this.step1Controller,
-    required this.step2Controller,
+    required this.stepsController,
   });
 
   final GlobalKey<FormState> formKey;
@@ -61,14 +60,14 @@ class BuildAddYourMealBody extends StatelessWidget {
   final TextEditingController piece3Controller;
   final TextEditingController ingredient4Controller;
   final TextEditingController piece4Controller;
-  final TextEditingController step1Controller;
-  final TextEditingController step2Controller;
+  final TextEditingController stepsController;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddYourRecipeBloc, AddYourRecipeState>(
       listener: (context, state) {
         if (state is StoreSuccess) {
+          debugPrint("succccesssssssssss");
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Recipe added successfully!')),
           );
@@ -131,19 +130,18 @@ class BuildAddYourMealBody extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               StepsFields(
-                  step1Controller: step1Controller,
-                  step2Controller: step2Controller),
+                  stepsController: stepsController),
               const SizedBox(height: 20),
               CustomAddMealButton(
                 child: state is StoreLoading
                     ? CircularProgressIndicator(color: AppColors.tWhite)
                     : Text(
-                  AppStrings.addYourRecipe,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium!
-                      .copyWith(color: AppColors.tWhite),
-                ),
+                        AppStrings.addYourRecipe,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(color: AppColors.tWhite),
+                      ),
                 onPressed: () {
                   addYourMeal(context);
                 },
@@ -179,8 +177,7 @@ class BuildAddYourMealBody extends StatelessWidget {
         piece3: piece3Controller.text,
         ingredinat4: ingredient4Controller.text,
         piece4: piece4Controller.text,
-        step1: step1Controller.text,
-        step2: step2Controller.text,
+        steps: stepsController.text,
       );
       context.read<AddYourRecipeBloc>().add(StoreRecipeEvent(recipe));
     } else {
