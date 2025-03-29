@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:feastly/src/core/auth/firebase_auth_service.dart' as _i2;
+import 'package:feastly/src/core/firebase/firebase_auth_service.dart' as _i2;
 import 'package:firebase_auth/firebase_auth.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -23,12 +23,11 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [FirebaseAuthDataSource].
+/// A class which mocks [FirebaseHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFirebaseAuthDataSource extends _i1.Mock
-    implements _i2.FirebaseAuthDataSource {
-  MockFirebaseAuthDataSource() {
+class MockFirebaseHelper extends _i1.Mock implements _i2.FirebaseHelper {
+  MockFirebaseHelper() {
     _i1.throwOnMissingStub(this);
   }
 

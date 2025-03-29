@@ -1,4 +1,4 @@
-import 'package:feastly/src/core/auth/firebase_auth_service.dart';
+import 'package:feastly/src/core/firebase/firebase_auth_service.dart';
 import 'package:feastly/src/features/auth/data/datasource/auth_data_source.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,14 +7,14 @@ import 'package:mockito/mockito.dart';
 import '../profile/profile_use_case_test.mocks.dart';
 import 'auth_repo_test.mocks.dart';
 
-@GenerateMocks([FirebaseAuthDataSource])
+@GenerateMocks([FirebaseHelper])
 void main() {
   late AuthRepository authRepoImpl;
   late MockUser mockUser;
-  late MockFirebaseAuthDataSource firebaseAuthDataSouce;
+  late MockFirebaseHelper firebaseAuthDataSouce;
   setUp(() {
     mockUser = MockUser();
-    firebaseAuthDataSouce = MockFirebaseAuthDataSource();
+    firebaseAuthDataSouce = MockFirebaseHelper();
     authRepoImpl = AuthRepository(firebaseAuthService: firebaseAuthDataSouce);
   });
 

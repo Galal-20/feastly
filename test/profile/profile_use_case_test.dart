@@ -1,4 +1,5 @@
 import 'package:feastly/src/features/profile/data/data_sources/profile_data_source.dart';
+import 'package:feastly/src/features/profile/data/models/user.dart';
 import 'package:feastly/src/features/profile/data/repositories_imp/profile_repo_impl.dart';
 import 'package:feastly/src/features/profile/domain/usecases/get_profile_data_%20usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,8 +25,12 @@ void main() {
   test(
     'Test Get Profile Info Success',
     () async {
-      final User expectedResult = mockUser;
-
+      final UserModel expectedResult = UserModel(
+        name: 'John Doe',
+        phone: '1234567890',
+        email: 'john.c.breckinridge@altostrat.com',
+        image: 'assets/images/bg.png',
+      );
       when(mockProfileRemoteDataSource.getUserProfile()).thenAnswer(
         (_) async => expectedResult,
       );

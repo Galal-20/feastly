@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:feastly/src/features/foodDetails/data/models/meal.dart' as _i4;
 import 'package:feastly/src/features/search/data/data_sources/RecipeRemote.dart'
     as _i2;
-import 'package:feastly/src/features/search/data/models/model.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -34,12 +34,10 @@ class MockRecipeRemoteDataSource extends _i1.Mock
   }
 
   @override
-  _i3.Future<List<_i4.RecipeModel>> searchMeals(String? query) =>
+  _i3.Future<List<_i4.Meal>> searchMeals(String? query) =>
       (super.noSuchMethod(
             Invocation.method(#searchMeals, [query]),
-            returnValue: _i3.Future<List<_i4.RecipeModel>>.value(
-              <_i4.RecipeModel>[],
-            ),
+            returnValue: _i3.Future<List<_i4.Meal>>.value(<_i4.Meal>[]),
           )
-          as _i3.Future<List<_i4.RecipeModel>>);
+          as _i3.Future<List<_i4.Meal>>);
 }

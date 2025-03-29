@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:feastly/src/features/search/data/data_sources/RecipeRemote.dart';
-import 'package:feastly/src/features/search/data/models/model.dart';
 import 'package:feastly/src/features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
 import 'package:feastly/src/features/search/domain/entities/entity.dart';
 import 'package:feastly/src/features/search/domain/usecases/uaseCase.dart';
@@ -24,8 +23,8 @@ void main() {
     'Search for entered food recipe',
     () async {
       const enteredText = 'pizza';
-      final List<RecipeModel> expectedResult = [
-        RecipeModel(
+      final List<RecipeEntity> expectedResult = [
+        RecipeEntity(
           idMeal: '1',
           strArea: 'Italian',
           strCategory: 'Pizza',
@@ -44,7 +43,7 @@ void main() {
       ];
 
       when(mockRecipeRemoteDataSource.searchMeals(enteredText)).thenAnswer(
-        (_) async => expectedResult,
+            (_) async => expectedResult,
       );
 
       final result = await searchUseCase.search(enteredText, 'Name');
