@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:feastly/src/features/foodDetails/data/models/meal.dart';
+import 'package:feastly/src/features/foodDetails/domain/entities/meal_entity.dart';
 import 'package:feastly/src/features/search/data/data_sources/RecipeRemote.dart';
 import 'package:feastly/src/features/search/data/repositories_imp/RecipeRepositoryImpl.dart';
 import 'package:feastly/src/features/search/domain/entities/entity.dart';
@@ -23,27 +25,33 @@ void main() {
     'Search for entered food recipe',
     () async {
       const enteredText = 'pizza';
-      final List<RecipeEntity> expectedResult = [
-        RecipeEntity(
+      final List<Meal> expectedResult = [
+        Meal(
           idMeal: '1',
           strArea: 'Italian',
           strCategory: 'Pizza',
           strMeal: 'Pizza',
           strMealThumb: 'https://example.com/pizza.jpg',
+          strInstructions: 'Cook the pizza',
+          ingredients: ['Flour', 'Tomato Sauce', 'Cheese'],
+          measures: ['1 cup', '1 cup', '1 cup'],
         )
       ];
-      final List<RecipeEntity> expectedConvertedResult = [
-        RecipeEntity(
+      final List<MealEntity> expectedConvertedResult = [
+        MealEntity(
           idMeal: '1',
           strArea: 'Italian',
           strCategory: 'Pizza',
           strMeal: 'Pizza',
           strMealThumb: 'https://example.com/pizza.jpg',
+          strInstructions: 'Cook the pizza',
+          ingredients: ['Flour', 'Tomato Sauce', 'Cheese'],
+          measures: ['1 cup', '1 cup', '1 cup'],
         )
       ];
 
       when(mockRecipeRemoteDataSource.searchMeals(enteredText)).thenAnswer(
-            (_) async => expectedResult,
+        (_) async => expectedResult,
       );
 
       final result = await searchUseCase.search(enteredText, 'Name');
