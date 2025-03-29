@@ -1,0 +1,2 @@
+D:/flutter_projects/feastly/android/app/.cxx/Debug/4jv5m2cz/x86/CMakeFiles/edit_cache.dir
+D:/flutter_projects/feastly/android/app/.cxx/Debug/4jv5m2cz/x86/CMakeFiles/rebuild_cache.dir
