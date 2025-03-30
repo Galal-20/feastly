@@ -1,3 +1,4 @@
+import 'package:feastly/src/core/components/image_shimmer.dart';
 import 'package:feastly/src/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -60,13 +61,11 @@ class RecommendedCard extends StatelessWidget {
                             },
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) return child;
-                              return const Center(
-                                  child: CircularProgressIndicator(
-                                      color: AppColors.splashColor));
+                              return ImageShimmer();
                             },
                           ),
                         )),
-                    Padding(
+                    /*Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: onFavoriteTap,
@@ -78,7 +77,7 @@ class RecommendedCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    )*/
                   ],
                 ),
                 SizedBox(

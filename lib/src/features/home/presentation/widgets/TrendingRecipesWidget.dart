@@ -7,8 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../core/DI/service_locator.dart';
 import '../../../../core/app_router/app_routes.dart';
+import '../../../../core/components/card_shimmer.dart';
+import '../../../../core/components/image_shimmer.dart';
 import '../../../../core/components/recipe_card.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/keys.dart';
@@ -47,8 +50,34 @@ class RecipesWidget extends StatelessWidget {
           }
         }, builder: (context, state) {
           if (state is TrendingRecipesLoading) {
-            return Center(
-                child: CircularProgressIndicator(color: AppColors.splashColor));
+            return Padding(
+              padding:  EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recipesType,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  SizedBox(
+                    height: 160,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      separatorBuilder: (context, index) => const SizedBox(width: 10),
+                      itemBuilder: (context, index) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: const ShimmerContent(),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
           }
           if (state is TrendingRecipesError) {
             return CustomAiErrorWidget(errMsg: state.message);
@@ -101,9 +130,7 @@ class RecipesWidget extends StatelessWidget {
                               loadingBuilder:
                                   (context, child, loadingProgress) {
                                 if (loadingProgress == null) return child;
-                                return const Center(
-                                    child: CircularProgressIndicator(
-                                        color: AppColors.splashColor));
+                                return ImageShimmer();
                               },
                             ),
                           ),

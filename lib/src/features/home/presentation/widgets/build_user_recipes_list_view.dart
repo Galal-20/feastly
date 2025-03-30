@@ -7,8 +7,11 @@ import 'package:feastly/src/features/home/presentation/bloc/add_your_recipe_bloc
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/components/UserRecipeCard.dart';
+import '../../../../core/components/card_shimmer.dart';
+import '../../../../core/components/image_shimmer.dart';
 
 class BuildUserRecipesListView extends StatelessWidget {
   const BuildUserRecipesListView({super.key, required this.recipesType});
@@ -41,10 +44,24 @@ class BuildUserRecipesListView extends StatelessWidget {
               },
               builder: (context, state) {
                 if (state is RecipeLoading) {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                          color: AppColors.splashColor));
-                } else if (state is RecipeEmpty) {
+                  return
+                    ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 5,
+                    separatorBuilder: (context, index) => const SizedBox(width: 10),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: ShimmerContent(),
+                        ),
+                      );
+                    },
+                  );
+                }
+                else if (state is RecipeEmpty) {
                   return Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -148,9 +165,7 @@ class BuildUserRecipesListView extends StatelessWidget {
                           },
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
-                            return const Center(
-                                child: CircularProgressIndicator(
-                                    color: AppColors.splashColor));
+                            return ImageShimmer();
                           },
                         ),
                       );
@@ -169,3 +184,5 @@ class BuildUserRecipesListView extends StatelessWidget {
     );
   }
 }
+
+

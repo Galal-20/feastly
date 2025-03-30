@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../core/DI/service_locator.dart';
 import '../../../../core/app_router/app_routes.dart';
+import '../../../../core/components/card_shimmer.dart';
 import '../../../../core/components/recommended_card.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/strings.dart';
@@ -48,8 +50,34 @@ class RecommendedForYouWidget extends StatelessWidget {
           }
         }, builder: (context, state) {
           if (state is RecommendedForYouLoading) {
-            return Center(
-                child: CircularProgressIndicator(color: AppColors.splashColor));
+            return Padding(
+              padding:  EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Recommended for you',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      itemCount: 5,
+                      separatorBuilder: (context, index) => const SizedBox(height: 10),
+                      itemBuilder: (context, index) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: const ShimmerContent(),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
           }
           if (state is RecommendedForYouError) {
             return CustomAiErrorWidget(errMsg: state.message);
